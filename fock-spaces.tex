@@ -1,0 +1,667 @@
+\section{Boson Fock spaces and quantum noise}
+
+\subsection{Boson Fock spaces}
+
+Consider a (complex) Hilbert space $\calH$ with scalar product $\langle\cdot,\cdot\rangle_\calH$. The symmetric Fock space associated with $\calH$ is
+\[
+	\frF =\frF_\mathsf{sym}(\calH) \coloneqq \bigoplus_{n\in \bbN_0} \calH^{\odot n},\qquad \calH^{\odot 0} = \bbC,
+\]
+where $\odot$ denotes the symmetric tensor product such that
+\[
+	\calH^{\odot n} = \Bigl\{ f\in\calH^{\otimes n}: f(x_{\sigma_1},\ldots,x_{\sigma_n})=f(x_1,\ldots,f_n)\;\;\text{for every permutation $\sigma$}\Bigr\}.
+\]
+
+ The Fock space $\frF$ inherits the scalar product from $\calH$ defined by
+\[
+	\langle \oplus f^{(n)},\oplus g^{(n)}\rangle_\frF = \sum_{n\in\bbN_0} \langle f^{(n)},g^{(n)}\rangle_{\calH^{\otimes n}}.
+\]
+We define the \emph{vacuum vector} $\Omega=1\oplus 0 \oplus 0^{\otimes 2}\oplus\cdots \in\frF$, and the \emph{exponential vectors}
+\[
+	\sfe(f) = \bigoplus_{n\in \bbN_0} \frac{1}{\sqrt{n!}}f^{\otimes n},\qquad f\in\calH.
+\]
+It turns out that the family of exponential vectors $\frE$ is \emph{total} in $\frF$, i.e., the linear span of $\frE$ is dense in $\frF$. This fact will be helpful for us in the future. Since,
+\[
+	\langle \sfe(f), \sfe(g)\rangle_{\frF} = \sum_{n\in\bbN_0} \frac{1}{n!}\langle f,g\rangle_\calH^n = e^{\langle f,g\rangle_\calH},\qquad f,g\in\calH,
+\]
+the exponential vectors are normalizable. These normalized exponential vectors 
+\[
+	\uppsi(f) = e^{-\frac{1}{2}\|f\|_\calH^2}\sfe(f),\qquad f\in\calH,
+\]
+are commonly known as \emph{coherent vectors}.
+
+\subsubsection{Weyl and field operators}
+
+For any $f\in\calH$, we define the \emph{Weyl operator} on exponential vectors by
+\[
+	\sfW(f)\sfe(g) := \exp \left(-\langle f,g\rangle_\calH - \frac{1}{2}\|f\|_\calH^2\right)\sfe(f+g),\qquad g\in\calH.
+\]
+Weyl operators play an essential role in the setup of Fock spaces. For one, they generate coherent states by acting on the vacuum state, i.e.,
+\[
+	\sfW(f)\Omega = e^{-\frac{1}{2}\|f\|_\calH^2}\sfe(f) = \uppsi(f),\qquad f\in\calH.
+\]
+Moreover, they give the means to map any element $f\in\calH$ to unitary operators on $\frF$ that satisfy the \emph{canonical commutation relation} (CCR):
+
+\begin{proposition}
+	The Weyl operator $\sfW(f)$ is a unitary operator and satisfies 
+	\begin{enumerate}[label=(\roman*)]
+		\item $\sfW^\dagger(f) = \sfW(-f)$.
+		\item $\sfW(f)\sfW(g) = e^{-i\mathrm{Im}(\langle f,g\rangle_\calH)}\sfW(f+g) = e^{-2i\mathrm{Im}(\langle f,g\rangle_\calH)}\sfW(g)\sfW(f).$
+	\end{enumerate}
+	Property (ii) is the Weyl form of the canonical commutation relation (CCR).
+\end{proposition}
+\begin{proof}
+	For any $g\in \calH$,
+	\begin{align*}
+	\langle \sfW(f)\sfe(g), \sfW(f)\sfe(g)\rangle_{\frF} &= \exp \left(-2\langle f,g\rangle_\calH - \|f\|_\calH^2\right)\langle \sfe(f+g),\sfe(f+g)\rangle_\frF \\
+	&= \exp \left(-2\langle f,g\rangle_\calH - \|f\|_\calH^2 + \|f+g\|_\calH^2\right) \\
+	&= e^{\|g\|_\calH^2} = \langle \sfe(g),\sfe(g)\rangle_{\frF}.
+\end{align*}
+Hence, $\sfW(f)$ preserves inner products on $\frE$. Since $\frE$ is dense in $\frF$, $\sfW(f)$ extends uniquely to an isometry on $\frF$. 
+
+In a similar fashion, we compute
+\begin{align*}
+	\sfW(-f)\sfW(f)\sfe(g) = \sfe(g) = \sfW(f)\sfW(-f)\sfe(g)\qquad\forall g\in\calH,
+\end{align*}
+i.e., $\sfW(-f)\sfW(f)$ is the identity on the dense set $\frE$. In particular, $\sfW(f)$ is surjective and an isometry, i.e., $\sfW(f)$ is unitary with $\sfW^\dagger(f) = \sfW(-f)$.
+
+As for the last property, we observe that
+\begin{align*}
+	\sfW(f)\sfW(g)W(-(f+g))\sfe(h) &= e^{\langle f+g,h\rangle_\calH - \frac{1}{2}\|f+g\|_\calH^2}\sfW(f)\sfW(g)\sfe(-(f+g)+h) \\
+	&= e^{\langle f+g,h\rangle_\calH - \frac{1}{2}\|f\|_\calH^2-\langle g,-f+h\rangle_\calH - \mathrm{Re}(\langle g,f\rangle_\calH)}\sfW(f)\sfe(-f+h)\\
+	&= e^{-i\mathrm{Im}(\langle f,g\rangle_\calH)}\sfe(h),
+\end{align*}
+and hence, $\sfW(f)\sfW(g)\sfW(-(f+g)) = e^{-i\mathrm{Im}(\langle f,g\rangle_\calH)}I_\frF$. We then conclude by using property \emph{(i)} of Weyl operators.
+\end{proof}
+
+Since $\sfW(f)$ is unitary for every $f\in\calH$, the family $\{\sfW(tf)\}_{t\in\bbR}$ forms a one-parameter (strongly continuous) group of unitaries. In particular, due to Stone's theorem, it has a corresponding Hermitian operator $\sfP(f)$ such that
+\[
+	\sfW(tf) = \exp(it \sfP(f)).
+\]
+We further define the following operators
+\[
+	\sfQ(f):=-\sfP(if),\qquad \sfA^-(f):= \frac{\sfQ(f)+i\sfP(f)}{2},\qquad \sfA^+(f):= \frac{\sfQ(f)-i\sfP(f)}{2}.
+\]
+The operators $\sfA^\pm$ are called the \emph{field operators} and will play an essential role as they form the creation/annihilation operators on Fock spaces.
+
+
+\begin{proposition}
+	The following are true: For any $f,g\in\calH$,
+	\begin{enumerate}[label=(\roman*)]
+		\item $\frE$ is a core for $\sfP(f)$ and $[\sfP(f),\sfP(g)] = 2i \mathrm{Im}(\langle f,g\rangle_\calH)\sfI_\frF$.
+		\item $\sfA^-(f)\sfe(g) = \langle f,g\rangle_\calH\,\sfe(g)$,\quad $\sfA^+(f)\sfe(g) = \frac{d}{dt}\sfe(g+tf)|_{t=0}$.
+		\item $\sfW^\dagger(f)\sfA^-(g)\sfW(f) = \sfA^-(g) + \langle g,f\rangle_\calH\sfI_\frF$,\quad $\sfW^\dagger(f)\sfA^+(g)\sfW(f) = \sfA^+(g) + \langle f,g\rangle_\calH\sfI_\frF$.
+		\item $[\sfA^-(f),\sfA^-(g)] = [\sfA^+(f),\sfA^+(g)] = 0$,\quad $[\sfA^-(f),\sfA^+(g)]=\langle f,g\rangle_\calH \sfI_\frF$,
+	\end{enumerate}
+	i.e., the field operators $\sfA^\pm$ satisfy the canonical commutation relation.
+\end{proposition}
+
+\begin{remark}
+	On the finite particle vectors, the field operators act as
+	\[
+		\sfA^-(f)g^{\otimes n} = \sqrt{n}\langle f,g\rangle_\calH g^{\otimes (n-1)},\qquad \sfA^+(f)g^{\otimes (n-1)} = \frac{1}{\sqrt{n}}\sum_{k=0}^{n-1} g^{\otimes k}\otimes f\otimes g^{\otimes (n-1-k)}.
+	\]
+%	It is common in Physics to formally write $\sfA_x^\pm=\sfA^\pm(\delta_x)$ when $\calH=L_\bbC^2(\bbR^d)$. Since $\delta_x\notin \calH$, this is obviously not meaningful. However, since the set of continuous $\calC_c(\bbR^d;\bbC)$ is dense in $L_\bbC^2(\bbR^d)$, the family $\{\sfe(g):g\in \calC_c(\bbR^d;\bbC)\}$ it total in $\frF$. In particular, the expression
+%	\[
+%		\begin{aligned}
+%			\sfA_x^- g^{\otimes n} &= \sqrt{n}g(x)g^{\otimes(n-1)} \\
+%			\sfA_x^+g^{\otimes n}
+%		\end{aligned}
+%		,\qquad g\in \calC_c(\bbR^d;\bbC)
+%	\]
+%	is meaningful.
+\end{remark}
+
+%\begin{remark}
+%	Notice that if $\{\psi_j\}_{j}$ forms an orthonormal basis for $\calH$, then the family $\{\sfA^\pm_i:=\sfA^\pm(\psi_j)\}_{j}$ of field operators is a family of commuting operators and may be seen as a `basis' for the set of field operators since for any $f\in\calH$ with $f=\sum_{j} f_j\psi_j$, we have the representation
+%	\begin{align*}
+%		\sfA^-(f)g^{\otimes n} &= \sum\nolimits_{j} \sqrt{n}f_j\langle \psi_j,g\rangle_\calH\,g^{\otimes(n-1)} = \sum\nolimits_{j} f_j \sfA_j^-g^{\otimes n} \\
+%		\sfA^+(f)g^{\otimes n} &= \sum\nolimits_j f_j\frac{1}{\sqrt{n-1}}\sum_{k\le n} g^{\otimes k}\otimes \psi_j\otimes g^{\otimes(n-k)} = \sum\nolimits_j f_j\sfA_j^+ g^{\otimes n}
+%	\end{align*}
+%\end{remark}
+
+\begin{example}
+	Let $\calH=L_\bbC^2([-\pi,\pi])$ be the space of square-integrable functions. Then the countable set $\{\psi_\ell(x)=e^{i\ell x}:\ell\in\bbZ\}$ forms an orthonormal basis for $\calH$. 
+	\[
+		\uppsi(x) = \sum\nolimits_\ell e^{i\ell x} \sfA_\ell^-
+	\]
+\end{example}
+
+
+%From the Baker-Campbell-Hausdorf formula, one obtains
+%\[
+%	W(\sqrt{t}f)W(\sqrt{t}g)W(-\sqrt{t}(f+g)) = \exp\left(- \frac{t}{2}[B(f),B(g)] + O(t^{3/2})\right)
+%\]
+%\begin{align*}
+%	-\frac{1}{2}[B(f),B(g)]\uppsi &= \lim_{t\to 0}\frac{1}{t^2}\Bigl(W(tf)W(tg)W(-t(f+g))\uppsi -\uppsi\Bigr) \\
+%	&= -i\mathrm{Im}(\langle f,g\rangle_\calH)\uppsi
+%\end{align*}
+%\[
+%	[B(f),B(g)] = 2i \mathrm{Im}(\langle f,g\rangle_\calH)
+%\]
+%
+%\[
+%	Z = itB(f+g) - \frac{t^2}{2}[B(f),B(g)] - i\frac{t^3}{12}[B(f),[B(f),B(g)]]
+%\]
+%\[
+%	X = - \frac{t^2}{2}[B(f),B(g)] + O(t^3)
+%\]
+%
+%\[
+%	a^-(f) := \frac{B(f)+B(if)}{2},\qquad a^-(f) := \frac{B(f)-B(if)}{2i}
+%\]
+%\[
+%	[a^-(f),a^+(f)] = [\frac{B(f)+B(if)}{2},\frac{B(f)-B(if)}{2}] = -\frac{1}{2i}[B(f),B(if)] = -\|f\|_\calH^2
+%\]
+
+
+\subsubsection{Second quantization}
+
+The term \emph{second quantization} is associated with the action of lifting operators on an \emph{$k$-particle} space $\calH^{\otimes k}$ to an associated operator on the Fock space. 
+
+We begin our discussion with the \emph{$1$-particle} case. For any bounded operator $A\in \calB(\calH)$ one defines the map
+\[
+	\Upgamma(A) := I\oplus \bigoplus_{n\in\bbN} A^{\otimes n},
+\]
+which acts on $\calH^{\otimes n}$ by
+\[
+	\Upgamma(A) g_1\otimes\cdots\otimes g_n = Ag_1\otimes \cdots \cdots\otimes Ag_n.
+\]
+Clearly, if $A$ is unitary, then so is $\Upgamma(A)$. Indeed, in this case, one has
+\[
+	\langle \Upgamma(A)e(g),\Upgamma(A)e(g)\rangle_{\frF(\calH)} = \sum_{n\in\bbN_0}\frac{1}{n!} \langle Ag,Ag\rangle_\calH^n = \sum_{n\in\bbN_0}\frac{1}{n!} \|g\|_\calH^n = \langle e(g),e(g)\rangle_{\frF(\calH)}.
+\]
+
+Now let $H$ be a self-adjoint operator on $\calH$ and $U_t:=\exp(itH)$ be its unitary evolution. Then, $\Upgamma(U_t)$ is a one-parameter group of unitary operators on $\frF(\calH)$. Stone's theorem then provides the existence of a densely defined Hermitian operator $\sfd\Upgamma(H)$ such that
+\[
+	\Upgamma(U_t) = \exp(it\,\sfd\Upgamma(H)).
+\]
+The generator $\sfd\Upgamma(H)$ is called the \emph{second quantization of $H$}, and takes the explicit form
+\[
+	\sfd\Upgamma(H) g^{(n)} = \sum_{j=1}^n g_1\otimes\cdots\otimes g_{j-1} \otimes Hg_j\otimes g_{j+1}\otimes\cdots\otimes g_n =\sum_{j=1}^n H_j g^{(n)},
+\]
+for any $g^{(n)}=g_1\otimes\cdots\otimes g_n\in \calH^{\otimes n}$ with $g_j\in D(H)$ and 
+\[
+	H_j = I_\calH\otimes\cdots\otimes I_\calH\otimes H\otimes I_\calH\otimes\cdots\otimes I_\calH,
+\]
+where $H$ acts on the $j$-th tensor product. The special case $H=I_\calH$ yields
+\[
+	\sfN g^{(n)}:=\sfd\Upgamma(I_\calH)g^{(n)} = ng^{(n)},\qquad n\in\bbN,
+\]
+and is called the \emph{number operator} due to its diagonal nature, with eigenvalues representing the number of particles in each configuration. Its domain is given by
+\[
+	D(\sfN) = \Bigl\{ \{f^{(n)}\}_{n\in\bbN_0}:\sum_{n\in\bbN_0} n^2\|f^{(n)}\|_{\calH^{\otimes n}}^2<+\infty\Bigr\}.
+\]
+\[
+	\sfA^-_j\sfA^+_j \psi_j^{\otimes n} = \sqrt{n}\,\sfA_j^-\psi_j^{\otimes(n-1)} = \sum_{k=0}^{n-1} \psi_j^{\otimes k}\otimes \psi_j\otimes \psi_j^{\otimes(n-1-k)} = n\psi_j^{\otimes n}
+\]
+\[
+	\sfA_j^+\sfA_j^- \sfe(\psi_k) = \delta_{jk}\sfN_j\,\sfe(\psi_j)
+\]
+
+
+This construction can be performed similarly for the general $k$-particle case. 
+
+\[
+	\sfd\Upgamma(H^{(k)})f^{(n)} = \sum_{j_1\ne \cdots\ne j_k} H_{j_1\cdots j_k}f^{(n)},
+\]
+where $H_{j_1,\ldots,j_k}$ denotes the operator where $H^{(k)}$ acts on the $(j_1,\ldots,j_k)$-th  tensor product.
+
+
+
+
+\begin{example}
+	Consider the Hilbert space $\calH=L_\bbC^2(\bbT)$ and the Hamiltonians,
+	\[
+		H^{(1)} = -\Delta \in \calO(\calH),\qquad H^{(2)} = \sfM_W\in\calO(\calH^{\otimes 2}),
+	\]
+	where $W:\bbT\times\bbT\to\bbR$ is an interaction potential, and $\sfM_f$ denotes the multiplication operator corresponding to $f$.
+	
+	Then, their second quantization is given by
+	\[
+		\sfd\Upgamma(H^{(1)}) = \sum_{j=1}^n H_j^{(1)},\qquad \sfd\Upgamma(H^{(2)}) = \sum_{j\ne \ell} H_{j\ell}^{(2)}\qquad\text{on $\calH^{\otimes n}$}.
+	\]
+	\begin{align*}
+		\sfd\Upgamma(H^{(1)})\psi_j^{\otimes n} = n j^2 \psi_j^{\otimes n} = j^2 \sfA_j^+\sfA_j^-\psi_j^{\otimes n} = j^2 \sfA_j^+\sfA_j^-\psi_j^{\otimes n}
+	\end{align*}
+\end{example}
+\[
+	\psi^{(n)} = \psi_{k_1}\otimes\cdots\otimes\psi_{k_n}
+\]
+\begin{align*}
+		\sfd\Upgamma(H^{(1)})\psi^{(n)} = \sum_{j=1}^n k_j^2\, \psi^{(n)}
+	\end{align*}
+
+\newpage
+
+
+\subsubsection{Free field operators}
+
+For each $f\in \calH$, we consider the pair $\{a^-(f),a^+(f)\}$ of operators on $\frF_\mathsf{sym}(\calH)$ defined by
+\begin{align*}
+	a^-(f)\Uppsi = 
+\end{align*}
+
+
+
+ satisfying the commutation relations: For any $f,g\in \calH$,
+\[
+	[a^\pm(f),a^\pm(g)] = 0,\qquad [a^-(f),a^+(g)] = \langle f,g\rangle,
+\]
+where $f\mapsto a^-(f)$ is conjugate linear and $f\mapsto a^+(f)$ is linear. Moreover, if $\Omega\in \frF_\mathsf{sym}(\calH)$ is the \emph{vacuum vector}, then $a^-(f)\Omega=0$ for every $f\in\calH$. The \emph{field operators} $a^-$ and $a^+$ are called \emph{creation} and \emph{annihilation} operators, respectively. On appropriate domains, the field operators are adjoints of one another, i.e., $(a^-(f))^\dagger = a^+(f)$ for every $f\in \calH$.
+
+It is common in the physics literature to consider operator-valued distributions $\{a_x^-,a_x^+\}$ instead, where if $\calH=L_\bbC^2(\bbR^d)$, then $x\in \bbR^d$ and
+\[
+	a^-(f) = \int_{\bbR^d} \overline{f(x)}\,a_x\dd x,\qquad a^+(f) = \int_{\bbR^d} f(x)\,a_x\dd x.
+\]
+The commutation relations then simply read
+\[
+	[a_x^\pm, a_y^\pm] = 0,\qquad [a_x^-,a_y^+] = \delta(x-y).
+\]
+The \emph{number operator} is formally defined by $N_x = a_x^+a_x$, $x\in\bbR^d$. 
+
+On the rigorous not, if $\calH$ is separable with orthonormal basis $\{\psi_i\}$, then one obtains a family of field operators $\{a_i^-,a_i^+\}$ with $a_i^\pm : a^\pm(\psi_i)$. 
+
+
+\subsubsection{Gaussian states}
+
+\begin{definition}[Gaussian states]
+	A state $\Uppsi$ on $\frF_\mathsf{sym}(\calH)$ is said to be a mean-zero \emph{Gaussian} (or \emph{quasi-free}) state if it can be uniquely determined from the field operators $\{a,a^\dagger\}$ by its covariance
+	\begin{align*}
+		\Sigma_\Uppsi(f,g)\coloneqq \begin{pmatrix}
+			\Uppsi(a^+(f)\,a^-(g)) & \Uppsi(a^-(f)\,a^-(g)) \\
+			\Uppsi(a^+(f)\,a^+(g)) & \Uppsi(a^-(f)\,a^+(g))
+		\end{pmatrix},\qquad f,g\in\calH.
+	\end{align*}
+	If the off-diagonal elements of the covariance are zero, the state $\Uppsi$ is called \emph{gauge-invariant} since it is invariant under the so-called gauge transformations of the first kind, i.e.,
+	\[
+		a^\pm(f) = e^{\pm i\alpha}a^\pm(f)\qquad \text{for any $\alpha\in\bbR$.}
+	\]
+	If the off-diagonal elements of the covariance are nonzero, the state $\Uppsi$ is called \emph{squeezed}.
+\end{definition}
+
+%Notice that a gauge-invariant mean-zero Gaussian state $\Uppsi$ on $\frF_\mathsf{sym}(\calH)$ with $\calH=L^2(\bbR^d)$ necessarily takes the form
+%\begin{align*}
+%	\Sigma_\Uppsi(x,y)= \begin{pmatrix}
+%		0 & 0 \\
+%		0 & \Uppsi(a_x^-a_y^+)
+%	\end{pmatrix},\qquad x,y\in\bbR^d,
+%\end{align*}
+%since $a_x^-\,\Omega = 0$ for every $x\in\bbR^d$.
+
+\subsubsection{States invariant under free evolutions}
+
+Consider a Hamiltonian $H$ on $\frF_\mathsf{sym}(\calH)$ with $\calH = L_\bbC^2(\bbR^d)$ and its associated 1-parameter automorphism group
+\[
+	\fru_t(a)=e^{itH}ae^{-itH},\qquad t\in\bbR.
+\]
+
+\begin{definition}
+	The Hamiltonian $H$ on $\frF_\mathsf{sym}(\calH)$ is called \emph{free} if there exists a real-valued function $\omega\colon\bbR^d\to \bbR$ such that
+	\[
+		\fru_t(a_x^-) = e^{-it\omega(x)} a_x^-,\qquad x\in\bbR^d.
+	\]
+	In this case, the function $\omega$ is called the \emph{free 1-particle Hamiltonian}, and $H$ is said to be the \emph{second quantization} of $\omega$. Accordingly, $\fru_t$ is called a \emph{free evolution}.
+\end{definition}
+
+\begin{example}
+	Consider a Hamiltonian on $\calH=L_\bbC^2(\bbR)$ and its eigensystem $\{(\lambda_i,\psi_i)\}_i$ such that $\{\psi_i\}_i$ forms an orthonormal basis for $\calH$. Setting $a_i^\pm = a^\pm(\psi_i)$, we see that
+	\[
+		[a_i^\pm,a_j^\pm] = 0,\qquad [a_i^-,a_j^+] = \delta_{ij},
+	\]
+	i.e., $a_i^\pm$ define field operators on the symmetric Fock space $\frF_\mathsf{sym}(\calK)$ with $\calK=\ell_\bbC^2$
+	
+	
+	
+	
+	
+	
+	Defining the field operators
+	\[
+		a^-= \frac{1}{\sqrt{2}}\bigl( Q + iP\bigr),\qquad a^+ = \frac{1}{\sqrt{2}}\bigl(Q - iP\bigr),\qquad N:=a^+a^-
+	\]
+	such that $[a^-,a^+]=I$, we find that
+	\[
+		H = a^+a^- + \frac{1}{2} = N + \frac{1}{2}.
+	\]
+	Clearly, the eigenvectors of $N$ and $H$ coincide
+\end{example}
+
+\begin{definition}
+	A Gaussian state $\Uppsi$ on $\frF_\mathsf{sym}(\calH)$ with $\calH=L^2(\bbR^d)$ is said to be invariant under a free evolution $\fru_t$ if
+	\[
+		\Uppsi(\fru_t(a_x^-)\,\fru_{s}(a_y^+)) = \Uppsi(\fru_{t-s}(a_x^-)\,a_y^+) = \Uppsi(a_x^-\,\fru_{s-t}(a_y^+))\qquad\text{for all $t\in\bbR$, $x\in\bbR^d$}.
+	\]
+	A \emph{Gaussian free state} is a Gaussian state that is invariant under \emph{all} free evolutions.
+\end{definition}
+
+\begin{theorem}
+	A Gaussian state $\Uppsi$ on $\frF_\mathsf{sym}(\calH)$ is a Gaussian free state if and only if it is gauge-invariant and its diagonal correlations are supported on the diagonal, i.e.,
+	\[
+		\Uppsi(a_x^-\,a_y^+) = m(x)\delta(x-y),\qquad \Uppsi(a_x^+\,a_y^-) = n(x)\delta(x-y).
+	\]
+\end{theorem}
+
+\begin{theorem}
+	The field operators $\{a_x^+,a_x^-\}$ satisfying the commutation relations
+	\[
+		[a_x^\pm, a_y^\pm] = 0,\qquad [a_x^-,a_y^+] = m(x)\delta(x-y).
+	\]
+	are mean-zero Gaussian random variables w.r.t.\ the Fock vacuum state $\Uppsi_\Omega=\langle \Omega,\cdot\,\Omega\rangle$, where $\Omega\in \frF_\mathsf{sym}(\calH)$ is the Fock vacuum vector, with covariance
+	\begin{align*}
+		\Sigma_\Uppsi(x,y) = \begin{pmatrix}
+			0 & 0 \\
+			0 & m(x)
+		\end{pmatrix}\delta(x-y),\qquad x,y\in\bbR^d.
+	\end{align*}
+Conversely, if $\{a_x^+,a_x^-\}$ are random variables with these properties, then they satisfy the commutation relations above.
+\end{theorem}
+
+\subsubsection{Boson Fock white noise}
+
+\begin{definition}\label{def:boson-white-noise}
+	A boson Fock white noise on $\bbR^d$ is a boson Fock field $\{b_{t,x}^+,b_{t,x}^-\}$ on $\bbR^{d+1}$ with vacuum vector $\Omega$ satisfying the commutation relations
+	\[
+		[b_{t,x}^\pm, b_{s,y}^\pm] = 0,\qquad [b_{t,x}^-,b_{s,y}^+] = \delta(t-s)m(x)\delta(x-y),\qquad b_{t,x}^-\Omega = 0.
+	\]
+\end{definition}
+
+\begin{theorem}\label{thm:stochastic-limit}
+ Let $\{a_x^+,a_x^-\}$ be Gaussian free fields w.r.t.\ the Fock vacuum state $\Uppsi_\Omega$ with
+ \[
+ 	\fru_t(a_x^-) = e^{-it\omega(x)}a_x^-.
+ \]
+ Then the rescaled field operators
+ \[
+ 	b_{t,x}^{\lambda,\pm}\coloneqq \frac{1}{\lambda} \fru_{t/\lambda^2} (a_x^\pm)
+ \]
+ converges in the sense of correlator distributions to a boson Fock white noise, i.e.,
+ \[
+ 	\lim_{\lambda\to 0} \Uppsi(b_{t,x}^{\lambda,\varepsilon_1}b_{t,y}^{\lambda,\varepsilon_2}) = \Uppsi(b_{t,x}^{\varepsilon_1}b_{t,y}^{\varepsilon_2})\qquad \varepsilon_1,\varepsilon_2\in\{+,-\},
+ \]
+ where $b_{t,x}^\pm$ as defined in Definition~\ref{def:boson-white-noise} with $m=2\pi \delta(\omega)$.
+\end{theorem}
+\begin{proof}
+	Using the invariance of $\Uppsi_\Omega$ under free evolutions, we find
+	\begin{align*}
+	\Uppsi_\Omega(b_{t,x}^{\lambda,-}b_{s,y}^{\lambda,+}) &= \frac{1}{\lambda^2} \Uppsi_\Omega(\fru_{(t-s)/\lambda^2} (a_x^-)\,a_y^+) \\
+	&= \frac{1}{\lambda^2}e^{-i\omega(x)(t-s)/\lambda^2}\,\Uppsi_\Omega(a_x^-\,a_y^+) = \frac{1}{\lambda^2}e^{-i\omega(x)(t-s)/\lambda^2}\delta(x-y).
+\end{align*}
+Passing to the limit $\lambda\to 0$ recovers the desired limit. All the other terms vanish.
+\end{proof}
+
+
+\begin{remark} Let $\calK\subset L^2(\bbR^d)$ be a set of functions for which
+\[
+	\int_\bbR |\langle f,e^{it\omega}g\rangle|\dd t <+\infty\qquad\forall f,g\in \calK.
+\]
+Since $t\mapsto \langle f,e^{it\omega}f\rangle$ is positive definite for each $f\in\calK$, Bochner's theorem implies that the sesquilinear form
+\[
+	\langle f,2\pi\delta(\omega)g\rangle \coloneqq \int_\bbR \langle f,e^{it\omega} 
+	g\rangle\dd t,
+\]
+is a pre-scalar product. With $(\cdot|\cdot)$, the set $\calK$ becomes a pre-Hilbert space, which can be completed to obtain a Hilbert space, still denoted by $\calK$. The function $m=2\pi \delta(\omega)$ has to be understood in this sense, and only makes sense for functions in $\calK$.
+\end{remark}
+
+
+The operators
+\[
+	B_t^-(f)\coloneqq \int_0^t\!\!\int_{\bbR^d}\overline{f(x)} \,b_{s,x}^-\dd x\dd s,\qquad B_t^+(f)\coloneqq \int_0^t\!\! \int_{\bbR^d}f(x) \,b_{s,x}^+\dd x\dd s,
+\]
+define \emph{quantum Brownian motions}. The self-adjoint \emph{(momentum)} operators
+\[
+	P_t(f)\coloneqq \frac{1}{i}\bigl[ B_t^-(f) - B_t^+(f)\bigr],
+\]
+form a commuting family of classical random variables whose statistics in the Fock vacuum state $\Uppsi_\Omega=\langle \Omega,\cdot\,\Omega\rangle$ is completely determined by the relation
+\[
+	\Uppsi(e^{iP_t(f)}) = \exp\left(-\frac{t}{2}\|f\|_{L^2(\bbR^d)}^2\right).\qquad\text{\alert{check!}}
+\]
+
+
+\subsubsection{Gaussian equilibrium states: The KMS condition}
+For any states $a,b\in\calA$, the map $t\mapsto \Uppsi(a\,\fru_t(b))$ can be analytically continued and satisfies the so-called \emph{KMS condition} at inverse temperature $\beta>0$:
+\[
+	\Uppsi(a\,\fru_{t+i\beta}(b)) = \Uppsi(\fru_t(a)\,b)\qquad\forall\, a,b\in \calA.\qquad\text{\alert{check!}}
+\]
+
+
+\subsection{Composite systems}
+
+\begin{definition}
+	A composite system of two given quantum dynamical  systems $S=\{\calH_S,H_S\}$, $R=\{\calH_R,H_R\}$ is a quantum dynamical system of the form
+	\[
+		\{\calH_S\otimes\calH_R,H_{SR}\},\qquad H_{SR} = H_S\otimes 1_R + 1_S\otimes H_R + H_I,
+	\]
+	where $H_I$ is called the \emph{interaction Hamiltonian} and contains all the new physics of the composite system, while $H_0\coloneqq H_S\otimes 1_R + 1_S\otimes H_R$ is called the free Hamiltonian.
+\end{definition}
+
+We will consider \emph{scaled} total Hamiltonians
+\[
+	H^\lambda \coloneqq H_0 + \lambda H_I,
+\]
+and the following unitary evolutions:
+\begin{gather*}
+	\textit{free evolution}\quad V_t^0 = e^{-it H_0},\qquad\textit{total evolution}\quad V_t^\lambda = e^{-it H^\lambda},\\
+	\textit{interacting representation evolution}\quad U_t^\lambda = (V_t^0)^\dagger V_t^\lambda,
+\end{gather*}
+where $U_t^\lambda$ satisfies the Schr\"odinger equation in the interaction picture:
+\[
+	\partial_t U_t^\lambda = -i\lambda H_I(t) U_t^\lambda,\qquad U_0^\lambda = I,
+\]
+with the time dependent Hamiltonian $H_I(t) = (V_t^0)^\dagger H_I V_t^0$.
+
+For simplicity, we will make the following assumptions on system $S=\{\calH_S,H_S\}$, the reservoir $R=\{\calH_R,H_R\}$, and the interaction Hamiltonian $H_I$.
+
+\subsubsection{The reservoir}
+
+The reservoir $R=\{\calH_R,H_R\}$ is given by the Hilbert space $\frF_\mathsf{sym}(\calH)$ with $\calH=L_\bbC^2(\bbR^d)$, a free Hamiltonian $H_R$ with continuous spectrum $\bbR$, and a mean-zero Gaussian free state $\Uppsi_R$ such that
+\[
+	\int_\bbR |\Uppsi_R(a_x^{\varepsilon_1}\,\fru_t(a_y^{\varepsilon_2}))|\dd t <+\infty,\qquad \varepsilon_1,\varepsilon_2\in\{+,-\}.
+\]
+In particular, $\Uppsi_R$ is characterized by the covariances
+\[
+	\Uppsi_R(a_x^-a_y^+) = m(x)\delta(x-y),\qquad \Uppsi_R(a_x^+a_y^-) = n(x)\delta(x-y).
+\]
+Since $H_R$ is free, there exists a function $\omega$, for which
+\[
+	\fru_t(a_x^-) = e^{itH_R}a_x^-e^{-itH_R} = e^{-it\omega(x)}a_x^-,
+\]
+where $\omega$ describes the 1-particle evolution.
+
+An example of a free reservoir Hamiltonian is given by
+\[
+	H_R = \int_{\bbR^d} \omega(x)\,a_x^+a_x^-\dd x,
+\]
+where $\omega$ is a smooth cutoff function.
+
+\subsubsection{The system Hamiltonian}
+
+For simplicity, we shall assume that the system Hamiltonian $H_S$ has a discrete spectrum such that
+\[
+	H_S = \sum_j \lambda_j P_j,
+\]
+where $\lambda_j$ are the eigenvalues and $P_j$ are their corresponding spectral projections.
+
+\subsubsection{The interaction Hamiltonian}
+
+We consider dipole-type interaction Hamiltonians of the form
+\[
+	H_I = \int_{\bbR^d} \bigl[D(x)\otimes a_x^+ + D^\dagger(x)\otimes a_x^-\bigr]\dd x,
+\]
+where $\{D(x):x\in\bbR^d\}$ is a family of system operators called the \emph{response terms}.
+
+With the spectral projections of $H_S$, we may express $H_I$ as
+\[
+	H_I = \sum_{j,\,k}\int_{\bbR^s}  \bigl[P_j D(x)P_k\otimes a_x^+ + P_k D^\dagger(x)P_j\otimes a_x^-\bigr]\dd x,
+\]
+and hence, the time-dependent Hamiltonian reads
+\begin{align*}
+	H_I(t) &= \sum_{j,\,k}\int_{\bbR^d}  \bigl[P_j D(x)P_k\otimes e^{it(\omega(x)+\lambda_j-\lambda_k)} a_x^+ + P_k D^\dagger(x)P_j\otimes e^{-it(\omega(x)+\lambda_j-\lambda_k)} a_x^-\bigr]\dd x \\
+	&= \sum_q\sum_{\lambda_k-\lambda_j\, =\, \eta_q} \int_{\bbR^d}  \bigl[P_j D(x)P_k\otimes e^{it(\omega(x)-\eta_q)} a_x^+ + P_k D^\dagger(x)P_j\otimes e^{-it(\omega(x)-\eta_q)} a_x^-\bigr]\dd x \\
+	&= \sum_q\int_{\bbR^d} \bigl[D_q(x)\otimes e^{it(\omega(x)-\eta_q)} a_x^+ + D_q^\dagger(x)\otimes e^{-it(\omega(x)-\eta_q)} a_x^-\bigr]\dd x,
+\end{align*}
+where the system operators
+\[
+	D_q(x) \coloneqq \sum_{\lambda_k-\lambda_j\, =\, \eta_q} P_j D(x)P_k\qquad\text{satisfy}\quad e^{it H_S}D_q(x)e^{-it H_S} = e^{-it \eta_q}D_q(x).
+\]
+To simplify things drastically, we assume that $q=1$ and $D_1(x) = \chi(x)D$ for some smooth cutoff function $\chi$ and a fixed system operator $D$. In this case, we obtain
+\begin{align*}
+	H_I(t) &= \int_{\bbR^d} \bigl[D\otimes \chi(x) e^{it(\omega(x)-\eta)} a_x^+ + D^\dagger\otimes \overline{\chi(x)}e^{-it(\omega(x)-\eta)} a_x^-\bigr]\dd x.
+\end{align*}
+
+\subsection{The weak interaction stochastic limit}
+
+Altogether, we arrive at the rescaled Schr\"odinger equation in the interaction picture
+\begin{align}\label{eq:rescaled-schrodinger-interaction}
+	U_{t/\lambda^2}^\lambda = I- i \int_0^t H_I^\lambda(s)\, U_{s/\lambda^2}^\lambda\dd s,
+\end{align}
+with $H_I^\lambda(t) =  D\otimes b_t^{\lambda,+} + D^\dagger\otimes b_t^{\lambda,-}$, where, due to Theorem~\ref{thm:stochastic-limit},
+\[
+	b_t^{\lambda,\pm} = \frac{1}{\lambda}a^\pm(\chi e^{i(t/\lambda^2)(\omega-\eta)})\longrightarrow b_t^\pm\qquad\text{in the sense of correlators},
+\]
+and therefore,
+\[
+	H_I^\lambda(t)\longrightarrow H_t = D\otimes b_t^+ + D^\dagger\otimes b_t^-,\qquad U_{t/\lambda^2}^\lambda\longrightarrow U_t,
+\]
+where $U_t$ satisfies the formal stochastic differential equation
+\begin{align}\label{eq:sde}
+	\d U_t = -i(D\otimes \d B_t^+ + D^\dagger\otimes \d B_t^-)U_t,\qquad B_t^\pm = \int_0^t b_s^\pm \dd s.
+\end{align}
+Under certain assumptions on $\omega$, this SDE has a unique solution.
+
+The SDE \eqref{eq:sde} in natural-time order (or It\^o form) is the SDE given by
+\begin{align}\label{eq:sde-normal}
+	\d U_t = -i(D\,\d B_t^+U_t + D^\dagger U_t\, \d B_t^-) - \gamma_-D^\dagger DU_t\dd t,
+\end{align} 
+obtained by commuting $\dd B_t^- U_t$ and using the fact that the solution $U_t$ to \eqref{eq:sde} satisfies
+\begin{align*}
+	\begin{aligned}
+	[b_t^-,U_t] &= -i\gamma_- DU_t,\\
+	[U_t^\dagger,b_t^+] &= i\overline{\gamma}_- U_t^\dagger D^\dagger,\\
+	[b_t^-,U_t^\dagger] &= i\gamma_-U_t^\dagger D,
+	\end{aligned}\qquad \text{where}\quad\gamma_- \coloneqq \int_{-\infty}^0 \langle \chi,e^{-it(\omega-\eta)}\chi\rangle\dd t.
+\end{align*}
+The additional term is known as the It\^o correction term in quantum stochastic calculus. Morally, the natural-time order is the order induced by the filtration for which one expects $U_t$ to be adapted to. \alert{Expand on the concept of normal order!}
+
+With the unitary evolution $U_t$ one can derive an evolution for any system observable $X_t=U_t^\dagger (X\otimes 1_{\calH_R})U_t$ given by
+\[
+	\dd X_t = -i \dd B_t^+[D,X_t] + i[X_t,D^\dagger]\dd B_t^- + LX_t\dd t
+\]
+where
+\[
+	LX =  2\Re(\gamma_-)D^\dagger X D - \gamma_-D^\dagger DX - \overline{\gamma}_- X D^\dagger D,
+\]
+is the corresponding Lindblad operator.
+
+\begin{remark}
+	The rescaled equation \eqref{eq:rescaled-schrodinger-interaction} may be formally expressed as 
+	\[
+		U_{t/\lambda^2}^\lambda = I + \sum_{n=1}^\infty (-i)^n\lambda^n\int_0^{t/\lambda^2}\!\!\!\!\cdots \int_0^{t_{n-1}} H_I(t_1)\cdots H_I(t_n)\dd t_1\cdots \dd t_n.
+	\]
+	In the case when $H_I(t)$ commutes for every $t\ge 0$, the integrand would be a symmetric function of $t_1,\ldots,t_n$, and gives
+	\[
+		U_{t/\lambda^2}^\lambda = I + \sum_{n=1}^\infty (-i)^n\frac{\lambda^n}{n!}\left(\int_0^{t/\lambda^2}H_I(s)\dd s\right)^n = \exp\left(-i\lambda\int_0^{t/\lambda^2} H_I(s)\dd s\right),
+	\]
+	i.e., the expectation of $U_{t/\lambda^2}^\lambda$ is the characteristic function of the process
+	\[
+		W_t^\lambda \coloneqq \lambda\int_0^{t/\lambda^2} H_I(s)\dd s.
+	\]
+\end{remark}
+
+\subsection{Damped harmonic oscillator}
+
+We consider a simple setup in which a single atom interacts with an electromagnetic field. The total system is given by the composite of the atom and the reservoir systems
+\[
+	S = \bigl\{ \frF_\mathsf{sym}(\bbC^2),H_S\bigr\},\qquad R = \bigl\{ \frF_\mathsf{sym}(L^2(\bbR^d)),H_R\bigr\},
+\]
+with the free Hamiltonians
+\[
+	H_S = \omega_0\,c^+c^-,\qquad H_R = \int_{\bbR^d} \omega(x)\,a_x^+a_x^-\dd x,
+\]
+where $\{c^+,c^-\}$ is the field operator for $\calH_S=\frF_\mathsf{sym}(\bbC^2)$, $\{a_x^+,a_x^-\}$ are the field operators for $\calH_R=\frF_\mathsf{sym}(L^2(\bbR^d))$, and $\omega$ is a suitable cutoff function.
+
+For the interaction Hamiltonian $H_I$, we consider a dipole approximation of the form
+\[
+	H_I = \int_{\bbR^d} \chi(x)\bigl[c^-\otimes a_x^+ +c^+\otimes a_x\bigr]\dd x = c^- \otimes A^+ + c^+\otimes A^-,
+\]
+where $\chi$ are suitable cutoff function and
+\[
+	A^\pm = \int_{\bbR^d} \chi(x)\,a_x^\pm\dd x.
+\]
+such that the rescaled total Hamiltonian is given by
+\[
+	H^\lambda = H_S\otimes 1_{\calH_R} + 1_{\calH_S}\otimes H_R + \lambda H_I.
+\]
+Define the evolution
+\[
+	\fru_t^\lambda(a) = e^{it H^\lambda} a e^{-it H^\lambda}.
+\]
+Then, the Heisenberg equation for $c(t)=\fru_t^\lambda(c\otimes 1_{\calH_R})$ and $a_x^-(t) = \fru_t^\lambda(1_{\calH_S}\otimes a_x)$ reads
+\begin{align*}
+	\frac{\d}{\d t} c^-(t) &= -i\omega_0\,c^-(t) - i\lambda \int_{\bbR^d} \chi(x)\,a_x^-(t)\dd x \\
+	\frac{\d}{\d t} a_x^-(t) &= -i\omega(x)\,a_x^-(t) - \lambda\,\chi(x)\,c(t).
+\end{align*}
+Solving for $a_x^-(t)$, one obtains
+\[
+	a_x^-(t) = a_x^- e^{-it\omega(x)} - i\lambda\chi(x)\int_0^t e^{-i(t-s)\omega(x)} c^-(s)\dd s.
+\]
+Inserting $a_x^-(t)$ into the equation for $c(t)$, we find
+\[
+	\frac{\d}{\d t} c^-(t) = -i\omega_0 c^-(t) -\int_0^t \gamma(t-s)\,c^-(s)\dd s - i\,\xi_t^-.
+\]
+where we defined the quantities
+\[
+	\gamma(r) \coloneqq \lambda^2\int_{\bbR^d} e^{-ir\omega(x)}\chi^2(x)\dd x,\qquad \xi_t^-\coloneqq \lambda \int_{\bbR^d} e^{-it\omega(x)}\chi(x)\,a_x^-\dd x.
+\]
+Observe that $\xi_t^-$ depends only on the reservoir field operator $a_x^-$, and therefore, acts as an \emph{external force} to the atomic system.
+
+Now let us consider the statistics of $\xi_t^-$ for the Fock vacuum state free state $\Uppsi_\Omega = \langle \Omega,\cdot\,\Omega\rangle$ on $\calH_R$. Since $\Uppsi_\Omega$ is a Gaussian free state, the statistics of $\xi_t^-$ are uniquely determined by the 2-points correlation functions. Clearly, $\Uppsi_\Omega$ has zero mean, and therefore,
+\[
+	\Uppsi_\Omega(\xi_t^-) = \lambda \int_{\bbR^d} e^{-it\omega(x)}\chi(x)\,\Uppsi_\Omega(a_x^-)\dd x = 0,\qquad \Uppsi_\Omega((\xi_t^-)^\dagger) =0.
+\]
+Moreover, we find
+\[
+	\Uppsi_\Omega((\xi_t^-)^\dagger\,\xi_s^-) = \Uppsi_\Omega(\xi_t^-\,\xi_s^-) = \Uppsi_\Omega((\xi_t^-)^\dagger\,(\xi_s^-)^\dagger) = 0,
+\]
+and
+\begin{align*}
+	\Uppsi_\Omega(\xi_t^-\,(\xi_s^-)^\dagger) &= \lambda^2\int_{\bbR^d}\int_{\bbR^d} e^{-it(\omega(x)-\omega(y))}\chi(x)\chi(y)\,\Uppsi_\Omega(a_x^-a^+_y)\dd x\dd y \\
+	&= \lambda^2\int_{\bbR^d} e^{-i(t-s)\omega(x)}\chi^2(x)\dd x = \gamma(t-s).
+\end{align*}
+Hence, $\xi_t^-$ is a mean-zero $\gamma$-correlated \emph{random process} under $\Uppsi$.
+
+To obtain the stochastic limit, we start by rescaling time $t\mapsto t/\lambda^2$ and consider the rescaled quantity $c^{\lambda,\pm}(t)\coloneqq c^\pm(t/\lambda^2)$, which yields
+\begin{align}\label{eq:quantum-pre-langevin}
+	\dot c^{\lambda,-}(t) = -i\omega_0 c^{\lambda,-}(t) -\int_0^t \gamma^\lambda(t-s)\,c^{\lambda,-}(s)\dd s -i\, \xi_t^{\lambda,-},
+\end{align}
+with
+\[
+	\gamma^\lambda(r) \coloneqq \frac{1}{\lambda^2}\langle \chi,e^{-i(r/\lambda^2)\omega}\chi\rangle,\qquad \xi_t^{\lambda,-}\coloneqq \lambda^{-2}\xi_{t/\lambda^2}^-.
+\]
+From Theorem~\ref{thm:stochastic-limit}, we then establish that
+\[
+	\gamma^\lambda(r) \longrightarrow \gamma\,\delta(r),\qquad \xi_t^{\lambda,-}\longrightarrow b_t^-\qquad\text{in the sense of correlators,}
+\]
+with $\gamma = \langle \chi,\delta(\omega)\chi\rangle$.
+Consequently, we obtain
+\[
+	\d c_t^- = -(i\omega_0 + \gamma)\,c_t^-\dd t - i \dd B_t^-,\qquad B_t^- = \int_0^t b_s^-\dd s.
+\]
+
+
+\[
+	\dd U_t = -i(c^-\dd B_t^+ U_t + c^- U_t\dd B_t^-) - \gamma_-c^+c^- U_t\dd t
+\]
+\begin{align*}
+	\dd (U_t^\dagger c^- U_t) &= i(c^-\dd B_t^+ U_t + c^+ U_t\dd B_t^-)^\dagger c^-U_t - \overline{\gamma}_- U_t^\dagger c^-c^+c^-U_t \dd t \\
+	& -i U_t^\dagger c^-(c^-\dd B_t^+ U_t + c^+ U_t\dd B_t^-) - \gamma_- U_t^\dagger c^- c^+c^- U_t\dd t \\
+	&= iU_t^\dagger \dd B_t^- c^+c^-U_t + i\dd B_t^+ U_t^\dagger c^-c^-U_t  - \overline{\gamma}_- U_t^\dagger c^-c^+c^-U_t \dd t
+\end{align*} 
+
+
+
+
+
+
+
+
+

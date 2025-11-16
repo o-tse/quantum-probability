@@ -1,0 +1,43 @@
+\section{Quantum measurement processes}
+
+\subsection{Quantum measurements}
+
+Let $\varrho\in\calS(\calH)$ be a state on a Hilbert space $\calH$ and $t\mapsto U_t \in \calU(\calH)$ be a group of unitary actions on $\calH$. Suppose $\sfQ$ is an $\bbR$-valued observable with spectral measure $\pi^\sfQ:\calB(\bbR)\to \calP(\calH)$, i.e., $\pi^\sfQ$ is a projection-valued measure (PVM). Then the probability of measuring an event $A\in\calB(\bbR)$ at time $t^->0$ is given by Born's rule:
+\[
+	\bbP_\varrho(\lambda_{t^-}^\sfQ\in A) = \tr[\pi^\sfQ(A)\varrho_{t^-}] = \tr[U_t^\dagger\pi^\sfQ(A)U_t \varrho]. 
+\]
+As measurements generally change the state of the system, L\"uders' rule postulates that, \emph{conditioned} on the event $A\in \calB(\bbR)$, the state ``collapses" to
+\[
+	\varrho_{t^+} = \scrS(\pi^\sfQ(A),\varrho_{t^-}),\qquad \scrS(\pi,\varrho) \coloneqq \frac{\pi\varrho\,\pi^\dagger}{\tr[\pi\varrho \pi^\dagger]}\in\calS(\calH).
+\]
+Notice that by definition, $\scrS(\pi,U\varrho\,U^\dagger) = \scrS(\pi U,\varrho)$ and $U\scrS(\pi,\varrho) U^\dagger=\scrS(U\pi,\varrho)$.
+
+The probability of measuring the event $B\in\calB(\bbR)$ at time $t^+>0$ given that the event $A\in\calB(\bbR)$ was measured at time $t>0$ is
+\[
+	\bbP_\varrho(\lambda_{t^+}^\sfQ\in B\,|\,\lambda_{t^-}^\sfQ\in A) = \tr[\pi^\sfQ(B)\scrS(\pi^\sfQ(A),\varrho_{t^-})] = \frac{\tr[\pi^\sfQ(A\cap B)\varrho_{t^-}]}{\tr[\pi^\sfQ(A)\varrho_{t^-}]}.
+\]
+In particular, the conditional probability of measuring event $A\in\calB(\bbR)$ at time $t^+>0$ given it was measured at time $t^->0$ is $1$. If $\sfR$ is another $\bbR$-valued observable, then
+\[
+	\bbP_\varrho(\lambda_{t^+}^\sfR\in B\,|\,\lambda_{t^-}^\sfQ\in A) = \tr[\pi^\sfR(B)\varrho_{t^+}] = \frac{\tr[\pi^\sfR(B)\pi^\sfQ(A)\varrho_{t^-}\pi^\sfQ(A)\pi^\sfR(B)]}{\tr[\pi^\sfQ(A)\varrho_{t^-}]}.
+\]
+When $\sfR$ and $\sfQ$ commute, then $\pi^\sfR(B)\pi^\sfQ(A) = \pi^\sfQ(A)\pi^\sfR(B)$, and hence,
+\[
+	\bbP_\varrho(\lambda_{t^+}^\sfR\in B\,|\,\lambda_{t^-}^\sfQ\in A)\bbP_\varrho(\lambda_{t^-}^\sfQ\in A) = \bbP_\varrho(\lambda_{t^+}^\sfQ\in A\,|\,\lambda_{t^-}^\sfR\in B)\bbP_\varrho(\lambda_{t^-}^\sfR\in B),
+\]
+i.e., Bayes' theorem holds and the usual notion of joint probability is well defined. Clearly, this does not hold when $\sfR$ and $\sfQ$ do not commute. It is this failure of the Bayes theorem that distinguishes quantum probability from classical probability. 
+
+In a similar fashion, one determines the probability of measuring the event $A_2$ at time $t_2^->0$ for $\sfR$ given that the event $A_1$ was measured at time $t_1>0$ for $\sfQ$ from 
+\begin{align*}
+	\bbP_\varrho(\lambda_{t_2^-}^\sfR\in A_2\,|\,\lambda_{t_1^-}^\sfQ\in A_1) 
+	%&= \tr[\pi^\sfR(A_2)\varrho_{t_2^-}],\qquad \varrho_{t_2^-} = U_{t_2-t_1}\scrS(\pi^\sfQ(A_1),\varrho_{t_1^-})U_{t_2-t_1}^\dagger \\
+%	&= \tr[\pi^\sfR(A_2)U_{t_2-t_1}\varrho_{t_1^+}U_{t_2-t_1}^\dagger] \\
+	&= \tr[\pi^\sfR(A_2)U_{t_2-t_1}\scrS(\pi^\sfQ(A_1),\varrho_{t_1^-})U_{t_2-t_1}^\dagger] \\
+%	&= \frac{\tr[\pi^\sfR(A_2)U_{t_2-t_1}\pi^\sfQ(A_1)U_{t_1}\varrho\, U_{t_1}^\dagger\pi^\sfQ(A_1)U_{t_2-t_1}^\dagger]}{\tr[\pi^\sfQ(A_1)U_{t_1}\varrho U_{t_1}^\dagger]} \\
+	&= \tr[\pi^\sfR(A_2)U_{t_2-t_1} \scrS(\pi^\sfQ(A_1)U_{t_1},\varrho\, )U_{t_2-t_1}^\dagger] \\
+	&= \tr[\pi^\sfR(A_2)\scrS(U_{t_2-t_1}\pi^\sfQ(A_1) U_{t_1}, \varrho)] = \tr[\pi^\sfR(A_2)\varrho_{t_2^-}].
+\end{align*}
+As before, upon measuring the event $A_2$ at time $t_2>0$, L\"uders' rule implies
+\[
+	\varrho_{t_2^+} = \scrS(\pi^\sfR(A_2),\varrho_{t_2^-}) = \scrS(\pi^\sfR(A_2)U_{t_2-t_1}\pi^\sfQ(A_1) U_{t_1},\varrho).
+\]
+Restricting ourselves to a single observable $\sfQ$, 

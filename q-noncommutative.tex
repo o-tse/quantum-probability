@@ -1,0 +1,255 @@
+\section{Noncommutative probability}
+
+
+\subsection{From commutative to noncommutative}
+
+Consider the Hilbert space $\calH=L_\bbC^2(\Omega,\mu)$ over the complete probability space $(\Omega,\calF,\mu)$. Then any function $f\in L_\bbC^\infty(\Omega,\mu)$ gives rise to a multiplication operator $\sfM_f\in \calB(\calH)$:
+\[
+	\sfM_f \,g = fg \in \calH\qquad\forall\,g\in\calH,
+\]
+with $\|\sfM_f\|_\infty = \|f\|_{L^\infty(\mu)}$. The collection of all such multiplication operators
+\[
+	\scrA := \bigl\{ \sfM_f:f\in L_\bbC^\infty(\Omega,\mu) \bigr\}\subset\calB(\calH)
+\]
+forms a \emph{commutative} subalgebra of $\calB(\calH)$. 
+
+\medskip
+In fact, this subalgebra is a possibly noncommutative \emph{von Neumann} algebra:
+
+\begin{definition}[von Neumann algebra]
+	A (unital) \emph{von Neumann algebra} is a $*$-subalgebra $\scrA\subset \calB(\calH)$ that contains $I_\calH$ and is closed in the \emph{weak operator topology} (\textsc{wot}), i.e.,
+	\[
+		\textsc{wot-\!}\lim \oba_n = \oba\quad\Longleftrightarrow\quad \langle f,\oba_ng\rangle_\calH \to \langle f,\oba g\rangle_\calH\quad\forall f,g\in\calH.
+	\]
+	Equivalently, is it a $C^*$-algebra with a predual $\scrA_*$ that is a Banach space.
+\end{definition}
+
+There are sub-families of $\scrA$ that play a distinguished role, namely,
+\begin{align*}
+	\scrA_+ &:= \bigl\{ \oba\in \scrA : \oba\succeq 0 \bigr\} &\text{(nonnegative operators)}\\
+	\scrO &:= \bigl\{ \oba\in \scrA : \oba^\dagger = \oba \bigr\} &\text{(Hermitian operators)} \\
+	\scrP &:= \bigl\{ \oba\in \calO : \oba^2 = \oba \bigr\} &\text{(projection operators)}
+\end{align*}
+Here, $\oba\succeq 0$ if and only if $\langle f,\oba f\rangle_\calH\ge 0$ for all $f\in\calH$. Additionally, for von Neumann algebras, we also have the following useful density result:
+
+\begin{proposition}
+	Let $\scrA$ be a von Neumann algebra. Then 
+	\[
+		\scrA = \overline{\text{span}\,(\scrP)}^{\textsc{wot}},
+	\]
+	i.e., $\scrA$ is the \textsc{wot}-closure of the linear span of its projections.
+\end{proposition}
+
+Let us return to our previous example with $\scrA=\{ \sfM_f:f\in L_\bbC^\infty(\Omega,\mu)\}$. It is not difficult to see that $\scrA$ is a $W^*$-algebra. Notice that since $\sfM_f$ is self-adjoint for $f\in L_\bbR^\infty(\Omega,\mu)$, the family of self-adjoint operators is given by $\scrO=\{\sfM_f: f\in L_\bbR^\infty(\Omega,\mu)\}$ and the family of projection operators is given by $\scrP = \{\sfM_f\in\scrO : f=\mathbf{1}_A,\,A\in\calF\}$. 
+
+\medskip
+On a von Neumann algebra $\scrA$, we can talk about special types of continuous linear functionals on $\scrA$, called states.
+
+\begin{definition}
+	A \emph{state} on a von Neumann algebra $\scrA$ is a linear functional $\uppsi:\scrA\to \bbC$ that is positive and normalized, i.e., $\uppsi(\oba^\dagger \oba)\ge 0$ for all $\oba\in\scrA$ and $\uppsi(I_{\calB(\calH)})=1$.
+	
+	A state $\uppsi$ is said to be
+	\begin{itemize}[itemsep=0.1em]
+		\item[] \emph{faithful} if $\uppsi(\oba^\dagger \oba)=0\;\Leftrightarrow\; \oba=0$,
+		\item[] \emph{tracial} if $\uppsi(\oba \obb)=\uppsi(\obb \oba)$ for all $\oba,\obb\in\scrA$, and
+		\item[] \emph{normal} if $\uppsi\in\scrA_*$, i.e., if it is an element of the predual $\scrA_*$.
+	\end{itemize}
+\end{definition}
+
+
+
+For any probability measure $\nu \ll \mu$, we set
+\[
+	\uppsi_\nu(\sfM_f) := \int_\Omega f \dd\nu,\qquad f\in L_\bbC^\infty(\Omega,\mu),
+\]
+we find that $\uppsi$ is a linear functional that is positive and normalized, i.e., $\uppsi$ is a state. Moreover, it is tracial. It is normal if $\omega:=d\nu/d\mu \in L^1(\Omega,\mu)$ and faithful if $\omega>0$.
+
+\medskip
+Normal states play an essential role, serving as a counterpart to classical measures, as made explicit by the following proposition.
+
+\begin{proposition}\label{prop:normal-state}
+	Let $\uppsi$ be a state on a von Neumann algebra $\scrA$. The following are equivalent:
+	\begin{enumerate}[label=(\roman*),itemsep=0.1em]
+		\item $\uppsi$ is a normal state.
+		\item ($\sigma$-additivity) If $(\oba_n)\subset\calP$ are mutually orthogonal projections, i.e., $\oba_n(\calH)\perp \oba_m(\calH)$ for all $n\ne m$, and $\oba=\vee_n\, \oba_n$ being the projection on the smallest closed subspace containing $\cup_n\, \oba_n(\calH)$, then
+		\[
+			\uppsi(\oba) = \sum\nolimits_n \uppsi(\oba_n).
+		\]
+		\item (Continuity from below) For any increasing net $0\preceq \oba_n \uparrow \oba$ in $\scrA_+$, one has the increasing limit $\uppsi(\oba_n)\uparrow\uppsi(\oba)$.
+		\item There exists a family $\{\xi_n\}\subset\calH$ with $\sum_n \|\xi_n\|_\calH^2 = 1$ such that\footnote{[Theorem 7.1.8, Fundamentals of the Theory of Operator Algebras, V.II, Kadison-Ringrose]}
+		\[
+			\uppsi = \sum\nolimits_n \langle \xi_n,\cdot\, \xi_n\rangle\qquad\text{in the sense of norm convergence}.
+		\]
+	\end{enumerate}
+\end{proposition}
+
+%\begin{definition}
+%		A von Neumann algebra $\scrA$ is said to be \emph{$\sigma$-finite} if it admits at most countably many orthogonal projections.
+%\end{definition}
+%
+%\begin{proposition}
+%	Let $\scrA$ be a von Neumann algebra. Then the following are equivalent:
+%	\begin{enumerate}[label=(\roman*),itemsep=0.1em]
+%		\item $\scrA$ is $\sigma$-finite.
+%		\item There exists a countable separating subset of $\calH$ for $\scrA$.
+%		\item There exists a faithful positive linear functional in $\scrA_*$.
+%	\end{enumerate}
+%\end{proposition}
+
+
+Consider an arbitrary normal state $\uppsi$ and set
+\[
+	\mu(A) := \uppsi(\sfM_{\mathbf{1}_A})\qquad\text{for every $A\in\calF$}.
+\]
+Then, clearly, $\mu(\emptyset)=0$, $\mu(\Omega)=\uppsi(I_{\calB(\calH)})=1$ and $\mu$ is $\sigma$-additive due to the equivalent characterization of a normal state given by Proposition~\ref{prop:normal-state}(ii). In particular, one obtains a classical measure on $(\Omega,\calF)$. In this sense, a state on a noncommutative von Neumann algebra generalizes that of a classical measure.
+
+%\medskip
+%Along this line of thought, one could define a probability distribution on $\scrP$ analogously. Indeed, for a normal state $\uppsi$ on a von Neumann algebra $\scrA$, one sets
+%\[
+%	\mu(a)=\uppsi(a)\qquad\forall\,a\in\scrP.
+%\]
+%If $\chi_\mu(\psi):=\mu(|\psi\rangle\langle \psi|)$ where $\|\psi\|_\calH=1$, then $\chi_\mu(c\psi)=\chi_\mu(\psi)$ for any $c\in\bbC$ with $|c|=1$. Moreover, for any orthonormal basis $\{\psi_j\}\subset\calH$, we have that $\sum_j |\psi_j\rangle\langle \psi_j| = I_\calH$, and thus $\sum_j \chi_\mu(\psi_j)=1$. Gleason's theorem\footnote{Parthasarathy} states that for Hilbert spaces with dimension $d\ge 3$, there exists a bounded operator $T_\mu$ on $\calH$ such that $\chi_\mu(\psi)=\langle \psi,T_\mu\psi\rangle$ for all $\|\psi\|=1$. 
+%
+%\begin{proposition}
+%	Let $\mu$ be a probability distribution on $\scrP$, where $\dim\calH\ge 3$. Then there exists an orthonormal set $\{\psi_j\}\subset\calH$ and positive scalars $\{p_j\}$ with $\sum_j p_j=1$ such that
+%	\[
+%		\mu(a) = \sum\nolimits_j p_j \langle\psi_j,a\psi_j\rangle\qquad\forall\,a\in\scrP
+%	\]
+%\end{proposition}
+
+\subsection{Observables}
+
+In classical probability, we are often interested in computing expressions like $\bbP(X\in A)$, where $X$ is a random variable and $A\subset\bbR$ is a Borel set. 
+
+In the quantum world, a random variable is modelled by a Hermitian operator $\oba\in\scrO$ and is called an \emph{observable}. Observables have their spectrum in $\bbR$ and can therefore be \emph{measured}.
+
+Given a $\uppsi$ on a von Neumann algebra $\scrA$, the expectation of an observable $\oba$ w.r.t.\ the state $\uppsi$ is given by $\uppsi(\oba)$. Since every observable $\oba\in\scrO$ has a spectral decomposition
+\[
+	\oba = \int_\bbR \lambda\, E_\oba(d\lambda),\qquad E_\oba \,\widehat{=}\, \text{$\scrP$-valued measure,}
+\]
+we can associate a classical probability measure with the observable $\oba$ and state $\uppsi$:
+\[
+	\bbP_\uppsi(\oba\in A) := \uppsi(E_\oba(A))\qquad\text{for all Borel set $A\subset\bbR$}.
+\]
+For two observables $\oba,\obb\in\scrO$ that do not commute, one would like to be able to write $\bbP_\uppsi(\oba\in A,\obb\in B)$ for two Borel sets $A,B\subset\bbR$. The simple argument for this is that if $[\oba,\obb]\ne 0$, then $E_\oba(A)$ and $E_\obb(B)$ may not commute for all Borel sets $A, B$. In particular, 
+\[
+	\uppsi(E_\oba(A)E_\obb(B)) \ne \uppsi(E_\obb(B)E_\oba(A)),
+\]
+so there is no consistent way of writing $\bbP_\uppsi(\oba\in A,\obb\in B)$. Yet, when they do commute, then $\uppsi(E_\oba(A)E_\obb(B))=\uppsi(E_\obb(B)E_\oba(A))$ and a joint distribution exists and we are back to the classical scenario. 
+
+\medskip
+However, this turns out not to be possible, as the following example portrays.
+
+
+\begin{example}[Stern-Gerlach measurements] 
+
+Take a beam of atoms (each with spin-$\tfrac{1}{2}$) and perform the following steps:
+\begin{figure}[h]\centering
+\begin{tikzpicture}[
+    >=Latex,
+    beam/.style={line width=1.0pt},
+    magnet/.style={draw,rounded corners,minimum width=14mm,minimum height=22mm,thick,align=center,fill=gray!10},
+    block/.style={draw,thick,minimum width=10mm,minimum height=6mm,fill=red!10,align=center},
+%    det/.style={draw,thick,circle,minimum size=3mm,fill=black!70},
+    note/.style={font=\footnotesize}
+]
+
+% --- Positions ---
+% Source and first SG_z
+\coordinate (S) at (-2,0);
+\node[magnet] (SGz1) at (0,0) {SG$_z$};
+
+% After SGz1 split
+\coordinate (zup)   at (2, 0.9);
+\coordinate (zdown) at (2,-0.9);
+
+% Block on the down arm
+\node[note] (Blk) at ($(zdown)+(1,0)$) {discard arm};
+
+% SG_x on the up arm
+\node[magnet,right=1.5cm of zup] (SGx) {SG$_x$};
+
+% After SGx split
+\coordinate (xup)   at ($(SGx.east)+(1.5, 0.9)$);
+\coordinate (xdown) at ($(SGx.east)+(1.5,-0.9)$);
+
+% Choose the +x branch into final SG_z
+\node[magnet,right=2.0cm of xup] (SGz2) {SG$_z$};
+
+% After SGz2 split
+\coordinate (zup2)   at ($(SGz2.east)+(2.0, 0.9)$);
+\coordinate (zdown2) at ($(SGz2.east)+(2.0,-0.9)$);
+
+% --- Beams ---
+
+% Source to first SG_z
+\draw[beam,->] (S) -- (SGz1.west) node[pos=0.9,above left=1pt and 1pt,note] {source};
+
+% SG_z split
+\draw[beam,->] (SGz1.east) -- (zup)   node[midway,above,note] {$\ket{\uparrow_z}$};
+\draw[beam,->] (SGz1.east) -- (zdown) node[midway,below,note] {$\ket{\downarrow_z}$};
+
+% Block the down arm
+%\draw[beam] (zdown) -- (Blk.west);
+%\draw[very thick] ($(Blk.north west)+(0.5mm,0)$) -- ($(Blk.south east)+(-0.5mm,0)$);
+%\draw[very thick] ($(Blk.south west)+(0.5mm,0)$) -- ($(Blk.north east)+(-0.5mm,0)$);
+
+% Up arm into SG_x
+\draw[beam,->] (zup) -- (SGx.west) node[midway,above,note] {filter $\ket{\uparrow_z}$};
+
+% SG_x split (50/50)
+\draw[beam,->] (SGx.east) -- (xup)   node[midway,above,note] {$\ket{\uparrow_x}$ };
+\draw[beam,->] (SGx.east) -- (xdown) node[midway,below,note] {$\ket{\downarrow_x}$};
+
+% Route +x arm to final SG_z
+\draw[beam,->] (xup) -- (SGz2.west) node[midway,above,note] {select $\ket{\uparrow_x}$};
+
+% Final SG_z split (50/50 again)
+\draw[beam,->] (SGz2.east) -- (zup2)   node[midway,above,note] {$\ket{\uparrow_z}$};
+\draw[beam,->] (SGz2.east) -- (zdown2) node[midway,below,note] {$\ket{\downarrow_z}$};
+
+% Detectors (optional)
+%\node[det] at (zup2) {};
+%\node[det] at (zdown2) {};
+%\node[det] at (xdown) {};
+
+% Labels on devices
+%\node[note,below=2mm of SGz1] {measure $z$};
+%\node[note,below=2mm of SGx]  {measure $x$};
+%\node[note,below=2mm of SGz2] {measure $z$};
+
+% Explanatory notes
+%\node[note,below right=1mm and -2mm of zdown] {discard arm};
+\node[note] at ($(xdown)+(1,0)$) {unused arm};
+\end{tikzpicture}
+\caption{Stern-Gerlach experiment}
+\end{figure}
+
+
+\begin{enumerate}
+	\item[\textbf{SG$_z$}] Measure spin in $z$-direction: Send the beam through a Stern-Gerlach magnet oriented along $z$. The beam splits into spin-up $\ket{\uparrow}$ and spin-down $\ket{\uparrow}$ paths. Keep only the spin-up branch, which gives a pure state $\ket{\uparrow_z}$.
+
+	\item[\textbf{SG$_x$}] Measure spin in $x$-direction: Now send the filtered beam through a second magnet, oriented along $x$. The beam splits again into $\ket{\uparrow_x}$ and $\ket{\downarrow_x}$ outcomes with $50\%$--$50\%$ probability. So far, this can \emph{still} be explained with classical probability.
+	
+	\item[\textbf{SG$_z$}] Measure spin in $z$-direction again: Send either of the filtered beams $\ket{\uparrow_x}$ or $\ket{\downarrow_x}$ through a $z$-magnet again. You do \emph{not} get back the original result, i.e., instead of remaining spin-up, you see another $50\%$--$50\%$ split between $\ket{\uparrow_z}$ and $\ket{\downarrow_z}$
+\end{enumerate}
+
+Morally, if spin-$x$ and spin-$z$ were classical random variables, measuring $x$ would \emph{erase} knowledge of $z$. In classical probability, observing one property never randomizes another unless there is \emph{hidden causal disturbance}.
+
+Quantum mechanically, the two observables (or random variables)
+\begin{align*}
+	\sigma_z = \begin{bmatrix}
+		1 & 0 \\ 0 &-1
+	\end{bmatrix}\quad\text{spin in $z$-direction},\qquad 
+	\sigma_x = \begin{bmatrix}
+		0 & 1 \\ 1 &0
+	\end{bmatrix}\quad\text{spin in $x$-direction}.
+\end{align*}
+do not commute, i.e., $[\sigma_x,\sigma_y]\ne 0$, and measuring $\sigma_x$ \emph{changes} information about $\sigma_z$. In this sense, they cannot be jointly sampled, i.e., there is no classical joint probability $p(\sigma_x,\sigma_z)$ for these observables, which illustrates the need for noncommutative probability.
+\end{example}
+
+
+
+
+
+
