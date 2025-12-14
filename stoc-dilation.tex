@@ -84,7 +84,7 @@ we conclude that $\sfZ_TW$ is indeed a $\sfP$-martingale.
 
 
 \[
-	\d U_t = -\bigl(a^\dagger a\,\d t + i\sqrt{2}\,a\,\d B_t\bigr)U_t
+	\d U_t = -\bigl(a^* a\,\d t + i\sqrt{2}\,a\,\d B_t\bigr)U_t
 \]
 
 
@@ -122,7 +122,7 @@ In fact, this subalgebra is a \emph{von Neumann} algebra:
 There are sub-families of $\calA$ that play a distinguished role, namely,
 \begin{align*}
 	\scrA_+ &:= \bigl\{ a\in \calA : a\succeq 0 \bigr\} &\text{(nonnegative operators)}\\
-	\calO &:= \bigl\{ a\in \calA : a^\dagger = a \bigr\} &\text{(self-adjoint operators)} \\
+	\calO &:= \bigl\{ a\in \calA : a^* = a \bigr\} &\text{(self-adjoint operators)} \\
 	\calP &:= \bigl\{ a\in \calO : a^2 = a \bigr\} &\text{(projection operators)}
 \end{align*}
 Here, $a\succeq 0$ if and only if $\langle f,af\rangle_\calH\ge 0$ for all $f\in\calH$.
@@ -133,11 +133,11 @@ Here, $a\succeq 0$ if and only if $\langle f,af\rangle_\calH\ge 0$ for all $f\in
 On a von Neumann algebra $\calA$, we can talk about special types of continuous linear functionals on $\calA$, called states.
 
 \begin{definition}
-	A \emph{state} on a von Neumann algebra $\calA$ is a linear functional $\uppsi:\calA\to \bbC$ that is positive and normalized, i.e., $\uppsi(a^\dagger a)\ge 0$ for all $a\in\calA$ and $\uppsi(I_{\calB(\calH)})=1$.
+	A \emph{state} on a von Neumann algebra $\calA$ is a linear functional $\uppsi:\calA\to \bbC$ that is positive and normalized, i.e., $\uppsi(a^* a)\ge 0$ for all $a\in\calA$ and $\uppsi(I_{\calB(\calH)})=1$.
 	
 	A state $\uppsi$ is said to be
 	\begin{itemize}[itemsep=0.1em]
-		\item[] \emph{faithful} if $\uppsi(a^\dagger a)=0\;\Leftrightarrow\; a=0$,
+		\item[] \emph{faithful} if $\uppsi(a^* a)=0\;\Leftrightarrow\; a=0$,
 		\item[] \emph{tracial} if $\uppsi(ab)=\uppsi(ba)$ for all $a,b\in\calA$, and
 		\item[] \emph{normal} if $\uppsi\in\calA_*$, i.e., if it is an element of the predual $\calA_*$.
 	\end{itemize}
@@ -251,7 +251,7 @@ thereby generalizing the martingale problem to a non-commutative setting.
 \]
  
 \[
-	\scrL_a = a^\dagger[\bullet,a] + [a^\dagger,\bullet]a
+	\scrL_a = a^*[\bullet,a] + [a^*,\bullet]a
 \]
 
 \begin{example}[Diffusion]
@@ -265,17 +265,17 @@ i.e., it is the generator of the It\^o diffusion
 \]
 with $A=\sigma\sigma^\top\in \bbR^{d\times d}$, $\sigma\in \bbR^{d\times m}$ 
 \[
-	a_i = \sum_{j=1}^d \sigma_{ji}\partial_j,\qquad a_i^\dagger = -\sum_{j=1}^d\partial_j(\sigma_{ji}\,\bullet),\qquad i=1,\ldots,m.
+	a_i = \sum_{j=1}^d \sigma_{ji}\partial_j,\qquad a_i^* = -\sum_{j=1}^d\partial_j(\sigma_{ji}\,\bullet),\qquad i=1,\ldots,m.
 \]
-It is not difficult to see that $[a_i^\dagger,M_f] = -[a_i,M_f]$. Moreover, for any $g\in C_c^\infty(\bbR^d)$,
+It is not difficult to see that $[a_i^*,M_f] = -[a_i,M_f]$. Moreover, for any $g\in C_c^\infty(\bbR^d)$,
 \begin{align*}
-	a_i^\dagger[M_f,a_i]g &= \sum_{j=1}^d \partial_j(\sigma_{ji}g\sum_{k=1}^d\sigma_{ki}\partial_kf) \\
+	a_i^*[M_f,a_i]g &= \sum_{j=1}^d \partial_j(\sigma_{ji}g\sum_{k=1}^d\sigma_{ki}\partial_kf) \\
 	&= \sum_{j=1}^d g\partial_j(\sigma_{ji}\sum_{k=1}^d\sigma_{ki}\partial_kf) + \sum_{j,k=1}^d \sigma_{ji}\sigma_{ki}\partial_j g \partial_kf \\
 	&= \sum_{j=1}^d g\partial_j(\sigma_{ji}\sum_{k=1}^d\sigma_{ki}\partial_kf) - [M_f,a_i]a_ig.
 \end{align*}
 Consequently, we find that
 \[
-	\sum_{i=1}^m \scrL_{a_i}(M_f) = \sum_{i=1}^m\bigl(a_i^\dagger[M_f,a_i] + [a_i^\dagger,M_f]a_i\bigr) 
+	\sum_{i=1}^m \scrL_{a_i}(M_f) = \sum_{i=1}^m\bigl(a_i^*[M_f,a_i] + [a_i^*,M_f]a_i\bigr) 
 %	= \sum_{i=1}^m\sum_{j,k=1}^d \partial_j(\sigma_{ji}\sigma_{ki}\partial_kf) 
 	= M_{\text{div}(A\nabla f)}
 \]
@@ -334,7 +334,7 @@ However, we know that the diffusion process constitutes a gradient flow with dri
 	[a_i,M_f]g = \sum_{j=1}^d \sigma_{ji}\partial_j(fg) - \sum_{j=1}^d f\sigma_{ji}\partial_jg = \sum_{j=1}^d \sigma_{ji}g\partial_jf = M_{a_i(f)}g
 \]
 \[
-	[a_i^\dagger,M_f]g = -\sum_{j=1}^d\partial_j(\sigma_{ji}\, fg) + \sum_{j=1}^d f\partial_j(\sigma_{ji}\,g) = -\sum_{j=1}^d\sigma_{ji} \partial_jf g = -M_{a_i(f)}g = -[a_i^\dagger,M_f]g
+	[a_i^*,M_f]g = -\sum_{j=1}^d\partial_j(\sigma_{ji}\, fg) + \sum_{j=1}^d f\partial_j(\sigma_{ji}\,g) = -\sum_{j=1}^d\sigma_{ji} \partial_jf g = -M_{a_i(f)}g = -[a_i^*,M_f]g
 \]
 
 Consequently, we find that
@@ -379,24 +379,24 @@ where we used the fact that $[a_i,M_f] = M_{a_i(f)}$ for every $i=1,\ldots,d$.
 	\, \sigma\, \partial_x\psi\,\d\pi  \\
 	&= -\int \partial_x(\sigma\varphi \pi)\psi(x)\,\d x \\
 	&= -\int \partial_x(\sigma \varphi)\psi\,\d \pi + \int \varphi \psi\, \sigma\partial_xV\,\d\pi \\
-	&= \int \bigl[-\partial_x(\sigma\varphi)+\varphi \sigma\partial_x V\bigr]\psi\,\d\pi = \langle a^\dagger\varphi|\psi\rangle
+	&= \int \bigl[-\partial_x(\sigma\varphi)+\varphi \sigma\partial_x V\bigr]\psi\,\d\pi = \langle a^*\varphi|\psi\rangle
 \end{align*}
 \[
-	(a^\dagger M_fa\psi)(x) = -\partial_x(f\sigma^2\partial_x \psi) + f\sigma^2\partial_x \psi \partial_x V
+	(a^* M_fa\psi)(x) = -\partial_x(f\sigma^2\partial_x \psi) + f\sigma^2\partial_x \psi \partial_x V
 \]
 \[
-	(a^\dagger aM_f\psi)(x) = -\partial_x(\sigma^2\partial_x(f\psi)) + \sigma^2\partial_x(f\psi)\partial_x V
+	(a^* aM_f\psi)(x) = -\partial_x(\sigma^2\partial_x(f\psi)) + \sigma^2\partial_x(f\psi)\partial_x V
 \]
 \[
-	(M_fa^\dagger a\psi)(x) = -f\partial(\sigma^2\partial_x\psi) + \sigma^2f\partial_x\psi\partial_x V
+	(M_fa^* a\psi)(x) = -f\partial(\sigma^2\partial_x\psi) + \sigma^2f\partial_x\psi\partial_x V
 \]
 \begin{align*}
-	\int \psi(x)(a^\dagger M_fa\psi)(x)\,\d\pi &= \int f|\sigma\partial_x\psi|^2\,\d\pi 
+	\int \psi(x)(a^* M_fa\psi)(x)\,\d\pi &= \int f|\sigma\partial_x\psi|^2\,\d\pi 
 \end{align*}
 
 %\begin{align*}
 %	\langle \psi|\scrL_a M_f|\psi\rangle 
-%	&= \int f(x)|(a\psi)(x)|^2\,\pi(\d x) - \langle a^\dagger a\psi|M_f\psi\rangle  
+%	&= \int f(x)|(a\psi)(x)|^2\,\pi(\d x) - \langle a^* a\psi|M_f\psi\rangle  
 %\end{align*}
 %
 %
@@ -429,34 +429,34 @@ where we used the fact that $[a_i,M_f] = M_{a_i(f)}$ for every $i=1,\ldots,d$.
 %\]
 %\end{example}
 %\begin{align*}
-%	a^\dagger[a,M_f]g(x) &= - \int \left[\int [f(z)-f(y)]g(z)\kappa(y,\d z)-\int [f(z)-f(x)]g(z)\kappa(x,\d z)\right] \kappa(x,\d y)\\
+%	a^*[a,M_f]g(x) &= - \int \left[\int [f(z)-f(y)]g(z)\kappa(y,\d z)-\int [f(z)-f(x)]g(z)\kappa(x,\d z)\right] \kappa(x,\d y)\\
 %	&= -\int \left[\int f(z)g(z)\kappa(y,\d z) - \int f(z)g(z)\kappa(x,\d z)\right] \kappa(x,\d y) \\
 %	& + \int f(y) \int g(z)\kappa(y,\d z) - f()
 %\end{align*}
 %
 %\[
-%	a^\dagger = -a
+%	a^* = -a
 %\]
 %
 %
 %\begin{align*}
 %	\iint f(x,y)(a\psi)(x,y)\pi(\d x)\pi(\d y) &= \iint f(x,y)\psi(x)\sqrt{\kappa(x,y)}\pi(\d x)\pi(\d y) \\
-%	&= \int \psi(x)\left(\int f(x,y)\sqrt{\kappa(x,y)}\pi(\d y)\right)\pi(\d x) = \langle \psi|a^\dagger f\rangle 
+%	&= \int \psi(x)\left(\int f(x,y)\sqrt{\kappa(x,y)}\pi(\d y)\right)\pi(\d x) = \langle \psi|a^* f\rangle 
 %\end{align*}
 %
 %\begin{align*}
-%	\langle \psi|\scrL_a M_f|\psi\rangle &= \upalphac{1}{2}\langle \psi| a^\dagger[M_f,a]\psi\rangle + \upalphac{1}{2}\langle\psi|[a^\dagger,M_f]a\psi\rangle \\
-%	&= \upalphac{1}{2}\langle a\psi|M_f|a\psi\rangle - \upalphac{1}{2}\langle \psi|a^\dagger aM_f\psi\rangle + \upalphac{1}{2}\langle a\psi| M_f|a\psi\rangle - \upalphac{1}{2}\langle M_f\psi|a^\dagger a\psi\rangle \\
-%	&= \int f(x)|(a\psi)(x)|^2\,\pi(\d x) - \langle a^\dagger a\psi|M_f\psi\rangle  
+%	\langle \psi|\scrL_a M_f|\psi\rangle &= \upalphac{1}{2}\langle \psi| a^*[M_f,a]\psi\rangle + \upalphac{1}{2}\langle\psi|[a^*,M_f]a\psi\rangle \\
+%	&= \upalphac{1}{2}\langle a\psi|M_f|a\psi\rangle - \upalphac{1}{2}\langle \psi|a^* aM_f\psi\rangle + \upalphac{1}{2}\langle a\psi| M_f|a\psi\rangle - \upalphac{1}{2}\langle M_f\psi|a^* a\psi\rangle \\
+%	&= \int f(x)|(a\psi)(x)|^2\,\pi(\d x) - \langle a^* a\psi|M_f\psi\rangle  
 %\end{align*}
 %\[
 %	\int (a\psi)(x) a(f\psi)(x)\,\pi(\d x)
 %\]
 %\[
-%	(a^\dagger (M_f\otimes 1) a\psi)(x) = \int f(x)\sqrt{\kappa(x,y)}\psi(x)\sqrt{\kappa(x,y)}\pi(\d y)
+%	(a^* (M_f\otimes 1) a\psi)(x) = \int f(x)\sqrt{\kappa(x,y)}\psi(x)\sqrt{\kappa(x,y)}\pi(\d y)
 %\]
 %\[
-%	(a^\dagger a\psi)(x) = \int \psi(x)\kappa(x,y)\pi(\d y)
+%	(a^* a\psi)(x) = \int \psi(x)\kappa(x,y)\pi(\d y)
 %\]
 %
 %
@@ -466,13 +466,13 @@ where we used the fact that $[a_i,M_f] = M_{a_i(f)}$ for every $i=1,\ldots,d$.
 
 In this section, we consider $\frX=\textsf{Mat}(\bbC,n)$. Let $a\in \calO(\frX)$ be an observable on $\frX$ and set
 \[
-	\scrL x = a^\dagger[x,a] + [a^\dagger,x]a,\qquad x\in \frX.
+	\scrL x = a^*[x,a] + [a^*,x]a,\qquad x\in \frX.
 \]
 We then consider the solution of the
 \[
-	\d \scrU_t = \bigl(-a^\dagger a\,\d t + i\sqrt{2}a\,\d B_t\bigr)\scrU_t,
+	\d \scrU_t = \bigl(-a^* a\,\d t + i\sqrt{2}a\,\d B_t\bigr)\scrU_t,
 \]
-which, due to $a=a^\dagger$, can be explicitly expressed as
+which, due to $a=a^*$, can be explicitly expressed as
 \[
 	\scrU_t(x,e(f)) \coloneqq \exp(i\sqrt{2} a B_t(\omega))x,\qquad t\in\bbT,
 \]
@@ -487,6 +487,147 @@ which is a $*$-automorphism on $\frX$, which extends to an isometry
 \[
 	\frz_t(x) - \frz_0(x) - \int_0^t \frz_r(\scrL x)\dd r
 \]
+
+
+\subsection{Stochastic processes on the unitary group}
+
+\subsubsection{The unitary group and its Lie structure}
+
+The unitary group is defined as
+\[
+U(n) = \bigl\{ U \in \mathbb C^{n\times n} : U^* U = I \bigr\}.
+\]
+It is a compact Lie group with Lie algebra (tangent space at identity)
+\[
+	\calU(n) = \sfT_IU(n) = \bigl\{ \fra \in \mathbb C^{n\times n} : \fra^* = -\fra \bigr\},
+\]
+i.e., the space of skew-Hermitian matrices. A vector field $\fra\colon U(n)\to \calU(n)$ is \emph{left--invariant} if $\fra(U) = U \fra(I)\in\calU(n)$ for all $U\in U(n)$.
+
+The Lie algebra $\calU(n)$ can be equipped with a real inner product given by the Hilbert-Schmidt inner product
+\[
+	\langle \fra, \frb \rangle_{\calU(n)} = -\tr(\fra^* \frb) = \Re\, \tr(\fra \frb^*),
+\]
+which is positive-definite on $\calU(n)$. The associated norm is then
+\[
+	|\fra|_{\calU(n)}^2 = \langle \fra, \fra \rangle_{\calU(n)} = \mathrm{Tr}(\fra \fra^*).
+\]
+
+\subsubsection{Unitary-valued Brownian motion (rank-$r$ noise)}
+
+Let $\fra_1,\dots,\fra_r \in \calU(n)$ be orthonormal under the inner product $\langle\cdot,\cdot\rangle_{\calU(n)}$, where $1\le r\le n^2$.   Further, let $\beta_t^1,\dots,\beta_t^r$ be independent standard real Brownian motions.
+
+Define the $\calU(n)$--valued (possibly degenerate) Brownian driver
+\[
+	\frw_t = \sum\nolimits_j \fra_j\,\beta_t^j .
+\]
+If $r=n^2$, the driver is elliptic (non-degenerate).  
+If $r< n^2$, the covariance has rank $r$ and the process is \emph{degenerate} (hypoelliptic), exploring only the connected subgroup
+\[
+	H = \exp(\calH)\subset U(n),\quad \calH = \mathrm{Lie}\{\fra_1,\dots,\fra_r\}\subset\calU(n).
+\]
+
+The intrinsic $U(n)$-valued diffusion process solves the Stratonovich SDE
+\[
+	dU_t = U_t \circ d\frw_t, \qquad U_0 = I,
+\]
+or in components
+\[
+	dU_t = \sum\nolimits_j U_t \fra_j \circ d\beta_t^j.
+\]
+The matrix-valued quadratic variation of $\frw$ is given by
+\[
+	d[\frw] = \sum\nolimits_j \fra_j\otimes \fra_j\,dt.
+\]
+
+In It\^o form, the equivalent SDE reads
+\[
+	dU_t = U_t\bigl( d\frw_t + \frl\,dt\bigr),\qquad \frl := \frac{1}{2}\sum\nolimits_j \fra_j^2,
+\]
+where $\frl$ is the Laplace-Beltrami generator associated with the left-invariant connection.
+
+In the following, we denote its law on path space $C([0,T];U(n))$ by $\sfP$.
+
+\subsubsection{Girsanov transform on $U(n)$ (Karandikar type)}
+
+Let $\fru\in L^2((0,T);\calU(n))$ be adapted and square-integrable.
+
+Define the drifted group motion by
+\[
+	dU_t^\fru = U_t^\fru \circ (d\frw_t + \fru_t\,dt),\qquad U_0^\fru = I.
+\]
+Assuming a Novikov condition in the active noise directions,
+\[
+\mathbb E\left[ \exp\left( \frac12\int_0^T |\fru_s|^2 \,ds \right) \right] < +\infty,
+\]
+the process defined below is a true martingale.
+
+Decompose the drift against the active algebra frame:
+\[
+	\fru_t = \sum\nolimits_j \fra_j\,v_t^j,\qquad v=(v^1,\dots,v^r)\in L^2((0,T);\bbR^r).
+\]
+Define the exponential Cameron-Martin density process
+\begin{align*}
+	M_T &= \exp\left( \int_0^T \langle \fru_t, d\frw_t\rangle - \frac12\sum\nolimits_j\int_0^T \langle \fru_t,\fra_j \otimes \fra_j \,\fru_t\rangle\,  dt \right) \\
+	&= \exp\left( \sum\nolimits_j \int_0^T v_t^j\, d\beta_t^j - \frac12\sum\nolimits_j \int_0^T |v_t^j|^2 dt \right).
+\end{align*}
+This expression depends only on the directions with nonzero quadratic variation. It is the standard Cameron-Martin shift density on $\mathbb{R}^r$ lifted to the group via left multiplication.
+
+We then define a new path measure on the same probability space by
+\[
+	\sfQ = M_T\,\sfP.
+\]
+Under $\sfQ$:
+\begin{enumerate}[label=(\roman*)]
+	\item The shifted drivers
+\[
+\beta_t^{j,\sfQ} := \beta_t^j - \int_0^t v_s^j\, ds
+\]
+are Brownian motions again on $\bbR$.
+
+\item The algebra noise
+\[
+	d\frw_t^{\sfQ} := d\frw_t - \fru_s\, dt = \sum\nolimits_j \fra_j\,d\beta_t^{j,\sfQ}
+\]
+is a $\calU(n)$-valued Brownian motion again with same covariance 
+\[
+	d[\frw^\sfQ] = d[\frw] = \sum\nolimits_j \fra_j\otimes\fra_j\,dt.
+\]
+
+\item The group paths satisfy the same \emph{driftless} intrinsic SDE
+\[
+	dU_t^\fru = U_t^\fru \circ dW_t^\sfQ = \sum\nolimits_j U_t^\fru \fra_j \circ d\beta_t^{j,\sfQ},
+\]
+so $U_t^\fru$ is an intrinsic Brownian motion on the same symmetry group $H$.
+\end{enumerate}
+
+Hence, $M_T$ is the Radon-Nikodym derivative between the laws of the drifted and driftless group diffusions on path space.
+
+\subsubsection{Induced Girsanov on pure states}
+
+Rank-1 projections evolve by the conjugation map
+\[
+P_t=U_tP_0U_t^*,\qquad P_0=\psi_0\psi_0^*.
+\]
+This gives a valid reference probability on paths of $C([0,T];\mathcal M)$, where
+\[
+\mathcal M = \{ V P_0 V^* : V\in H \}\subset \mathcal P_1(n)\simeq\mathbb{CP}^{n-1}
+\]
+is the homogeneous orbit that the degenerate noise can reach.
+
+Linearising conjugation and applying the Stratonovich chain rule yields the SDE
+\[
+	dP_t^\fru = [\circ dW_t^\sfQ,\,P_t^\fru] = \sum\nolimits_j [\fra_j,P_t^\fru] \circ d\beta_t^{j,\sfQ},
+\]
+so the pure-state path law remains Brownian on the same orbit manifold $\mathcal M$.
+
+If a drift $\fru$ has components outside $\mathrm{span}\{\fra_j\}$, only the projection of the drift onto that span can be removed. Directions with zero quadratic variation cannot absorb drifts.
+
+\[
+	\int F(U_tP_0U_t^*)\,\sfP(dU) =  
+\]
+
+
+\newpage
 
 
 \subsection{Dilation of semigroups (Sz.Nagy)}
@@ -569,13 +710,13 @@ Taking the sup
 \subsection{LDP via G\"artner-Ellis revisited}
 Let $\Omega=\calC(I;\frh)$ be the space of $\frh$-valued continuous path and consider the canonical process $(X_t)_{t\in I}$ defined by $X_t(\omega):=\omega(t)$ for all $t\in I$. Further, let $\calF = \cup_{t\ge 0}\calF_t$, where the filtration $\frF:=\{\calF_t:=\sigma(X_s:0\le s\le t)\}_{t\in I}$ is generated by $(X_t)_{t\in I}$. Throughout, we consider a reference path measure $\sfR\in\calP(\Omega)$ such that $X$ admits the $\sfR$-semimartingale decomposition
 \[
-	X = X_0 + b^\sfR + M^\sfR\qquad\text{$\sfR$-almost surely},
+	X = X_0 + B^\sfR + M^\sfR\qquad\text{$\sfR$-almost surely},
 \]
-where $b^\sfR$ is an adapted process with absolutely continuous  sample paths $\sfR$-almost surely, and $M^\sfR$ is an $\sfR$-martingale. For simplicity of presentation, we assume that the quadratic variation of $M^\sfR$ is an $\calS_+(\frX)$-valued random measure on $I$ with Lebesgue dentisy, i.e.,
+where $B^\sfR$ is an adapted process with absolutely continuous  sample paths $\sfR$-almost surely, and $M^\sfR$ is an $\sfR$-martingale. For simplicity of presentation, we assume that the quadratic variation of $M^\sfR$ is an $\calS_+(\frX)$-valued random measure on $I$ with Lebesgue dentisy, i.e.,
 \[
-	\frac{\dd [M^\sfR,M^\sfR]}{\dd\lambda}(t) = \sfa_t^\sfR(X_t)\in \calS_+(\frh)\qquad \text{$\sfR$-almost surely},
+	\frac{\dd [M^\sfR,M^\sfR]}{\dd\lambda}(t) = \sfa_t(X_t)\in \calS_+(\frh)\qquad \text{$\sfR$-almost surely},
 \]
-and also that $t\mapsto \sfa_t^\sfR(X_t)$ is an $\frF$-adapted process.
+and also that $t\mapsto \sfa_t(X_t)$ is an $\frF$-adapted process.
 
 
 
@@ -588,22 +729,115 @@ Let $X^1,X^2,\ldots$ be independent copies of
 $(X^1,\ldots,X^n)$
 
 \[
-	\frac{\dd \sfQ^i}{\dd\sfP^i} = \exp\left( \int_I \langle\beta_t^i(X_t),\dd  M_t^\sfR\rangle - \frac{1}{2}\int_I \langle \beta_t^i(X_t),\sfa^\sfR_t(X_t)\beta_t^i(X_t)\rangle\dd t \right)
+	\frac{\dd \sfQ^{n}}{\dd\sfP^{\otimes n}} = \exp\left( \sum_{i=1}^n\int_I \langle\beta_t^i(X_t),\dd  M_t^\sfR\rangle - \frac{1}{2}\sum_{i=1}^n\int_I \langle \beta_t^i(X_t),\sfa_t(X_t)\beta_t^i(X_t)\rangle\dd t \right) =: Z^{(n)}
 \]
-Define $\sfQ^{(n)}:= \sfQ^1\otimes\cdots\otimes \sfQ^n$.
+\[
+	Y_t^{(n)} := \sum_{i=1}^n\int_0^t \langle\beta_s^i(X_s),\dd  M_s^\sfR\rangle - \frac{1}{2}\sum_{i=1}^n\int_0^t \langle \beta_s^i(X_s),\sfa_s(X_s)\beta_s^i(X_s)\rangle\dd s
+\]
+\begin{align*}
+	\dd Z_t^{(n)} = \dd e^{Y_t^{(n)}} = Z_t^{(n)}\left(\dd Y_t^{(n)} + \frac{1}{2} \dd [Y^{(n)},Y^{(n)}]_t\right) = \sum_{i=1}^n  Z_t^{(n)} \langle\beta_t^i(X_t),\dd  M_t^\sfR\rangle
+\end{align*}
+
+
+Define $\rho^n:=\frac{1}{n}\sum_{i=1}^n X^i$. Then,
+\[
+	\dd \rho^n = \frac{1}{n}\sum_{i=1}^n \dd X^i_t = \frac{1}{n}\sum_{i=1}^n b_t^\sfR(X^i_t)\dd t + \frac{1}{n}\sum_{i=1}^n\dd M^{\sfR,i}_t
+\]
 
 
 \begin{align*}
-	\sfP^{\otimes n}\left(\frac{1}{n}\sum_{i=1}^n X^i \in A\right) &= \int_A\,e^{-\int_I \langle\beta_t^i(X_t),\dd  M_t^\sfR\rangle + \frac{1}{2}\int_I \langle \beta_t^i(X_t),\sfa^\sfR_t(X_t)\beta_t^i(X_t)\rangle\dd t}\dd\sfQ^{(n)}
+	\sfP^{\otimes n}\left(\frac{1}{n}\sum_{i=1}^n X^i \in A\right) &= \int_A\,e^{-\int_I \langle\beta_t^i(X_t),\dd  M_t^\sfR\rangle + \frac{1}{2}\int_I \langle \beta_t^i(X_t),\sfa_t(X_t)\beta_t^i(X_t)\rangle\dd t}\dd\sfQ^{(n)} \\
+	&= \int_A\,e^{-\int_I \langle\beta_t^i(X_t),\dd  M_t^\sfR\rangle + \frac{1}{2}\int_I \langle \beta_t^i(X_t),\sfa_t(X_t)\beta_t^i(X_t)\rangle\dd t}\dd\sfQ^{(n)}
 \end{align*}
 
 \[
 	A:= \{ \rho : \partial_t\rho + \ddiv j =  L\rho\}
 \]
+\begin{align*}
+	D_{\beta^i} \exp\left( \int_I \langle\beta_t^i(X_t),\dd  M_t^\sfR\rangle + \frac{1}{2}\int_I \langle \beta_t^i(X_t),\sfa_t(X_t)\beta_t^i(X_t)\rangle\dd t \right)[h^i]
+\end{align*}
+
+\begin{align*}
+	\int_I \langle\beta_t, j_t\rangle\dd t -  \log \int_A Z^{(n)}\dd\sfP^{\otimes n}
+\end{align*}
+
+\subsubsection{Example}
+
+We consider the Hilbert space $\frh = \bbM$ equipped with the scalar product $\langle A,B\rangle = \tr[A^* B]$. Consider the stochastic process
+\[
+	P_t = P_0 + \int_0^t L P_s\dd s + \int_0^t \dnabla P_s\dd W_s ,
+\]
+where $\dnabla P = [i\sigma_X,P]$ and $LP = (1/2)[i\sigma_X,[i\sigma_X,P]]$. In other words,
+\[
+	B_t^\sfR = \int_0^t L P_s\dd s,\qquad M_t^\sfR = \int_0^t \dnabla P_s\dd W_s,
+\]
+where $M^\sfR$ has the quadratic variation
+\[
+	\sfa(P) = \langle(\dnabla P)^*,\bullet\,\rangle\,\dnabla P\qquad\text{for every $P\in \frh$}.
+\]
+Let $P^1,P^2,\ldots$ be independent copies and define $\rho^n:=\frac{1}{n}\sum_{i=1}^n P^i$. Then,
+\[
+	\dd \rho_t^n =  L\rho_t^n\dd t + \frac{1}{n}\sum_{i=1}^n\dnabla P^i_t \dd W^i_t = L\rho_t^n\dd t + \frac{1}{n}\dd M_t^{\sfR,n}.
+\]
+\[
+	\frac{1}{n}\sum_{i=1}^n\dnabla P^i_t \dd W^i_t = \frac{1}{n}\sum_{i=1}^n \Bigl(\dnabla P^i_t \dd W^i_t - \sfa(P_t^i)H_t\dd t\Bigr) + \frac{1}{n}\sum_{i=1}^n \sfa(P_t^i)H_t\dd t
+\]
+\[
+	\dd \rho^n = L\rho^n\dd t + \frac{1}{n}\sum_{i=1}^n\sfa(P_t^i)H_t\dd t + \frac{1}{n}\dd M_t^{\sfQ,n}
+\]
+For each $n\in\bbN$, we set
+\[
+	\frac{\dd \sfQ^{n}}{\dd\sfR^{\otimes n}} = \exp\left( \sum_{i=1}^n\int_I \langle \dnabla P_t^i,H_t\rangle \dd W_t^i - \frac{1}{2}\sum_{i=1}^n\int_I \langle H_t,\sfa(P_t^i) H_t\rangle\dd t \right) =: Z^{(n)}.
+\]
+Then, for curves $\eta$ satisfying $\partial_t\eta + \ddiv J^\eta = L\eta$ for some $J^\eta$, we find that
+\[
+	J^\eta = \sum \langle \sigma_j,J^\eta\rangle\sigma_j
+\]
+Suppose
+\[
+	-\ddiv = \sum_{j\in J} \alpha_j[i\sigma_j,\bullet],
+\]
+then
+\[
+	-\ddiv J^\eta = \sum_{j,k} \alpha_j \langle \sigma_k,J^\eta\rangle[i\sigma_j,\sigma_k] = \sum_{j,k\ne j} \alpha_j \langle \sigma_k,J^\eta\rangle[i\sigma_j,\sigma_k] \in \text{span}\bigl\{ [i\sigma_j,\sigma_k]: j\in J,k\ne j\bigr\}
+\]
 
 
 
+\begin{align*}
+	\sfR^{\otimes n}\bigl(\rho^n \in A\bigr) &= \int_A\exp\biggl( -\sum_{i=1}^n\int_I \langle \dnabla P_t^i,H_t\rangle \dd W_t^i + \frac{1}{2}\sum_{i=1}^n\int_I \langle H_t,\sfa(P_t^i) H_t\rangle\dd t \biggr)\dd\sfQ^{(n)} \\
+	&= \int_A\exp\biggl( -\int_I \langle \dd M_t^{\sfR,n},H_t\rangle + \frac{1}{2}\sum_{i=1}^n\int_I \langle H_t,\sfa(P_t^i) H_t\rangle\dd t \biggr)\dd\sfQ^{(n)} \\
+	&= \int_A\exp\biggl( -\int_I \langle \dd M_t^{\sfQ,n},H_t\rangle - \frac{1}{2}\sum_{i=1}^n\int_I \langle H_t,\sfa(P_t^i) H_t\rangle\dd t \biggr)\dd\sfQ^{(n)}
+\end{align*}
 
+\begin{align*}
+	H^\eta\in \argmin_H \left\{\sfE_\sfQ\biggl[ \frac{1}{2}\int_I \langle H_t,\sfa(P_t) H_t\rangle\dd t\biggr] - \int_I \langle H_t, \ddiv J_t^\eta\rangle\dd t \right\}
+\end{align*}
+\begin{align*}
+	\sfE_\sfQ\biggl[ \int_I \bigl(\tr[P_t \dnabla H_t]\bigr)^2\dd t\biggr] = \int_I \sfE_\sfQ\Bigl[\bigl(\tr[P_t \dnabla H_t]\bigr)^2\Bigr]\dd t 
+\end{align*}
+\[
+	\tr[\rho_t^\sfQ \dnabla H_t] = \sum \lambda_i(t) \langle v_i(t), \dnabla H_t v_i(t)\rangle \ge \gamma\sum \lambda_i(t)
+\]
+\[
+	\sfE_\sfR\biggl[ \int_I \langle G_t,\sfa(P_t) H_t\rangle\dd t\biggr] = \int_I \langle G_t,\ddiv J_t\rangle\dd t 
+\]
+
+\begin{align*}
+	\int_I \langle H_t,\ddiv J_t\rangle\dd t - \log \sfE_\sfR\biggl[\exp\biggl( \int_I \langle H_t, \dd M_t^{\sfR,n}\rangle - \frac{1}{2}\sum_{i=1}^n\int_I \langle H_t,\sfa(P_t^i) H_t\rangle\dd t\biggr)\biggr]
+\end{align*}
+
+\begin{align*}
+	\int_I \langle G_t,\ddiv J_t\rangle\dd t &= -\sfE_{\sfR^{\otimes n}}\biggl[ \biggl( \int_I \langle G_t, \dd M_t^{\sfR,n}\rangle - \sum_{i=1}^n\int_I \langle G_t,\sfa(P_t^i) H_t\rangle\dd t\biggr)\exp\biggl( \int_I \langle H_t, \dd M_t^{\sfR,n}\rangle - \frac{1}{2}\sum_{i=1}^n\int_I \langle H_t,\sfa(P_t^i) H_t\rangle\dd t\biggr)\biggr]
+\end{align*}
+
+Let $Y_t^{(n)} = \sum_{i=1}^n\int_0^t \langle \dnabla H_s, \dnabla P_s^i\rangle \dd W_s^i$ and $Z_t^{(n)}:=\exp(Y_t^{(n)})$. Then,
+\begin{align*}
+	\dd Z_t^{(n)} = Z_t^{(n)} \biggl(\sum_{i=1}^n \langle \dnabla H_t, \dnabla P_t^i\rangle \dd W_t^i + \frac{1}{2} \sum_{i=1}^n \langle \dnabla H_t,\sfa(P_t) \dnabla H_t\rangle\dd t  \biggr)
+\end{align*}
+\[
+	Z_t^{(n)} = 1 + \sum_{i=1}^n \int_0^t  Z_s^{(n)}\langle \dnabla H_s, \dnabla P_s^i\rangle \dd W_s^i + \frac{1}{2} \sum_{i=1}^n \int_0^t Z_s^{(n)}\langle \dnabla H_s,\sfa(P_s) \dnabla H_s\rangle\dd s 
+\]
 
 \newpage
 Let $\varrho\in\calS(\calH)$ be state and $(\varrho^n)_{n\in\bbN}\subset\calS(\calH)$ be a sequence of states. We say that $\varrho^n\to \varrho$ setwise if
@@ -615,7 +849,7 @@ Further, let $(\frz_t)_{t\in\bbT}$ be a stochastic process in the sense of Defin
 	\frz_t\colon \frX\to (\frX\otimes\frC,\varphi),\quad \varphi = \varrho\otimes\mu.
 \]
 \[
-	\frz_t(x)=\fru_t^\dagger x \fru_t
+	\frz_t(x)=\fr\alpha_t^* x \fr\alpha_t
 \]
 and $\frz_0(x) = x\otimes 1$, $x\in\frX$. By construction, we have that
 \[
@@ -650,20 +884,20 @@ Let $\bbT$ be the 1-dimensional torus. Further, let $\calH$ be a Hilbert space a
 \]
 
 \[
-	\calB(\calH) \to L^\infty(\bbT;\calB(\calH));\qquad a\mapsto \fru^\dagger(z)a\fru(z)
+	\calB(\calH) \to L^\infty(\bbT;\calB(\calH));\qquad a\mapsto \fru^*(z)a\fru(z)
 \]
 
 
 
 Let $\rho_0\in \calS(\calH)$ be a given fixed state
 \begin{align*}
-	\varrho_\mu(x) &= \int_\bbT \tr[\fru^\dagger(z) x \fru(z)\varrho_0]\,\mu(\d z) = \int_\bbT f_{\rho_0,x}(z)\,\mu(\d z)\\
-	&= \tr\left[x\int_\bbT \fru(z)\varrho_0\fru^\dagger(z)\,\mu(\d z) \right] = \tr[x\varrho_\mu]
+	\varrho_\mu(x) &= \int_\bbT \tr[\fru^*(z) x \fru(z)\varrho_0]\,\mu(\d z) = \int_\bbT f_{\rho_0,x}(z)\,\mu(\d z)\\
+	&= \tr\left[x\int_\bbT \fru(z)\varrho_0\fru^*(z)\,\mu(\d z) \right] = \tr[x\varrho_\mu]
 \end{align*}
 
 Consider iid random variables $(Z^i)_{i\in\bbN}$, $Z^i\sim\mu\in\calP(\bbT)$ and the corresponding sequence of empirical measures
 \[
-	\mu^n = \frac{1}{n}\sum_{i=1}^n \delta_{Z^i},\qquad \varrho_{\mu^n}(x)=\frac{1}{n}\sum_{i=1}^n \fru(Z^i)\varrho_0\fru^\dagger(Z^i)
+	\mu^n = \frac{1}{n}\sum_{i=1}^n \delta_{Z^i},\qquad \varrho_{\mu^n}(x)=\frac{1}{n}\sum_{i=1}^n \fru(Z^i)\varrho_0\fru^*(Z^i)
 \]
 
 
@@ -672,14 +906,14 @@ Consider iid random variables $(Z^i)_{i\in\bbN}$, $Z^i\sim\mu\in\calP(\bbT)$ and
 	&= \log \left(\int_\bbT e^{f(z)}\mu(\d z)\right)
 \end{align*}
 \begin{align*}
-	\sup_{f=f_{\varrho_0,x}} \left\{\langle f,\nu\rangle-\log \int_\bbT e^{f(z)}\mu(\d z)\right\} = \sup_{x\in\calO(\calH)} \left\{\tr[x\varrho_\nu]-\log \int_\bbT e^{\tr[\fru^\dagger(z)x \fru(z)\varrho_0]}\mu(\d z)\right\}
+	\sup_{f=f_{\varrho_0,x}} \left\{\langle f,\nu\rangle-\log \int_\bbT e^{f(z)}\mu(\d z)\right\} = \sup_{x\in\calO(\calH)} \left\{\tr[x\varrho_\nu]-\log \int_\bbT e^{\tr[\fru^*(z)x \fru(z)\varrho_0]}\mu(\d z)\right\}
 \end{align*}
 \begin{align*}
-	&\sum_{j,k} x_{jk}\tr[E_{jk}\varrho_\nu] - \log\int_\bbT e^{\sum_{j,k}x_{jk}\tr[\fru^\dagger(z)E_{jk}\fru(z)\varrho_0]}\mu(\d z) \\
-	&=\sum_{j,k} x_{jk}\tr[E_{jk}\varrho_\nu] - \log\int_\bbT \prod_{j,k}e^{x_{jk}\tr[\fru^\dagger(z)E_{jk}\fru(z)\varrho_0]}\mu(\d z)
+	&\sum_{j,k} x_{jk}\tr[E_{jk}\varrho_\nu] - \log\int_\bbT e^{\sum_{j,k}x_{jk}\tr[\fru^*(z)E_{jk}\fru(z)\varrho_0]}\mu(\d z) \\
+	&=\sum_{j,k} x_{jk}\tr[E_{jk}\varrho_\nu] - \log\int_\bbT \prod_{j,k}e^{x_{jk}\tr[\fru^*(z)E_{jk}\fru(z)\varrho_0]}\mu(\d z)
 \end{align*}
 \[
-	\tr[E_{jk}\varrho_\nu] = \frac{1}{c} \int_\bbT \tr[\fru^\dagger(z)E_{jk}\fru(z)\varrho_0] e^{\sum_{j,k}x_{jk}\tr[\fru^\dagger(z)E_{jk}\fru(z)\varrho_0]}\mu(\d z)
+	\tr[E_{jk}\varrho_\nu] = \frac{1}{c} \int_\bbT \tr[\fru^*(z)E_{jk}\fru(z)\varrho_0] e^{\sum_{j,k}x_{jk}\tr[\fru^*(z)E_{jk}\fru(z)\varrho_0]}\mu(\d z)
 \]
 \[
 	b = \frac{1}{c}\int_\bbT v(z)e^{\langle\x,v(z)\rangle}\mu(\d z)
@@ -696,11 +930,11 @@ Consider the map
 \]
 
 \[
-	\tr[E_{jk}\fru(z)\varrho_0\fru^\dagger(z)] = \langle \psi_k| \fru(z)\varrho_0\fru^\dagger(z)|\psi_j\rangle = \sum_i \lambda_i \langle \psi_k| \fru(z)|\psi_i\rangle\langle\psi_i|\fru^\dagger(z)|\psi_j\rangle
+	\tr[E_{jk}\fru(z)\varrho_0\fru^*(z)] = \langle \psi_k| \fru(z)\varrho_0\fru^*(z)|\psi_j\rangle = \sum_i \lambda_i \langle \psi_k| \fru(z)|\psi_i\rangle\langle\psi_i|\fru^*(z)|\psi_j\rangle
 \]
 If $\varrho_0=\mathbbm{1}$, then
 \[
-	\tr[E_{jk}\fru(z)\varrho_0\fru^\dagger(z)] =\delta_{kj}.
+	\tr[E_{jk}\fru(z)\varrho_0\fru^*(z)] =\delta_{kj}.
 \]
 Hence,
 \[
