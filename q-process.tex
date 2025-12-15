@@ -1,4 +1,37 @@
-\section{Quantum measurement processes}
+%\section{Quantum measurement processes}
+\section{Stochastic Schr\"odinger Equation}
+
+As we have seen, a quantum circuit is essentially a noisy controlled Schr\"odinger equation. In this section, we consider classical noise sources arising from the control mechanism in terms of light-matter interactions. Without going into the details of the physics, we introduce the stochastic Schr\"odinger equation, which captures the evolution of a quantum system driven by classical noise sources.
+
+Let $\calH$ be a Hilbert space and $\scrB(\calH)$ be the space of bounded operators on $\calH$. We also consider the following subspaces of $\scrB(\calH)$ that play a distinguishing role:
+\begin{align*}
+	\scrU(\calH) &:= \bigl\{ \oba\in \scrB(\calH) : \oba^\dagger \oba = \sfI_\calH \bigr\} &\text{(unitary operators)}\\
+	\scrO(\calH) &:= \bigl\{ \oba\in \scrB(\calH) : \oba^\dagger = \oba \bigr\} &\text{(hermitian operators)}
+\end{align*}
+where $\oba^\dagger \coloneqq \overline\oba^\top$ is the hermitian conjugate of an operator $\oba\in \scrB(\calH)$. 
+
+Given a Hamiltonian $H\in\scrO(\calH)$ and a real-valued smooth path $\alpha_t$, the Schr\"odinger equation driven by $\dot\alpha_t H$ may be expressed as an evolution in the space $\scrU(\calH)$:
+\[
+	\d U_t = iHU_t\dd \alpha_t,\qquad U_0 = \sfI_\calH.
+\]
+In particular, the solution may be explicitly expressed as
+\[
+	U_t = \exp\bigl(i(\alpha_t-\alpha_0) H\bigr)\sfI_\calH.
+\]
+In the presence of noise, however, $\alpha_t$ is no longer smooth. Yet, if 
+\[
+	\alpha_t = \alpha_0 + B_t + M_t,
+\]
+
+
+
+\begin{align*}
+	\d U_t = HU_t\,\d t + \sum\nolimits_j V_jU_t\circ \d\alpha_t,
+\end{align*}
+where $H$, $V_j$ are 
+
+
+
 
 \subsection{Quantum measurements}
 
