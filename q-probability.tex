@@ -1,4 +1,4 @@
-\documentclass[11pt]{scrartcl}
+\documentclass[12pt]{scrartcl}
 \usepackage[utf8x]{inputenc}
 \usepackage{fullpage}
 
@@ -13,6 +13,9 @@
 \usepackage{bbm}
 \usepackage{eucal,upgreek}
 \usepackage{xcolor}
+\usepackage{titlesec}
+
+\titleformat*{\paragraph}{\itshape\mdseries}
 
 \usepackage{tikz}
 \usetikzlibrary{arrows.meta,calc,positioning}
@@ -133,6 +136,7 @@
 
 \newcommand{\sfa}{\mathsf{a}}
 \newcommand{\sfA}{\mathsf{A}}
+\newcommand{\sfB}{\mathsf{B}}
 \renewcommand{\sfb}{\mathsf{b}}
 \newcommand{\sfd}{\mathsf{d}}
 \newcommand{\sfe}{\mathsf{e}}
@@ -221,13 +225,14 @@
 
 \input{q-process.tex}
 
-\input{q-noncommutative.tex}
+\newpage
+%\input{q-noncommutative.tex}
+
+%\newpage
+%\input{stoc-dilation.tex}
 
 \newpage
-\input{stoc-dilation.tex}
-
-\newpage
-\input{fock-spaces.tex}
+\input{q-fock-spaces.tex}
 
 
 \end{document}

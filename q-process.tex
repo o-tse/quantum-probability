@@ -1,5 +1,5 @@
 %\section{Quantum measurement processes}
-\section{Open Quantum Systems}
+\section{Open Quantum Systems}\label{sec:open-quantum}
 
 As we have seen, a quantum circuit is essentially a noisy, controlled Schr\"odinger evolution. From a physical perspective, this noise arises from the unavoidable interaction between the system of interest and its environment. As a result, realistic quantum devices cannot be modeled as closed systems evolving unitarily on a Hilbert space, but rather as \emph{open quantum systems}, whose effective dynamics are irreversible.
 
@@ -19,18 +19,18 @@ where $\oba^\dagger \coloneqq \overline\oba^\top$ is the hermitian conjugate of 
 
 A wide range of mathematical and physical models have been developed to describe open quantum systems, spanning microscopic Hamiltonian descriptions of system-environment interactions to phenomenological effective equations. Among these, one of the simplest and most widely used frameworks is provided by the \emph{Lindblad (or Gorini-Kossakowski-Sudarshan-Lindblad, GKSL) equation}. Its importance stems from the fact that it gives the most general form of a Markovian, time-homogeneous quantum evolution that is compatible with the basic principles of quantum mechanics.
 
-Rather than describing the system by a wave function, the Lindblad equation governs the evolution of the density operator $t\mapsto \rho_t\in \scrD(\calH)$, which encodes both classical and quantum uncertainty. The dynamics are given by
+Rather than describing the system by a wave function, the Lindblad equation governs the evolution of the density operator $t\mapsto \rho_t\in \scrD(\calH)$, which encodes both classical and quantum uncertainty. The evolution with initial datum $\rho_0\in\scrD(\calH)$ is given by
 \begin{align}\label{eq:lindblad}\tag{\textsf{GKSL}}
-	\frac{\d}{\d t}\rho_t = -i[H,\rho_t] - \tfrac{1}{2}\sum\nolimits_j [L_j^\dagger,[L_j,\rho_t]],\qquad \rho_0\in\scrD(\calH),
+	\frac{\d}{\d t}\rho_t = -i[H,\rho_t] + \scrL(\rho_t),\qquad \scrL(\rho) \coloneqq - \tfrac{1}{2}\sum\nolimits_j [L_j^\dagger,[L_j,\rho]],
 \end{align}
-where $H\in\scrO(\calH)$ is a given system Hamiltonian, and the operators $L_j\in \scrB(\calH)$, called \emph{Lindblad operators} or \emph{jump operators}, describe the coupling to the environment. The first term represents coherent unitary evolution, while the second term captures irreversible processes such as decoherence, relaxation, and dissipation.
+where $H\in\scrO(\calH)$ is a given system Hamiltonian, $\scrL :\scrD(\calH)\to\scrD(\calH)$ is the \emph{Lindblad (super)-operator}, and $L_j\in \scrB(\calH)$, called \emph{jump operators}, describe the coupling to the environment. The first term represents coherent unitary evolution, while the second term captures irreversible processes such as decoherence, relaxation, and dissipation.
 
 A thorough derivation of the Lindblad equation is lengthy and complex, so we will skip it here. However, from an operational point of view, the density operator $\rho$ is an ensemble of pure states $\oba=|\psi\rangle\langle\psi|\in\scrP(\calH)$. In other words, $\rho$ can be interpreted as the expectation of the canonical random variable under a probability measure $\sfP$ on pure states $\scrP(\calH)$, i.e.,
 \[
 	\rho = \int_{\scrP(\calH)} \oba\,\sfP(\d\oba) \;\in \scrD(\calH).
 \]
 
-In the following, we will be interested in \emph{stochastic dilations} or \emph{stochastic unravellings} of the Lindblad equation, i.e., we will look at $\scrP(\calH)$-valued processes $(\oba_t)$ for which their expectation solves the Lindblad equation. The following sections provide examples of such processes, where some information about the environment is embedded into the model.
+In the following, we will be interested in \emph{stochastic dilations} or \emph{stochastic unravellings} of the Lindblad equation, i.e., we will look at $\scrP(\calH)$-valued processes $(\oba_t)$ for which their expectation solves the Lindblad equation. The following sections provide examples of such processes, where information about the environment is embedded into the model.
 
 \subsection{Stochastic Schr\"odinger equation: Classical noise}
 In the context of Rydberg atoms, the optical control system is a primary source of noise. In the semiclassical limit of light-matter interactions, such noise sources can be considered classical. Without going into the details of the physics, we introduce the stochastic Schr\"odinger equation, which describes the evolution of a quantum system driven by classical noise sources.
@@ -111,7 +111,7 @@ In the case $r=1$, we find, as in the deterministic case, the explicit solution
 \[
 	U_t = \exp\bigl(i(\ttb_t + \sqrt{\gamma}\upomega_t) H\bigr)\sfI_\calH.
 \]
-In particular, $U_t$ commutes with $H$ for all $t\ge 0$.
+In particular, $U_t$ commutes with $H$ for all $t\ge 0$.\hfill $\diamondsuit$
 \end{remark}
 
 \paragraph{Towards the Lindblad equation}
@@ -130,11 +130,52 @@ where we set $H\coloneqq -\sum\nolimits_j L_j$. Hence, taking the expectation, w
 \]
 which is precisely the Lindblad equation \eqref{eq:lindblad} after absorbing $\sqrt{\gamma_j}$ into $L_j$.
 
+Note, however, that we recover the Lindblad equation with hermitian jump operators in this way, i.e., $L_j^\dagger=L_j$. To consider general jump operators, we have to leave the realm of classical noise and talk about quantum noise, which will be the main topic of the remaining sections in this lecture series.
+
+\begin{remark}
+	We note that if $\rho_0\in \scrP(\calH)$ is a pure state, then $\oba_t$ is a $\in\scrP(\calH)$-valued process, i.e., $\oba_t$ is almost surely a pure state for all times. \hfill $\diamondsuit$
+\end{remark}
+
 \subsection{Example: 1-qubit fidelity of the Hadamard gate}
 
-In quantum computing, one is often interested in the fidelity of a quantum gate, i.e., a unitary operation. Say, we would like to implement a Hadamard gate on a single qubit on the Hilbert space $\calH=\bbC^2=\text{span}\{\e_0,\e_1\}$, where the Hadamard gate is given by
+In quantum computing, one is often interested in the \emph{fidelity} of a quantum gate, i.e., a unitary operation, where the fidelity of two density operators $\rho,\sigma\in\scrD(\calH)$ is defined by
 \[
-	U_\sfh = \frac{|\e_0\rangle + |\e_1\rangle}{\sqrt{2}} \langle\e_0| + \frac{|\e_0\rangle - |\e_1\rangle}{\sqrt{2}} \langle \e_1| = \frac{1}{\sqrt{2}}\begin{pmatrix}
+	\sfF(\rho,\sigma) \coloneqq \tr\Bigl[(\sqrt{\rho}\sigma\sqrt{\rho})^{\frac{1}{2}}\Bigr].
+\] 
+When both $\rho=|\psi\rangle\langle \psi|,\sigma = |\varphi\rangle\langle\varphi|\in\scrP(\calH)$ are pure states, the fidelity between the two reduces to 
+$\sfF(\rho,\sigma) = |\langle \psi,\varphi\rangle|^2$, which is much simpler than the case for general density operators. Let's see how the SSE can be used to compute the fidelity of a quantum gate.
+
+\begin{figure*}[h]\centering
+	\begin{tikzpicture}[>=stealth, thick]
+
+% Nodes
+\node (psi) at (0,0) {$\ket{\psi}\bra{\psi}$};
+
+\node (U) at (2,0.8) [draw, minimum width=2em, minimum height=1.6em] {$U$};
+\node (Un) at (2,-0.8) [draw, minimum width=2em, minimum height=1.6em] {$U^\upalpha$};
+
+\node (psiU) at (5,0.8) {$\sigma = \ket{U\psi}\bra{U\psi}$};
+\node (psiUn) at (5,-0.8) {$\rho = \ket{U^\upalpha\psi}\bra{U^\upalpha\psi}$};
+
+\node (F) at (9,0) {$\sfF(\rho,\sigma)$};
+
+% Arrows
+\draw[->] (psi) -- (U);
+\draw[->] (psi) -- (Un);
+
+\draw[->] (U) -- (psiU);
+\draw[->] (Un) -- (psiUn);
+
+\draw[->, dashed] (psiU) -- (F);
+\draw[->, dashed] (psiUn) -- (F);
+
+\end{tikzpicture}
+\caption{Computing the fidelity of a quantum gate}
+\end{figure*}
+
+Say, we would like to implement a Hadamard gate on a single qubit on the Hilbert space $\calH=\bbC^2=\text{span}\{\e_0,\e_1\}$. The Hadamard gate is given by
+\[
+	U_\sfh = \frac{\ket{\e_0} + \ket{\e_1}}{\sqrt{2}} \bra{\e_0} + \frac{\ket{\e_0} - \ket{\e_1}}{\sqrt{2}} \bra{\e_1} = \frac{1}{\sqrt{2}}\begin{pmatrix}
 		1 & 1 \\ 1 & -1
 	\end{pmatrix},
 \]
@@ -144,29 +185,30 @@ with the corresponding eigenpairs $(1,\e_+)$ and $(-1,\e_-)$, where
 \]
 By spectral calculus, we obtain
 \begin{align*}
-	U_\sfh &= (1)|\e_+\rangle\langle \e_+| + (-1)|\e_-\rangle\langle \e_-|
-	= e^0|\e_+\rangle\langle \e_+| + e^{-i\pi}|\e_-\rangle\langle \e_-| \\
-	&= \exp(-i\pi |\e_-\rangle\langle \e_-|) = e^{-i\pi H_\sfh},\qquad H_\sfh\coloneqq |\e_-\rangle\langle \e_-| = \tfrac{1}{2}(\sfI_\calH - \sigma_\mathsf{x}).
+	U_\sfh &= (1)\ket{\e_+}\bra{\e_+} + (-1)\ket{\e_-}\bra{\e_-}
+	= e^0\ket{\e_+}\bra{\e_+} + e^{-i\pi}\ket{\e_-}\bra{\e_-} \\
+	&= \exp(-i\pi \ket{\e_-}\bra{\e_-}) = e^{-i\pi H_\sfh},\qquad H_\sfh\coloneqq \ket{\e_-}\bra{\e_-} = \tfrac{1}{2}(\sfI_\calH - \sigma_\mathsf{x}).
 \end{align*}
 In other words, $iH_\sfh \in\scrA(\calH)$ generates the Hadamard gate after evolving for time $t=\pi$, i.e., $U_t=\exp(itH_\sfh)$ solves the Schr\"odinger equation
 \[
 	\d U_t = iU_t H_\sfh\dd t,\qquad U_0 = \sfI_\calH.
 \]
-Notice that $H_\sfh$ is a rank-1 projection on the vector $\e_-$.
+Notice that $H_\sfh\in\scrP(\calH)$ happens to be a rank-1 projection on the vector $\e_-$.
 
 In the presence of noise, however, we instead have
 \[
 	\d U_t^\upalpha = iU_t^\upalpha H_\sfh\circ \d\upalpha_t,\qquad U_0=\sfI_\calH,
 \]
-where in this example, we consider for simplicity the noise of the form $\upalpha_t = t + \sqrt{\gamma}\upomega_t$. From Remark~\ref{rem:explicit-sse}, we obtain the explicit form $U_t^\upalpha = \exp(i\upalpha_t H_\sfh)$.
+%where in this example, we consider for simplicity the noise of the form $\upalpha_t = t + \sqrt{\gamma}\upomega_t$. 
+From Remark~\ref{rem:explicit-sse}, we obtain the explicit form $U_t^\upalpha = \exp(i\upalpha_t H_\sfh)$. 
 
-A common quantity of interest is the deviation of $U_t^\upalpha\psi$ from $U_t\psi$ for a given unit vector $\psi\in\calH$ in the sense of fidelity, i.e.,
+Suppose we were to simply apply the noisy pulse according to $\upalpha_t = 1 + \sqrt{\gamma}\upomega_t$. Then the fidelity between the desired pure state $\ket{U_t\psi}\bra{U_t\psi}$ and the noisy pure state $\ket{U_t^\upalpha\psi}\bra{U_t^\upalpha\psi}$ for any unit vector $\psi\in\calH$ is given by
 \[
 	\sfF_t^\upalpha(\psi) \coloneqq |\langle U_t^\upalpha \psi,U_t\psi\rangle|^2 = |\langle U_t^\dagger U_t^\upalpha \psi,\psi\rangle|^2 \;\;\in[0,1].
 \]
 Using the forms obtained above, we easily deduce that 
 \[
-	U_t^\dagger U_t^\upalpha = \exp(i\sqrt{\gamma}\upomega_t H_\sfh) = |\e_+\rangle\langle \e_+| + e^{i\sqrt{\gamma}\upomega_t}|\e_-\rangle\langle \e_-|.
+	U_t^\dagger U_t^\upalpha = \exp\bigl(i\sqrt{\gamma}\upomega_t H_\sfh\bigr) = \ket{\e_+}\bra{\e_+} + e^{i\sqrt{\gamma}\upomega_t}\ket{\e_-}\bra{\e_-}.
 \]
 Since $\{\e_+,\e_-\}$ forms an orthonormal basis for $\calH$, $\psi = \psi_+\e_+ + \psi_-\e_-$, for which we obtain
 \begin{align*}
@@ -175,62 +217,82 @@ Since $\{\e_+,\e_-\}$ forms an orthonormal basis for $\calH$, $\psi = \psi_+\e_+
 %	&= (|\psi_+|^2 + |\psi_-|^2e^{i\sqrt{\gamma}\upomega_t})(|\psi_+|^2 + |\psi_-|^2e^{-i\sqrt{\gamma}\upomega_t}) \\
 %	&= |\psi_+|^4 + 2\cos(\sqrt{\gamma}\omega_t)|\psi_+|^2|\psi_-|^2 + |\psi_-|^4 \\
 %	&= |\langle \psi,\psi\rangle|^2 + 2\bigl(\cos(\sqrt{\gamma}\omega_t)-1\bigr)|\psi_+|^2|\psi_-|^2 \\
-	= 1 + 2\bigl(\cos(\sqrt{\gamma}\upomega_t)-1\bigr)|\psi_+|^2|\psi_-|^2.
+	= 1 - 2\bigl(1-\cos(\sqrt{\gamma}\upomega_t)\bigr)|\psi_+|^2|\psi_-|^2.
 \end{align*}
-
-\newpage
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-\subsection{Quantum measurements}
-
-Let $\varrho\in\calS(\calH)$ be a state on a Hilbert space $\calH$ and $t\mapsto U_t \in \calU(\calH)$ be a group of unitary actions on $\calH$. Suppose $\sfQ$ is an $\bbR$-valued observable with spectral measure $\pi^\sfQ:\calB(\bbR)\to \calP(\calH)$, i.e., $\pi^\sfQ$ is a projection-valued measure (PVM). Then the probability of measuring an event $A\in\calB(\bbR)$ at time $t^->0$ is given by Born's rule:
-\[
-	\bbP_\varrho(\lambda_{t^-}^\sfQ\in A) = \tr[\pi^\sfQ(A)\varrho_{t^-}] = \tr[U_t^\dagger\pi^\sfQ(A)U_t \varrho]. 
-\]
-As measurements generally change the state of the system, L\"uders' rule postulates that, \emph{conditioned} on the event $A\in \calB(\bbR)$, the state ``collapses" to
-\[
-	\varrho_{t^+} = \scrS(\pi^\sfQ(A),\varrho_{t^-}),\qquad \scrS(\pi,\varrho) \coloneqq \frac{\pi\varrho\,\pi^\dagger}{\tr[\pi\varrho \pi^\dagger]}\in\calS(\calH).
-\]
-Notice that by definition, $\scrS(\pi,U\varrho\,U^\dagger) = \scrS(\pi U,\varrho)$ and $U\scrS(\pi,\varrho) U^\dagger=\scrS(U\pi,\varrho)$.
-
-The probability of measuring the event $B\in\calB(\bbR)$ at time $t^+>0$ given that the event $A\in\calB(\bbR)$ was measured at time $t>0$ is
-\[
-	\bbP_\varrho(\lambda_{t^+}^\sfQ\in B\,|\,\lambda_{t^-}^\sfQ\in A) = \tr[\pi^\sfQ(B)\scrS(\pi^\sfQ(A),\varrho_{t^-})] = \frac{\tr[\pi^\sfQ(A\cap B)\varrho_{t^-}]}{\tr[\pi^\sfQ(A)\varrho_{t^-}]}.
-\]
-In particular, the conditional probability of measuring event $A\in\calB(\bbR)$ at time $t^+>0$ given it was measured at time $t^->0$ is $1$. If $\sfR$ is another $\bbR$-valued observable, then
-\[
-	\bbP_\varrho(\lambda_{t^+}^\sfR\in B\,|\,\lambda_{t^-}^\sfQ\in A) = \tr[\pi^\sfR(B)\varrho_{t^+}] = \frac{\tr[\pi^\sfR(B)\pi^\sfQ(A)\varrho_{t^-}\pi^\sfQ(A)\pi^\sfR(B)]}{\tr[\pi^\sfQ(A)\varrho_{t^-}]}.
-\]
-When $\sfR$ and $\sfQ$ commute, then $\pi^\sfR(B)\pi^\sfQ(A) = \pi^\sfQ(A)\pi^\sfR(B)$, and hence,
-\[
-	\bbP_\varrho(\lambda_{t^+}^\sfR\in B\,|\,\lambda_{t^-}^\sfQ\in A)\bbP_\varrho(\lambda_{t^-}^\sfQ\in A) = \bbP_\varrho(\lambda_{t^+}^\sfQ\in A\,|\,\lambda_{t^-}^\sfR\in B)\bbP_\varrho(\lambda_{t^-}^\sfR\in B),
-\]
-i.e., Bayes' theorem holds and the usual notion of joint probability is well defined. Clearly, this does not hold when $\sfR$ and $\sfQ$ do not commute. It is this failure of the Bayes theorem that distinguishes quantum probability from classical probability. 
-
-In a similar fashion, one determines the probability of measuring the event $A_2$ at time $t_2^->0$ for $\sfR$ given that the event $A_1$ was measured at time $t_1>0$ for $\sfQ$ from 
+From this, we can deduce all statistical properties of the fidelity, e.g., its expectation
 \begin{align*}
-	\bbP_\varrho(\lambda_{t_2^-}^\sfR\in A_2\,|\,\lambda_{t_1^-}^\sfQ\in A_1) 
-	%&= \tr[\pi^\sfR(A_2)\varrho_{t_2^-}],\qquad \varrho_{t_2^-} = U_{t_2-t_1}\scrS(\pi^\sfQ(A_1),\varrho_{t_1^-})U_{t_2-t_1}^\dagger \\
-%	&= \tr[\pi^\sfR(A_2)U_{t_2-t_1}\varrho_{t_1^+}U_{t_2-t_1}^\dagger] \\
-	&= \tr[\pi^\sfR(A_2)U_{t_2-t_1}\scrS(\pi^\sfQ(A_1),\varrho_{t_1^-})U_{t_2-t_1}^\dagger] \\
-%	&= \frac{\tr[\pi^\sfR(A_2)U_{t_2-t_1}\pi^\sfQ(A_1)U_{t_1}\varrho\, U_{t_1}^\dagger\pi^\sfQ(A_1)U_{t_2-t_1}^\dagger]}{\tr[\pi^\sfQ(A_1)U_{t_1}\varrho U_{t_1}^\dagger]} \\
-	&= \tr[\pi^\sfR(A_2)U_{t_2-t_1} \scrS(\pi^\sfQ(A_1)U_{t_1},\varrho\, )U_{t_2-t_1}^\dagger] \\
-	&= \tr[\pi^\sfR(A_2)\scrS(U_{t_2-t_1}\pi^\sfQ(A_1) U_{t_1}, \varrho)] = \tr[\pi^\sfR(A_2)\varrho_{t_2^-}].
+	\bbE[\sfF_t^\upalpha(\psi)] = 1 - 2\bigl(1-\bbE[\cos(\sqrt{\gamma}\upomega_t)]\bigr)|\psi_+|^2|\psi_-|^2 = 1 - 2\bigl(1-e^{-\gamma t/2}\bigr)|\psi_+|^2|\psi_-|^2,
 \end{align*}
-As before, upon measuring the event $A_2$ at time $t_2>0$, L\"uders' rule implies
+and variance
+\begin{align*}
+	\mathbb{V}[\sfF_t^\upalpha(\psi)] &=
+	\bbE\Bigl[(\sfF_t^\upalpha(\psi) -\bbE[\sfF_t^\upalpha(\psi)] )^2\Bigr] \\
+	&= 4\bbE\Bigl[\bigl(\cos(\sqrt{\gamma}\upomega_t) - e^{-\gamma t/2}\bigr)^2\Bigr]|\psi_+|^4|\psi_-|^4 \\
+	&= 4\bigl(1 - 2\bbE[\cos(\sqrt{\gamma}\upomega_t)]e^{-\gamma t/2} + e^{-\gamma t}\bigr)^2|\psi_+|^4|\psi_-|^4 \\
+	&= 4\bigl(1 -  e^{-\gamma t}\bigr)^2|\psi_+|^4|\psi_-|^4,
+\end{align*}
+where we used the fact that $\bbE[\cos(\sqrt{\gamma}\upomega_t)]=\exp(-\gamma t/2)$.
+
+\begin{exercise}
+	Compute the fidelity of the Hadamard gate using the Lindblad equation.
+\end{exercise}
+
+\noindent\textbf{Question:} Can we improve the fidelity by implementing a different pulse?
+
+\medskip
+In theory, one could try to solve the maximization problem
 \[
-	\varrho_{t_2^+} = \scrS(\pi^\sfR(A_2),\varrho_{t_2^-}) = \scrS(\pi^\sfR(A_2)U_{t_2-t_1}\pi^\sfQ(A_1) U_{t_1},\varrho).
+	\max_{\ttb}\Bigl\{\bbE[\sfF_\pi^\upalpha(\psi)] : \upalpha = \ttb + \sqrt{\gamma}\upomega,\; \ttb_0=0\Bigr\},
 \]
-Restricting ourselves to a single observable $\sfQ$, 
+with
+\[
+	\bbE[\sfF_t^\upalpha(\psi)] = 1 - 2\bigl(1-\bbE[\cos(\ttb_t-1+\sqrt{\gamma}\upomega_t)]\bigr)|\psi_+|^2|\psi_-|^2.
+\]
+Therefore, the optimal solution is essentially $\ttb_t = 1 - \sqrt{\gamma}\upomega_t$. Unfortunately, we do not know the noise $\upomega_t$. However, if we can measure the noise and use it with a slight delay, i.e., we use $\ttb_t = 1 - \sqrt{\gamma}\upomega_{t-\Delta t}$ instead, we may be able to slightly correct for it. Indeed, with this, we obtain the expected fidelity
+\begin{align*}
+	\bbE[\sfF_t^\upalpha(\psi)] &= 1 - 2\bigl(1-\bbE[\cos(\sqrt{\gamma}(\upomega_t-\upomega_{t-\Delta t})]\bigr)|\psi_+|^2|\psi_-|^2 \\
+	&= 1 - 2\bigl(1-e^{-\gamma \Delta t/2}\bigr)|\psi_+|^2|\psi_-|^2,
+\end{align*}
+where we used the fact that $\sqrt{\gamma}(\upomega_t-\upomega_{t-\Delta t})\sim \sfN(0,\gamma\Delta t)$. In particular, the fidelity is uniform in $t\ge 0$, which provides an improvement if $\Delta t\ll \pi$. \footnote{R.J.P.T.~de Keijzer, L.Y.~Visser, O.~Tse, S.J.J.M.F.~Kokkelmans, Qubit fidelity distribution under stochastic Schr\"odinger equations driven by classical noise, \emph{Physical Review Research} 7, 023063 (2025).}
+
+%\subsection{Quantum measurements}
+%
+%Let $\varrho\in\calS(\calH)$ be a state on a Hilbert space $\calH$ and $t\mapsto U_t \in \calU(\calH)$ be a group of unitary actions on $\calH$. Suppose $\sfQ$ is an $\bbR$-valued observable with spectral measure $\pi^\sfQ:\calB(\bbR)\to \calP(\calH)$, i.e., $\pi^\sfQ$ is a projection-valued measure (PVM). Then the probability of measuring an event $A\in\calB(\bbR)$ at time $t^->0$ is given by Born's rule:
+%\[
+%	\bbP_\varrho(\lambda_{t^-}^\sfQ\in A) = \tr[\pi^\sfQ(A)\varrho_{t^-}] = \tr[U_t^\dagger\pi^\sfQ(A)U_t \varrho]. 
+%\]
+%As measurements generally change the state of the system, L\"uders' rule postulates that, \emph{conditioned} on the event $A\in \calB(\bbR)$, the state ``collapses" to
+%\[
+%	\varrho_{t^+} = \scrS(\pi^\sfQ(A),\varrho_{t^-}),\qquad \scrS(\pi,\varrho) \coloneqq \frac{\pi\varrho\,\pi^\dagger}{\tr[\pi\varrho \pi^\dagger]}\in\calS(\calH).
+%\]
+%Notice that by definition, $\scrS(\pi,U\varrho\,U^\dagger) = \scrS(\pi U,\varrho)$ and $U\scrS(\pi,\varrho) U^\dagger=\scrS(U\pi,\varrho)$.
+%
+%The probability of measuring the event $B\in\calB(\bbR)$ at time $t^+>0$ given that the event $A\in\calB(\bbR)$ was measured at time $t>0$ is
+%\[
+%	\bbP_\varrho(\lambda_{t^+}^\sfQ\in B\,|\,\lambda_{t^-}^\sfQ\in A) = \tr[\pi^\sfQ(B)\scrS(\pi^\sfQ(A),\varrho_{t^-})] = \frac{\tr[\pi^\sfQ(A\cap B)\varrho_{t^-}]}{\tr[\pi^\sfQ(A)\varrho_{t^-}]}.
+%\]
+%In particular, the conditional probability of measuring event $A\in\calB(\bbR)$ at time $t^+>0$ given it was measured at time $t^->0$ is $1$. If $\sfR$ is another $\bbR$-valued observable, then
+%\[
+%	\bbP_\varrho(\lambda_{t^+}^\sfR\in B\,|\,\lambda_{t^-}^\sfQ\in A) = \tr[\pi^\sfR(B)\varrho_{t^+}] = \frac{\tr[\pi^\sfR(B)\pi^\sfQ(A)\varrho_{t^-}\pi^\sfQ(A)\pi^\sfR(B)]}{\tr[\pi^\sfQ(A)\varrho_{t^-}]}.
+%\]
+%When $\sfR$ and $\sfQ$ commute, then $\pi^\sfR(B)\pi^\sfQ(A) = \pi^\sfQ(A)\pi^\sfR(B)$, and hence,
+%\[
+%	\bbP_\varrho(\lambda_{t^+}^\sfR\in B\,|\,\lambda_{t^-}^\sfQ\in A)\bbP_\varrho(\lambda_{t^-}^\sfQ\in A) = \bbP_\varrho(\lambda_{t^+}^\sfQ\in A\,|\,\lambda_{t^-}^\sfR\in B)\bbP_\varrho(\lambda_{t^-}^\sfR\in B),
+%\]
+%i.e., Bayes' theorem holds and the usual notion of joint probability is well defined. Clearly, this does not hold when $\sfR$ and $\sfQ$ do not commute. It is this failure of the Bayes theorem that distinguishes quantum probability from classical probability. 
+%
+%In a similar fashion, one determines the probability of measuring the event $A_2$ at time $t_2^->0$ for $\sfR$ given that the event $A_1$ was measured at time $t_1>0$ for $\sfQ$ from 
+%\begin{align*}
+%	\bbP_\varrho(\lambda_{t_2^-}^\sfR\in A_2\,|\,\lambda_{t_1^-}^\sfQ\in A_1) 
+%	%&= \tr[\pi^\sfR(A_2)\varrho_{t_2^-}],\qquad \varrho_{t_2^-} = U_{t_2-t_1}\scrS(\pi^\sfQ(A_1),\varrho_{t_1^-})U_{t_2-t_1}^\dagger \\
+%%	&= \tr[\pi^\sfR(A_2)U_{t_2-t_1}\varrho_{t_1^+}U_{t_2-t_1}^\dagger] \\
+%	&= \tr[\pi^\sfR(A_2)U_{t_2-t_1}\scrS(\pi^\sfQ(A_1),\varrho_{t_1^-})U_{t_2-t_1}^\dagger] \\
+%%	&= \frac{\tr[\pi^\sfR(A_2)U_{t_2-t_1}\pi^\sfQ(A_1)U_{t_1}\varrho\, U_{t_1}^\dagger\pi^\sfQ(A_1)U_{t_2-t_1}^\dagger]}{\tr[\pi^\sfQ(A_1)U_{t_1}\varrho U_{t_1}^\dagger]} \\
+%	&= \tr[\pi^\sfR(A_2)U_{t_2-t_1} \scrS(\pi^\sfQ(A_1)U_{t_1},\varrho\, )U_{t_2-t_1}^\dagger] \\
+%	&= \tr[\pi^\sfR(A_2)\scrS(U_{t_2-t_1}\pi^\sfQ(A_1) U_{t_1}, \varrho)] = \tr[\pi^\sfR(A_2)\varrho_{t_2^-}].
+%\end{align*}
+%As before, upon measuring the event $A_2$ at time $t_2>0$, L\"uders' rule implies
+%\[
+%	\varrho_{t_2^+} = \scrS(\pi^\sfR(A_2),\varrho_{t_2^-}) = \scrS(\pi^\sfR(A_2)U_{t_2-t_1}\pi^\sfQ(A_1) U_{t_1},\varrho).
+%\]
+%Restricting ourselves to a single observable $\sfQ$, 
