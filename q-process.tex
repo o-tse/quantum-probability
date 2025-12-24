@@ -1,5 +1,4 @@
-%\section{Quantum measurement processes}
-\section{Open Quantum Systems}\label{sec:open-quantum}
+\section{Classical noncommutative processes}\label{sec:open-quantum}
 
 As we have seen, a quantum circuit is essentially a noisy, controlled Schr\"odinger evolution. From a physical perspective, this noise arises from the unavoidable interaction between the system of interest and its environment. As a result, realistic quantum devices cannot be modeled as closed systems evolving unitarily on a Hilbert space, but rather as \emph{open quantum systems}, whose effective dynamics are irreversible.
 
@@ -32,16 +31,16 @@ A thorough derivation of the Lindblad equation is lengthy and complex, so we wil
 
 In the following, we will be interested in \emph{stochastic dilations} or \emph{stochastic unravellings} of the Lindblad equation, i.e., we will look at $\scrP(\calH)$-valued processes $(\oba_t)$ for which their expectation solves the Lindblad equation. The following sections provide examples of such processes, where information about the environment is embedded into the model.
 
-\subsection{Stochastic Schr\"odinger equation: Classical noise}
+\subsection{Stochastic Schr\"odinger equation}
 In the context of Rydberg atoms, the optical control system is a primary source of noise. In the semiclassical limit of light-matter interactions, such noise sources can be considered classical. Without going into the details of the physics, we introduce the stochastic Schr\"odinger equation, which describes the evolution of a quantum system driven by classical noise sources.
 
-Given a Hamiltonian $H\in\scrO(\calH)$ and a real-valued smooth process $\upalpha_t$, the Schr\"odinger equation driven by the time-dependent Hamiltonian $\dot\upalpha_t H\in \scrO(\calH)$ may be expressed as an evolution in the space of unitaries $\scrU(\calH)$:
+Given an observable $L\in\scrO(\calH)$ and a real-valued smooth process $\upalpha_t$, the Schr\"odinger equation driven by the time-dependent observable $\dot\upalpha_t L\in \scrO(\calH)$ may be expressed as an evolution in the space of unitaries $\scrU(\calH)$:
 \[
-	\d U_t = iHU_t\dd \upalpha_t,\qquad U_0 = \sfI_\calH.
+	\d U_t = iLU_t\dd \upalpha_t,\qquad U_0 = \sfI_\calH.
 \]
 In this simple case, the solution may be explicitly expressed as
 \[
-	U_t = \exp\bigl(i(\upalpha_t-\upalpha_0) H\bigr)\sfI_\calH.
+	U_t = \exp\bigl(i(\upalpha_t-\upalpha_0) L\bigr)\sfI_\calH.
 \]
 
 \begin{remark}
@@ -63,23 +62,23 @@ From a geometrical perspective, the unitary evolution is simply the exponential 
 \hfill $\diamondsuit$
 \end{remark}
 
-In the presence of noise, however, $\upalpha_t$ may no longer be smooth. Nevertheless, if $\upalpha_t = \upomega_t$ is the Brownian motion, then the It\^o formula applies and we get for $U_t\coloneqq \exp(i\upomega_t H)\sfI_\calH$,
+In the presence of noise, however, $\upalpha_t$ may no longer be smooth. Nevertheless, if $\upalpha_t = \upomega_t$ is the Brownian motion, then the It\^o formula applies and we get for $U_t\coloneqq \exp(i\upomega_t L)\sfI_\calH$,
 \[
-	\d U_t = \bigl(iH\dd \upomega_t - \tfrac{1}{2}H^2\dd t\bigr)U_t = iHU_t\,{\circ} \dd \upomega_t,
+	\d U_t = \bigl(iL\dd \upomega_t - \tfrac{1}{2}L^2\dd t\bigr)U_t = iLU_t\,{\circ} \dd \upomega_t,
 \]
-where $\circ\,\d \upomega_t$ denotes the Stratonovich integral. This is precisely a stochastic Schr\"odinger equation with one noise operator and one driving noise. 
+where $\circ\,\d \upomega_t$ denotes the Stratonovich integral. This is precisely a stochastic Schr\"odinger equation with one noise operator $L$ and one driving noise $\upomega_t$. 
 
 \subsection{Unitary-valued processes}
 
-More generally, we consider a set $\scrZ = \{L_1,\dots,L_r\} \subset \scrO(\calH)$ of orthonormal observables under the Hilbert-Schmidt scalar product on $\scrO(\calH)$, where $1\le r\le n^2$. These observables will often be called noise operators. Further, let $\upomega_t^1,\dots,\upomega_t^r$ be independent standard real-valued Brownian motions and $\upalpha_t^1,\ldots,\upalpha_t^r$ be It\^o processes of the form
+More generally, we consider a set $\scrZ = \{H,L_1,\dots,L_d\} \subset \scrO(\calH)$ of orthonormal observables on the $n$-dimensional complex Hilbert space $\calH$ under the Hilbert-Schmidt scalar product on $\scrO(\calH)$, where $1\le d\le n^2$ is the number of noise channels. These observables will often be called noise operators. Further, let $\upomega_t^1,\dots,\upomega_t^d$ be independent standard real-valued Brownian motions and $\upalpha_t^1,\ldots,\upalpha_t^d$ be It\^o processes of the form
 \[
-	\upalpha_t^j = \upalpha_0^j + \ttb_t^j + \sqrt{\gamma_j}\,\upomega_t^j,\qquad j=1,\ldots,r,
+	\upalpha_t^j = \upalpha_0^j + \ttb_t^j + \sqrt{\gamma_j}\,\upomega_t^j,\qquad j=1,\ldots,d,
 \]
 where $\ttb_t^j$ is an absolutely continuous process and $\gamma_j>0$.
 
 Define the $\scrO(\calH)$--valued (possibly degenerate) Brownian driver
 \[
-	\upchi_t = \sum\nolimits_j iL_j\,\upalpha_t^j .
+	\upchi_t = -itH +\sum\nolimits_j iL_j\,\upalpha_t^j\;\;\in\scrA(\calH).
 \]
 The intrinsic $\scrU(\calH)$-valued diffusion process solves the Stratonovich SDE
 \begin{align}\label{eq:unitary-sse}\tag{\textsf{SSE}}
@@ -87,46 +86,48 @@ The intrinsic $\scrU(\calH)$-valued diffusion process solves the Stratonovich SD
 \end{align}
 or in components
 \[
-	\d U_t = \sum\nolimits_j i L_jU_t  \dd\ttb_t^j + \sum\nolimits_j \sqrt{\gamma_j}\,i L_jU_t  \circ \d \upomega_t^j.
+	\d U_t = -iHU_t\dd t +\sum\nolimits_j i L_jU_t  \dd\ttb_t^j + \sum\nolimits_j \sqrt{\gamma_j}\,i L_jU_t  \circ \d \upomega_t^j,
 \]
-The matrix-valued quadratic variation of $\upchi$ is given by
+where $H$ is a system Hamiltonian. The matrix-valued quadratic variation of $\upchi$ is 
 \[
 	\d\langle \upchi \rangle_t = \sum\nolimits_j \gamma_j\,iL_j\otimes iL_j \dd t.
 \]
-If $r=n^2$, the driver is elliptic (non-degenerate).  
-If $r< n^2$, the covariance has rank $r$ and the process is \emph{degenerate} (hypoelliptic), exploring only the connected subgroup
+If $d=n^2$, the driver is elliptic (non-degenerate).  
+If $d< n^2$, the covariance has rank $d$ and the process is \emph{degenerate} (hypoelliptic), exploring only the connected subgroup
 \[
 	\exp(\scrA_\scrZ)\subset \scrU(\calH),\quad \scrA_\scrZ = \mathrm{Lie}\{iL_1,\dots,iL_r\}\subset\scrA(\calH).
 \]
-Clearly, there are situations where $\scrA_\scrZ=\scrA(\calH)$ for $r<n^2$, in which case, the full group of unitaries is explored, i.e., $\exp(\scrA_\scrZ)= \scrU(\calH)$.
+Clearly, there are situations where $\scrA_\scrZ=\scrA(\calH)$ for $d<n^2$, in which case, the full group of unitaries is explored, i.e., $\exp(\scrA_\scrZ)= \scrU(\calH)$.
 
 In It\^o form, the equivalent SDE reads
 \[
-	\d U_t = \bigl( \d \upchi_t + \frl\dd t\bigr)U_t,\qquad \frl := -\tfrac{1}{2}\sum\nolimits_j \gamma_j L_j^2,
+	\d U_t = \bigl( \d \upchi_t + \frI\dd t\bigr)U_t,\qquad \frI := -\tfrac{1}{2}\sum\nolimits_j \gamma_j L_j^2,
 \]
-where $\frl$ is the Laplace-Beltrami operator associated with the right-invariant connection.
+where $\frI$ is the Laplace-Beltrami operator associated with the right-invariant connection.
 
 \begin{remark}\label{rem:explicit-sse}
-In the case $r=1$, we find, as in the deterministic case, the explicit solution
+In the case $H=0$, $d=1$, we find, as in the deterministic case, the explicit solution
 \[
-	U_t = \exp\bigl(i(\ttb_t + \sqrt{\gamma}\upomega_t) H\bigr)\sfI_\calH.
+	U_t = \exp\bigl(i(\ttb_t + \sqrt{\gamma}\upomega_t) L\bigr)\sfI_\calH.
 \]
-In particular, $U_t$ commutes with $H$ for all $t\ge 0$.\hfill $\diamondsuit$
+In particular, $U_t$ commutes with $L$ for all $t\ge 0$.\hfill $\diamondsuit$
 \end{remark}
 
 \paragraph{Towards the Lindblad equation}
-To obtain the Lindblad equation \eqref{eq:lindblad} from the stochastic Schr\"odinger equation \eqref{eq:unitary-sse}, we consider noise profiles $\upalpha_t^j = t + \upomega_t^j$, $j=1,\ldots,r$.
-
+To obtain the Lindblad equation \eqref{eq:lindblad} from the stochastic Schr\"odinger equation \eqref{eq:unitary-sse}, we consider noise profiles of the form
+\[
+	\upalpha_t^j = \int_0^t u^j(r)\dd r + \upomega_t^j,\qquad j=1,\ldots,d.
+\]
 Now let $\rho_0\in\scrD(\calH)$ be an initial datum for the Lindblad equation and $U_t$ be the solution to \eqref{eq:unitary-sse}. Then,  the $\scrD(\calH)$-valued process $\oba_t\coloneqq U_t\,\rho_0\, U_t^\dagger$ satisfies
 \begin{align*}
 	\d \oba_t &= \d U_t\, \rho_0\, U_t^\dagger +  U_t\, \rho_0\, \d U_t^\dagger + \d U_t\, \rho_0\,\d U_t^\dagger \\
-	&= (\d \upchi_t + \frl\dd t)\, \oba_t + \oba_t (\d \upchi_t^\dagger + \frl^\dagger\d t) + \d \upchi_t\,\oba_t \dd \upchi_t^\dagger \\
-	&= i \sum\nolimits_j [L_j,\oba_t]\bigl(\d t + \sqrt{\gamma_j}\d \upomega_t^j\bigr) + \tfrac{1}{2}\sum\nolimits_j \gamma_j \bigl(2L_j\,\oba_t\, L_j - L_j^2\oba_t - \oba_t L_j^2\bigr)\dd t \\
-	&= -i[H,\oba_t]\dd t  - \tfrac{1}{2}\sum\nolimits_j \gamma_j[L_j,[L_j,\oba_t]]\dd t + i \sqrt{\gamma_j}\sum\nolimits_j [L_j,\oba_t] \dd \upomega_t^j,
+	&= (\d \upchi_t + (-iH+\frI)\dd t)\, \oba_t + \oba_t (\d \upchi_t^\dagger + (-iH+\frI)^\dagger\d t) + \d \upchi_t\,\oba_t \dd \upchi_t^\dagger \\
+	&= -i[H_t^u,\oba_t]\dd t + i \sum\nolimits_j [L_j,\oba_t]\sqrt{\gamma_j}\dd \upomega_t^j + \tfrac{1}{2}\sum\nolimits_j \gamma_j \bigl(2L_j\,\oba_t\, L_j - L_j^2\oba_t - \oba_t L_j^2\bigr)\dd t \\
+	&= -i[H_t^u,\oba_t]\dd t  - \tfrac{1}{2}\sum\nolimits_j \gamma_j[L_j,[L_j,\oba_t]]\dd t + i \sum\nolimits_j \sqrt{\gamma_j}[L_j,\oba_t] \dd \upomega_t^j,
 \end{align*}
-where we set $H\coloneqq -\sum\nolimits_j L_j$. Hence, taking the expectation, we obtain for the density operator $\rho_t\coloneqq \bbE[\oba_t]\in\scrD(\calH)$ the deterministic evolution
+where we set the Hamiltonian $H_t^u \coloneqq H - \sum\nolimits_j u_j(t)L_j$. Hence, taking the expectation, we obtain for the density operator $\rho_t\coloneqq \bbE[\oba_t]\in\scrD(\calH)$ the deterministic evolution
 \[
-	\d \rho_t = -i[H,\oba_t]\dd t  - \tfrac{1}{2}\sum\nolimits_j \gamma_j[L_j,[L_j,\oba_t]]\dd t,
+	\d \rho_t = -i[H_t^u,\rho_t]\dd t  - \tfrac{1}{2}\sum\nolimits_j \gamma_j[L_j,[L_j,\rho_t]]\dd t,
 \]
 which is precisely the Lindblad equation \eqref{eq:lindblad} after absorbing $\sqrt{\gamma_j}$ into $L_j$.
 
@@ -191,13 +192,13 @@ By spectral calculus, we obtain
 \end{align*}
 In other words, $iH_\sfh \in\scrA(\calH)$ generates the Hadamard gate after evolving for time $t=\pi$, i.e., $U_t=\exp(itH_\sfh)$ solves the Schr\"odinger equation
 \[
-	\d U_t = iU_t H_\sfh\dd t,\qquad U_0 = \sfI_\calH.
+	\d U_t = i H_\sfh U_t\dd t,\qquad U_0 = \sfI_\calH.
 \]
-Notice that $H_\sfh\in\scrP(\calH)$ happens to be a rank-1 projection on the vector $\e_-$.
+Notice that $H_\sfh\in\scrP(\calH)$ happens to be a rank-1 projection on the unit vector $\e_-\in\calH$.
 
 In the presence of noise, however, we instead have
 \[
-	\d U_t^\upalpha = iU_t^\upalpha H_\sfh\circ \d\upalpha_t,\qquad U_0=\sfI_\calH,
+	\d U_t^\upalpha = iH_\sfh U_t^\upalpha\circ \d\upalpha_t,\qquad U_0=\sfI_\calH,
 \]
 %where in this example, we consider for simplicity the noise of the form $\upalpha_t = t + \sqrt{\gamma}\upomega_t$. 
 From Remark~\ref{rem:explicit-sse}, we obtain the explicit form $U_t^\upalpha = \exp(i\upalpha_t H_\sfh)$. 
@@ -226,10 +227,10 @@ From this, we can deduce all statistical properties of the fidelity, e.g., its e
 and variance
 \begin{align*}
 	\mathbb{V}[\sfF_t^\upalpha(\psi)] &=
-	\bbE\Bigl[(\sfF_t^\upalpha(\psi) -\bbE[\sfF_t^\upalpha(\psi)] )^2\Bigr] \\
-	&= 4\bbE\Bigl[\bigl(\cos(\sqrt{\gamma}\upomega_t) - e^{-\gamma t/2}\bigr)^2\Bigr]|\psi_+|^4|\psi_-|^4 \\
-	&= 4\bigl(1 - 2\bbE[\cos(\sqrt{\gamma}\upomega_t)]e^{-\gamma t/2} + e^{-\gamma t}\bigr)^2|\psi_+|^4|\psi_-|^4 \\
-	&= 4\bigl(1 -  e^{-\gamma t}\bigr)^2|\psi_+|^4|\psi_-|^4,
+	\bbE\Bigl[(\sfF_t^\upalpha(\psi) -\bbE[\sfF_t^\upalpha(\psi)] )^2\Bigr] 
+	= 4\bbE\Bigl[\bigl(\cos(\sqrt{\gamma}\upomega_t) - e^{-\gamma t/2}\bigr)^2\Bigr]|\psi_+|^4|\psi_-|^4 \\
+	&= 4\bigl(1 - 2\bbE[\cos(\sqrt{\gamma}\upomega_t)]e^{-\gamma t/2} + e^{-\gamma t}\bigr)^2|\psi_+|^4|\psi_-|^4
+	= 4\bigl(1 -  e^{-\gamma t}\bigr)^2|\psi_+|^4|\psi_-|^4,
 \end{align*}
 where we used the fact that $\bbE[\cos(\sqrt{\gamma}\upomega_t)]=\exp(-\gamma t/2)$.
 

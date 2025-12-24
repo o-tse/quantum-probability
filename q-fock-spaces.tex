@@ -1,28 +1,27 @@
 \section{Quantum Noise and Fock Space}
 \label{sec:quantum-noise}
 
-As shown in the previous lecture, stochastic Schr\"odinger equations driven by classical noise provide a useful class of stochastic unravellings of Lindblad dynamics. However, this approach is fundamentally limited: it produces only Lindblad generators with \emph{self-adjoint} jump operators. To describe general irreversible quantum dynamics---including spontaneous emission, particle loss, and counting processes---we must move beyond classical noise and introduce \emph{quantum noise}.
+As shown in the previous section, stochastic Schr\"odinger equations driven by classical noise provide a useful class of stochastic unravellings of Lindblad dynamics. However, this approach is fundamentally limited: it produces only Lindblad generators with \emph{self-adjoint} jump operators. To describe general irreversible quantum dynamics---including spontaneous emission, particle loss, and counting processes---we must move beyond classical noise and introduce \emph{quantum noise}.
 
 Recall that in Section~\ref{sec:open-quantum}, the stochastic dilation $\oba_t = U_t\rho_0 U_t^\dagger$, led, after taking expectations, to a Lindblad equation with Hermitian noise operators $L_j^\dagger = L_j$. While such Lindblad operators model dephasing and diffusion-type noise, they cannot describe dissipative processes such as amplitude damping, where the jump operator is non-Hermitian. An important example is the jump operator $L = \sigma_- = \ket{0}\bra{1}$ on a single qubit describing \emph{spontaneous emission} due to black body radiation.
 
 From a physical perspective, this reflects the fact that classical noise models only randomize \emph{phases} or \emph{energies}. Truly quantum processes involve the exchange of quanta with an environment, and therefore require a non-commutative noise model.
 
-\subsection{Unitary dilations and infinite environments}
-A guiding principle in the theory of open quantum systems is that irreversibility arises from neglecting environmental degrees of freedom. Concretely, one considers a unitary evolution
+\subsubsection*{Unitary dilations and infinite environments}
+A guiding principle in the theory of open quantum systems is that irreversibility arises from neglecting environmental degrees of freedom in the following sense. One considers the composite Hilbert space $\calH_\text{tot} = \calH_{\text{sys}} {\otimes} \calH_{\text{env}}$, describing the \emph{universe} and consists of the system $\calH_{\text{sys}}$ and an environment $\calH_{\text{env}}$. In this setting, one obtains a unitary evolution
 \[
-	U_t : \calH_{\text{sys}} {\otimes} \calH_{\text{env}} \to \calH_{\text{sys}}{\otimes} \calH_{\text{env}}
+	U_t : \calH_\text{tot} \to \calH_\text{tot}
 \]
-on a composite Hilbert space consisting of the system $\calH_{\text{sys}}$ and an environment $\calH_{\text{env}}$. The reduced evolution of the system state is then obtained by tracing out the environment,
+The reduced evolution of the system state is then obtained by tracing out the environment,
 \[
 	\rho_t = \tr\nolimits_\calK \bigl[U_t (\rho_0 {\otimes} \rho_{\text{env}}) U_t^\dagger\bigr]\;\in\scrD(\calH_{\text{sys}}),
 \]
-where $\rho_0\in\scrD(\calH_{\text{sys}})$ is the initial state on the system and $\rho_\text{env}\in\scrD(\calH_{\text{env}})$ is a given state on the environment.
-Requiring \emph{Markovianity} and time-homogeneity of the evolution inevitably forces the environment to possess infinitely many degrees of freedom. In continuous time, this naturally leads to a description in terms of bosonic quantum fields.
+where $\rho_0\in\scrD(\calH_{\text{sys}})$ is the initial state on the system and $\rho_\text{env}\in\scrD(\calH_{\text{env}})$ is a given state on the environment. Requiring \emph{Markovianity} and time-homogeneity of the evolution inevitably forces the environment to possess infinitely many degrees of freedom. In continuous time, this naturally leads to a description in terms of bosonic quantum fields.
 
 \subsection{Bosonic Fock space}
 The \emph{bosonic (or symmetric) Fock space} of a complex Hilbert space $\calK$ is defined as
 \[
-	\frF(\calK) := \bigoplus_{n\in\bbN_0} \calK^{\odot n},
+	\frF(\calK) \coloneqq \bigoplus_{n\in\bbN_0} \calK^{\odot n},
 \]
 where $\calK^{\odot n}$ denotes the $n$-fold symmetric tensor product, i.e.,
 \[
@@ -30,7 +29,7 @@ where $\calK^{\odot n}$ denotes the $n$-fold symmetric tensor product, i.e.,
 \]
 and by convention $\calK^{\odot 0} \coloneqq \bbC$. The bosonic Fock space $\frF(\calK)$ inherits the scalar product from $\calK$ defined by
 \[
-	\langle \oplus u^{(n)},\oplus v^{(n)}\rangle_{\frF(\calK)} = \sum_{n\in\bbN_0} \langle u^{(n)},v^{(n)}\rangle_{\calK^{\otimes n}}.
+	\langle \oplus u^{(n)},\oplus v^{(n)}\rangle_{\frF(\calK)} \coloneqq \sum_{n\in\bbN_0} \langle u^{(n)},v^{(n)}\rangle_{\calK^{\otimes n}}.
 \]
 We define the \emph{exponential vectors}
 \[
@@ -38,34 +37,49 @@ We define the \emph{exponential vectors}
 \]
 and the distinguished vector $\Upomega \coloneqq \sfe(0) = 1\oplus 0 \oplus\cdots \in\frF(\calK)$, called the \emph{vacuum vector}.
 
-It turns out that the set of \emph{exponential vectors} $\frE(\calK)$ is \emph{total} in $\frF(\calK)$, i.e., the linear span of $\frE(\calK)$ is dense in $\frF(\calK)$. This fact will be helpful for us in the future. Since,
+It turns out that the set of exponential vectors $\frE(\calK)$ is \emph{total} in $\frF(\calK)$, i.e., the linear span of $\frE(\calK)$ is dense in $\frF(\calK)$. This fact will be helpful for us in the future. Since,
 \[
-	\langle \sfe(u), \sfe(v)\rangle_{\frF(\calK)} = \sum_{n\in\bbN_0} \frac{1}{n!}\langle u,v\rangle_\calK^n = e^{\langle u,v\rangle_\calK},\qquad f,g\in\calK,
+	\langle \sfe(u), \sfe(v)\rangle_{\frF(\calK)} = \sum_{n\in\bbN_0} \frac{1}{n!}\langle u,v\rangle_\calK^n = e^{\langle u,v\rangle_\calK},\qquad u,v\in\calK,
 \]
 the exponential vectors are normalizable. These normalized exponential vectors 
 \[
 	\uppsi(u) = e^{-\frac{1}{2}\|u\|_\calK^2}\sfe(u),\qquad u\in\calK,
 \]
-are commonly called \emph{coherent vectors}.
+are called \emph{coherent vectors}.
 
-For time-continuous noise, the canonical choice is
+For time-continuous noise, the \emph{canonical} choice is
 \[
 	\calK = L^2(\bbR_+,\uplambda; \mathbb{C}^d) \cong L^2(\bbR_+,\uplambda)\otimes \mathbb{C}^d,
 \]
-where $d$ represents the number of \emph{noise channels}. From now on, we will only consider the canonical choice and call $\frF(\calK)$ our noise environment.
+where $d\in\bbN$ represents the number of \emph{noise channels}. From now on, we will only consider this canonical choice and call $\frF(\calK)$ our noise environment.
 
 %\begin{remark}
 %	As a side remark, one can also consider the free Fock space $\bigoplus_{n\in\bbN_0} \calK^{\odot n}$
 %\end{remark}
 
-\subsubsection*{Field operators: Creation, annihilation, and gauge processes}
-On the bosonic Fock space $\frF(\calK)$, one defines operator-valued processes:
-\begin{itemize}[itemsep=0.0em]
-	\item[] the \emph{annihilation} processes $\sfA_j(t)$,
-	\item[] the \emph{creation} processes $\sfA_j^\dagger(t)$,
-	\item[] the \emph{gauge (or number)} processes $\Uplambda_{ij}(t)\coloneqq \sfA_i^\dagger\sfA_j(t)$ for $i,j = 1,\dots,d$.
-\end{itemize}
+\subsection{Creation, annihilation, and gauge processes}
+On the bosonic Fock space $\frF(\calK)$, one defines operator-valued processes on $\frE(\calK)$:
+\begin{gather*}
+	\text{the \emph{annihilation} processes $\sfA_j(t)$,\quad the \emph{creation} processes $\sfA_j^\dagger(t)$,}\\
+	\text{the \emph{gauge (or counting)} processes $\Uplambda_{ij}(t)$ for $i,j = 1,\dots,d$.}
+\end{gather*}
 Heuristically, $\sfA_j(t)$ annihilates a quantum in channel $j$ arriving before time $t\ge 0$, $\sfA_j^\dagger(t)$ creates such a quantum, and $\Uplambda_{ij}(t)$ counts quanta between channels. Together, these processes encode absorption, emission, and counting statistics in a unified operator-theoretic framework and form the building blocks of quantum stochastic calculus, serving as driving noises in the Hudson-Parthasarathy theory of quantum processes.
+
+\begin{definition}
+	Let $\calD$ be a total subset of a complex Hilbert space $\calH$. 
+	\begin{enumerate}[label=(\roman*), itemsep=0.0em]
+		\item A \emph{random variable} $\sfX$ is an element of $\scrL(\calD;\calH)$, where 
+		\[
+			\scrL(\calD;\calH)\coloneqq \Bigl\{ \sfZ:\calD\to\calH\;\; \text{linear} : \calD\subset\dom(\sfZ)\cap \dom(\sfZ^\dagger)\Bigr\}.
+		\]
+		\item A \emph{stochastic process} in $\calH$ is a family $(\sfX(t))_{t\in\bbR_+}$ of random variables such that
+		\[
+			\bbR_+\ni t\mapsto \sfX(t)\eta\quad\text{is Borel measurable for every $\eta\in\calD$.}
+		\]
+	\end{enumerate}
+\end{definition}
+
+Notice that nothing about the definition above is stochastic in the usual sense.
 
 \vspace{-0.8em}
 \paragraph{Annihilation and creation processes.} For each channel $j=1,\dots,d$, the annihilation and creation operators are defined on exponential vectors $\sfe(u)$ by
@@ -103,31 +117,46 @@ Thus, classical noise is recovered as a commutative subtheory of quantum noise.
 	\]
 	to show that for every $r=(r_1,\ldots,r_d)\in\bbR^d$,
 	\[
-		\bbE_\Upomega[e^{i \sum\nolimits_j r_j\sfB_j(t)}] \coloneqq  \langle \Upomega, e^{i \sum\nolimits_jr_j\sfB_j(t)} \Upomega \rangle = e^{-\frac{1}{2}\sum\nolimits_j r_j^2 \,t}.
+		\bbE_{\Upomega}\bigl[e^{i \sum\nolimits_j r_j\sfB_j(t)}\bigr] \coloneqq  \langle \Upomega, e^{i \sum\nolimits_jr_j\sfB_j(t)} \Upomega \rangle = \exp\Bigl(-\tfrac{1}{2}\sum\nolimits_j r_j^2 \,t\Bigr).
 	\]
 	Conclude from this that the vector of field operators $(\sfB_1(t),\ldots,\sfB_d(t))$ is a $d$-dimensional Gaussian \emph{random variable} with mean $0$ and covariance $\Sigma =t\sfI_{\bbR^d}$.
+
+	\medskip
+	\noindent What would change if we replace the vacuum $\Upomega$ with a coherent vector $\uppsi(u)$?
 %\begin{align*}
-%	\bbE_\Upomega[e^{ir_j\sfB_j(t)}] &\coloneqq  \langle \Upomega, e^{ir_j\sfB_j(t)} \Upomega \rangle = \langle \Upomega, e^{ir_j(\sfA_j(t) +\sfA_j^\dagger(t))} \Upomega \rangle \\
-%	&= \langle \Upomega, e^{ir_j\sfA_j^\dagger(t)}e^{ir_j\sfA_j(t)}e^{-r_j^2[\sfA_j(t), \sfA_j^\dagger(t)]/2} \Upomega \rangle \\
-%	&= e^{-r_j^2\,t/2}\langle e^{-ir_j\sfA_j(t)}\Upomega, e^{ir_j\sfA_j(t)} \Upomega \rangle = e^{-r_j^2 \,t/2}
+%	\bbE_{\uppsi(u)}[e^{ir_j\sfB_j(t)}] &\coloneqq  \langle \uppsi(u), e^{ir_j\sfB_j(t)} \uppsi(u) \rangle = \langle \uppsi(u), e^{ir_j(\sfA_j(t) +\sfA_j^\dagger(t))} \uppsi(u) \rangle \\
+%	&= \langle \uppsi(u), e^{ir_j\sfA_j^\dagger(t)}e^{ir_j\sfA_j(t)}e^{-r_j^2[\sfA_j(t), \sfA_j^\dagger(t)]/2} \uppsi(u) \rangle \\
+%	&= e^{-r_j^2\,t/2}\langle e^{-ir_j\sfA_j(t)}\uppsi(u), e^{ir_j\sfA_j(t)} \uppsi(u) \rangle \\
+%	&= e^{-r_j^2 \,t/2}e^{ir_j\overline{\langle  \mathbf{1}_{[0,t]},u\rangle}}e^{ir_j\langle \mathbf{1}_{[0,t]},u\rangle} =e^{-r_j^2 \,t/2}e^{ir_j2\,\Re(\langle \mathbf{1}_{[0,t]},u\rangle)}
+%\end{align*}
+%\begin{align*}
+%	e^{-ir_j\sfA_j(t)}\uppsi(u) &= \sum\nolimits_n  \frac{(-ir_j)^n}{n!} \sfA_j^n(t)\uppsi(u) \\
+%	&= \sum\nolimits_n  \frac{(-ir_j)^n}{n!} \langle \mathbf{1}_{[0,t]},u\rangle^n\,\uppsi(u) = e^{-ir_j\langle \mathbf{1}_{[0,t]},u\rangle}\uppsi(u)
 %\end{align*}
 \end{exercise}
 
-
 \vspace{-0.8em}
 \paragraph{Gauge processes.}
-The gauge processes describe the flow of quanta between channels. On exponential vectors, they act as
+The gauge processes $\Uplambda_{ij}(t)$ describe the flow of quanta between channels $i$ and $j$. Their expectation on coherent vectors $\uppsi(u)$ is given by
+%\[
+%	\Uplambda_{ij}(t)\sfe(u) = (\sfA_i^\dagger\sfA_j)(t)\sfe(u) = \langle \mathbf{1}_{[0,t]},u_i\rangle \sfA_j^\dagger\sfe(u),
+%\]
+%such that
 \[
-	\Uplambda_{ij}(t)\sfe(u) = (\sfA_i^\dagger\sfA_j)(t)\sfe(u) = \langle \mathbf{1}_{[0,t]},u_i\rangle \sfA_j^\dagger\sfe(u),
+	\langle \uppsi(u),\Uplambda_{ij}(t)\uppsi(u)\rangle = \int_{[0,t]} \overline{u}_j u_i\dd\uplambda.
 \]
-and may be interpreted as integrated number operators. In particular, the diagonal processes $\Uplambda_{jj}(t)$ count the number of quanta in channel $j$ up to time $t\ge 0$, i.e.,
+In particular, the diagonal processes $\Uplambda_{jj}(t)$ \emph{counts} the number of quanta in channel $j$ up to time $t\ge 0$ with 
 \[
-	\langle \uppsi(u), \Uplambda_{ii}(t) \uppsi(u) \rangle = |\langle \mathbf{1}_{[0,t]},u_i\rangle|^2.
+	\bbE_{\uppsi(u)}\bigl[e^{ir\Uplambda_{jj}(t)}\bigr] \coloneqq  \langle \uppsi(u),e^{ir\Uplambda_{jj}(t)}\uppsi(u)\rangle = \exp\Bigl((e^{ir}-1)\|u_j\|_{L^2([0,t],\uplambda)}^2\Bigr),
 \]
+i.e., in the coherent state $\uppsi(u)$, $\Uplambda_{jj}(t)$ has a Poisson statistics with intensity $|u_j(t)|^2$.
 
-\begin{remark}[Adaptedness and causality]
-For each $t\ge 0$, the operators $\sfA_j(t)$, $\sfA_j^\dagger(t)$ and $\Uplambda_{ij}(t)$ act nontrivially only on the tensor factor $\frF(L^2([0,t],\uplambda))$ corresponding to times up to $t\ge 0$. This adaptedness property encodes quantum causality, giving rise to a notion of filtration in this context, and ensures that increments over disjoint time intervals commute. Unfortunately, we will not have time to dive into more detail here. \hfill$\diamondsuit$
-\end{remark}
+\medskip
+In these lectures, we only have time to focus on the creation and annihilation processes. A proper treatise of the gauge process requires more preparation, but its inclusion in the following theory may be done without too much trouble.
+
+%\begin{remark}[Adaptedness and causality]
+%For each $t\ge 0$, the operators $\sfA_j(t)$, $\sfA_j^\dagger(t)$ and $\Uplambda_{ij}(t)$ act nontrivially only on the tensor factor $\frF(L^2([0,t],\uplambda))$ corresponding to times up to $t\ge 0$. This adaptedness property encodes quantum causality, giving rise to a notion of filtration in this context, and ensures that increments over disjoint time intervals commute. Unfortunately, we will not have time to dive into more detail here. \hfill$\diamondsuit$
+%\end{remark}
 
 \subsection{Fock-Wiener isometry}
 \label{subsec:fock-wiener}
@@ -164,7 +193,7 @@ viewed as a multiplication operator on $L^2(\calC(\bbR_+;\bbR^d), \bbW_d)$. This
 \begin{remark}
 	\begin{enumerate}[itemsep=0.0em, label=(\arabic*)]
 		\item Notice that the coherent states $\uppsi(u)\in\frF(\calK)$ play the role of changing the reference measure $\bbW_d$ by the drift field $u\in \calK$.
-		\item A similar construction holds for Poisson processes on the Skorokhod space.
+		\item A similar construction holds for Poisson processes on the Skorokhod space.\hfill$\diamondsuit$
 	\end{enumerate}
 	
 \end{remark}
@@ -175,30 +204,220 @@ viewed as a multiplication operator on $L^2(\calC(\bbR_+;\bbR^d), \bbW_d)$. This
 \section{Hudson-Parthasarathy Theory}
 \label{sec:HP}
 
-Having introduced quantum noise, we now describe the dynamics of systems driven by such noise. This is accomplished by the Hudson-Parthasarathy (HP) theory of quantum stochastic differential equations (QSDE), where the bosonic Fock space is used as a model for the environment Hilbert space, i.e., $\calH_\text{env} = \frF(\calK)$.
+Having introduced quantum noise, we now describe the dynamics of systems driven by such noise. This is accomplished by the Hudson-Parthasarathy (HP) theory of quantum stochastic differential equations (QSDE), where the bosonic Fock space is used as a model for the environment Hilbert space, i.e., $\calH_\text{env} = \frF(\calK)$. For simplicity, we consider a single noise channel, i.e., $d=1$, and focus on the creation and annihilation processes. Henceforth, we consider an $n$-dimensional complex Hilbert space $\calH_\text{sys}$ as our system and $\calH_\text{env} = \frF(\calK)$ with $\calK=L^2(\bbR_+,\uplambda)$ is our environment, which gives $\calH_\text{tot} = \calH_\text{sys}{\otimes}\calH_\text{env}$. 
 
-\begin{itemize}
-	\item Introduce It\^o integral in this context
-\end{itemize}
-
-\subsection{Quantum It\^o calculus}
-Quantum stochastic calculus is built upon the quantum It\^o table. For the fundamental differentials, one has
+Recall from Section~\ref{sec:open-quantum} that the basic unitary evolution was derived by simply applying It\^o's formula to $U_t=\exp(i\upomega_tL)\sfI_\calH$, where $L\in\scrO(\calH)$ is a Hermitian noise operator such that $i\upomega_tL \in \scrA(\calH)$ is in the Lie algebra. Here, we can do the same by considering
 \[
-\begin{aligned}
-	d\sfA_i(t) d\sfA_j^\dagger(t) &= \delta_{ij} \dd t, \
-d\Lambda_{ij}(t), dA_k^\dagger(t) &= \delta_{jk}, dA_i^\dagger(t), \
-dA_i(t), d\Lambda_{jk}(t) &= \delta_{ij}, dA_k(t),
-\end{aligned}
+	U_t = \exp(L{\otimes}\sfA^\dagger(t) - L^\dagger{\otimes} \sfA(t))\sfI_{\calH_\text{tot}},
 \]
-with all other quadratic differentials vanishing. These rules replace the classical quadratic variation.
+where $L\in\scrB(\calH_\text{sys})$ and $\sfA(t)$, $\sfA^\dagger(t)$ are the field operators on $\calH_\text{env}$. Notice that
+\[
+	\bigl(L{\otimes}\sfA^\dagger - L^\dagger{\otimes} \sfA\bigr)^\dagger = L^\dagger{\otimes}\sfA - L{\otimes}\sfA^\dagger = -\bigl(L{\otimes}\sfA^\dagger - L^\dagger{\otimes} \sfA\bigr),
+\]
+i.e., $L{\otimes}\sfA^\dagger - L^\dagger{\otimes} \sfA\in\scrA(\calH_\text{tot})$ is skew-Hermitian. Thus, $U_t$ is a unitary evolution. 
+
+If we knew of an It\^o formula for the creation and annihilation operators, then we could derive a QSDE for the unitary process $U_t$. In general, one would also like to consider time-dependent system operators, i.e., $L=L(t)$, which will require us to introduce stochastic integrals of the form
+\[
+	\int_0^t L(s){\otimes}\dd\sfA^\dagger(s),\quad \int_0^t L^\dagger(s){\otimes}\dd\sfA(s).
+\]
+To do so, we will need to understand the type of processes $L(t)$ we can integrate against. As in the classical It\^o integral, we will require the notion of an \emph{adapted process}.
+
+\subsection{Quantum It\^o integrals and It\^o calculus}
+
+Before we talk about quantum stochastic integrals, we need to introduce the quantum analog of a \emph{filtration}. We begin by noting that for any $0\le t_1<\cdots<t_n <+\infty$, we have the direct sum factorization
+\[
+	\calK = L^2([0,t_1])\oplus L^2([t_1,t_2])\oplus\cdots\oplus L^2([t_n,+\infty)) \eqqcolon \calK_{t_1]}\oplus\calK_{[t_1,t_2]} \oplus\cdots\oplus \calK_{[t_n},
+\]
+which gives the factorization $\frF(\calK) = \frF(\calK_{t_1]})\otimes \frF(\calK_{[t_1,t_2]})\otimes\cdots\otimes \frF(\calK_{[t_n})$. Denoting
+\[
+	\calF_{0} \coloneqq \calH_\text{sys},\quad \calF_{t]} \coloneqq \calH_\text{sys}{\otimes}\frF(\calK_{t]}),\quad \calF_{[s,t]} \coloneqq \frF(\calK_{[s,t]}),\quad \calF_{[t} \coloneqq \frF(\calK_{[t}),
+\]
+we then have the tensor product factorization of the time index
+\[
+	\calH_\text{tot} = \calF_{t_1]}\otimes \calF_{[t_1,t_2]}\otimes\cdots\otimes \calF_{[t_n},
+\]
+which is associated with the factorization on the level of the vectors
+\[
+	\psi\otimes \sfe(u) = \psi\otimes \sfe(u\mathbf{1}_{[0,t_1]})\otimes \sfe(u\mathbf{1}_{[t_1,t_2]})\otimes\cdots\otimes \sfe(u\mathbf{1}_{[t_n,+\infty)})
+\]
+The increasing family $(\calF_{t]})_{t\ge 0}$ may then be used to define an adapted process. Roughly speaking, a process $(\sfX(t))_{t\in\bbR_+}$ is adapted if for each $t\ge 0$, it leaves the space $\calF_{[t}$ \emph{ontouched}, i.e., it takes the form $\sfX(t){\otimes} \sfI_{[t}$ for every $t\ge 0$.
+
+\begin{definition}
+	A stochastic process $(\sfX(t))_{t\in\bbR_+}$ in $\calH_\text{tot}$ is said to be $\calF$-\emph{adapted} to  if the map $t\mapsto \sfX(t)\psi{\otimes} \sfe(u)$ is measurable and there exists an operator $\sfZ(t)$ in $\calF_{t]}$ such that
+	\[
+		\sfX(t)\psi{\otimes} \sfe(u) = \bigl(\sfZ(t)\psi{\otimes} \sfe(u\mathbf{1}_{[0,t]})\bigr)\otimes \sfe(u\mathbf{1}_{[t,+\infty)}),
+	\]
+	for every $t\ge 0$, $\psi\in\calH_\text{sys}$ and $u\in\calK$. 
+	
+	Such a process is said to be \emph{regular} if the map $t\mapsto \sfX(t)\psi{\otimes} \sfe(u)$ is continuous.
+\end{definition}
+
+\begin{remark}
+	\begin{enumerate}[label=(\roman*), itemsep=0.0em]
+		\item The processes $L{\otimes}\sfA^\dagger(t)$, $L^\dagger{\otimes}\sfA(t)$ are $\calF$-adapted. Indeed, 
+	\begin{align*}
+		L^\dagger{\otimes}\sfA(t)\psi\otimes\sfe(u) 
+		&= (L^\dagger\psi)\otimes (\sfA(t)\sfe(u)) \\
+		&= (L^\dagger\psi)\otimes (\langle 1,u\mathbf{1}_{[0,t]}\rangle \sfe(u\mathbf{1}_{[0,t]}))\otimes \sfe(u\mathbf{1}_{[t,+\infty)}).
+	\end{align*}
+	A similar result holds for $L{\otimes}\sfA^\dagger(t)$.
+	
+	\item For any $0\le s<t<+\infty$, we have that
+	\begin{align*}
+		\bigl(\sfA(t) - \sfA(s)\bigr)\sfe(u) &= \bigl(\langle \mathbf{1}_{[0,t]},u\rangle - \langle \mathbf{1}_{[0,s]},u\rangle\bigr)\sfe(u) = \langle \mathbf{1}_{[s,t]},u\rangle\sfe(u)\\
+		&= \sfe(u\mathbf{1}_{[0,s]})\otimes \bigl(\sfA(t) - \sfA(s)\bigr)\sfe(u\mathbf{1}_{[s,t]})\otimes \sfe(u\mathbf{1}_{[t,+\infty]}),
+	\end{align*}
+	i.e., $\sfA(t) - \sfA(s)$ acts only on the part $\calF_{[s,t]}$, while leaving the rest untouched. This holds similarly for $\sfA^\dagger(t) - \sfA^\dagger(s)$. \hfill$\diamondsuit$
+	\end{enumerate}
+\end{remark}
+
+
+In the following, let $\sfM$ be either $\sfA$ or $\sfA^\dagger$ and for $0\le t_1<\cdots<t_n<+\infty$, we consider \emph{simple process} of the form
+\[
+	L \coloneqq \sum_{j=0}^{n-1} L_j\mathbf{1}_{[t_j,t_{j+1})} + L_n\mathbf{1}_{[t_j,+\infty)},\qquad L_j\in \scrB(\calF_{t_j]}).
+\]
+By construction, $(L(t))_{t\in\bbR_+}$ are $\calF$-adapted processes in $\calH_\text{tot}$. For these simple processes, we define the It\^o integral w.r.t.\ $\sfM$ as
+\[
+	\sfX(t)\coloneqq\int_0^t L(s){\otimes}\dd \sfM(s) \coloneqq \sum_{j=0}^n L_j{\otimes} \bigl(\sfM(t{\wedge}t_{j+1})-\sfM(t{\wedge}t_j)\bigr),
+\]
+with the convention $t_{n+1}=+\infty$. The process $\sfX(t)$ is regular and satisfies
+
+% and for any $(\psi,u),(\varphi,v)\in\calH_\text{sys}{\times}\calK$,
+	\[
+		\langle \varphi{\otimes}\sfe(v), \sfX(t)\psi{\otimes}\sfe(u)\rangle  = \int_0^t \langle \varphi{\otimes}\sfe(v), L(s)\psi{\otimes}\sfe(u)\rangle \mu(\d s),
+	\]
+	where
+	\[
+		\mu = \begin{cases}
+		u\,\uplambda  & \text{if $\sfM=\sfA$},\\
+		\overline{v}\,\uplambda & \text{if $\sfM=\sfA^\dagger$}.
+ 	\end{cases}
+	\]
+In particular, $\langle\varphi{\otimes}\Upomega,\sfX(t)\psi{\otimes}\Upomega\rangle = 0$ for every $t\ge 0$ and $\psi,\varphi\in\calH_\text{sys}$.
+
+%From Proposition~\ref{prop:fundamental-1}, we easily deduce that
+%\[
+%	\langle\varphi{\otimes}\Upomega,\sfX(t)\psi{\otimes}\Upomega\rangle = 0\qquad \text{for every $t\ge 0$ and $\psi,\varphi\in\calH_\text{sys}$}.
+%\]
+%since each component of the sum gives
+%\[
+%	\langle \psi{\otimes} \Upomega, L_j\psi{\otimes} \Upomega \rangle \langle \Upomega,\bigl(\sfM(t{\wedge}t_{j+1})-\sfM(t{\wedge}t_j)\bigr)\Upomega\rangle = 0.
+%\]
+%\begin{align*}
+%	&\langle \varphi{\otimes} \sfe(v), L_j{\otimes} \bigl(\sfM(t_{j+1})-\sfM(t_j)\bigr)\psi{\otimes} \sfe(u) \rangle \\
+%%	&= \langle \varphi{\otimes} \sfe(v\mathbf{1}_{[0,t_j]}), L(t_j)\psi{\otimes} \sfe(u\mathbf{1}_{[0,t_j]}) \rangle \langle \sfe(v\mathbf{1}_{[t_j,t_{j+1}]}),\bigl(\sfM(t_{j+1})-\sfM(t_j)\bigr)\sfe(u\mathbf{1}_{[t_j,t_{j+1}]})\rangle \\
+%	&= \langle \varphi{\otimes} \sfe(v\mathbf{1}_{[0,t_j]}), L_j\psi{\otimes} \sfe(u\mathbf{1}_{[0,t_j]}) \rangle 
+%	\begin{cases}
+%		\langle 1,u\mathbf{1}_{[t_j,t_{j+1}]}\rangle\langle v,u\mathbf{1}_{[t_j,+\infty)}\rangle & \text{if $\sfM=\sfA$},\\
+%		\langle v\mathbf{1}_{[t_j,t_{j+1}]},1\rangle\langle v,u\mathbf{1}_{[t_j,+\infty)}\rangle & \text{if $\sfM=\sfA^\dagger$}.
+% 	\end{cases}
+%\end{align*}
+
+\medskip
+If $\sfY$ is another simple process with
+
+\[
+	\sfY(t)\coloneqq \int_0^t H(s){\otimes}\dd \sfN(s),
+\]
+then
+\begin{align*}
+	\langle\varphi{\otimes}\Upomega,\sfX(t)\sfY(t)\psi{\otimes}\Upomega\rangle = \begin{cases}
+		\displaystyle\int_{[0,t]} \langle \psi{\otimes}\Upomega,LH\psi{\otimes}\Upomega\rangle \dd \uplambda  &\text{if $\sfM=\sfA$ and $\sfN=\sfA^\dagger$},\\
+		0 & \text{otherwise}, \\
+	\end{cases}
+\end{align*}
+and the It\^o product rule becomes
+\[
+	\d\bigl(\sfX(t)\sfY(t)\bigr) = (\d \sfX(t)) \sfY(t) + \sfX(t)\d\sfY(t) + L(t)H(t) \dd\langle\sfM\sfN\rangle(t),
+\]
+with the following It\^o table, which allows us to further obtain an It\^o formula.
+%\begin{figure}[h]\centering\renewcommand{\arraystretch}{1.2}
+\begin{center}\renewcommand{\arraystretch}{1.2}
+	\begin{tabular}{c|cc} 
+	$\d\sfM\backslash\d\sfN$ & $\d \sfA(t)$ & $\d \sfA^\dagger(t)$ \\ \hline 
+	$\d \sfA(t)$ & $0$ & $\d t$ \\
+	$\d \sfA^\dagger(t)$ & $0$ & $0$ \\
+\end{tabular}
+\end{center}
+We note that while most of the computations here have been performed for the vacuum state $\Upomega$, they can be carried out for arbitrary exponential vectors $\sfe(u)$.
+
+As a special case, we find
+\begin{align*}
+	\|\sfX(t)\psi{\otimes}\Upomega\|^2 = \begin{cases}\displaystyle\int_{[0,t]} \|L\psi{\otimes}\Upomega\|^2 \dd \uplambda  &\text{if $\sfM=\sfA^\dagger$}, \\
+		0 & \text{otherwise},
+\end{cases}
+\end{align*}
+which will allow us to extend the stochastic integral to adapted processes that are not necessarily simple as in the classical case. 
+
+\begin{definition}
+	A $\calF$-adapted process $(L(t))_{t\in\bbR_+}$ is said to be \emph{stochastically integrable} if there exists a sequence $(L^n)_{n\in\bbN}$ of simple $\calF$-adapted processes such that
+	\[
+		\int_0^t \|(L^n-L)\psi{\otimes}\sfe(u)\|^2\,|v|^2\dd\uplambda\longrightarrow 0\quad\text{for every $\psi\in\calH_\text{sys}$,\;$u,v\in\calK$}.
+	\]
+	We denote by $\bbL(\calF)$ the complex linear space of all stochastically integrable processes.
+\end{definition}
+
+\begin{proposition}
+	Let $(L(t))_{t\in\bbR_+}$ be any $\calF$-adapted process satisfying
+	\begin{enumerate}[label=(\roman*),itemsep=0.0em]
+		\item the map $t\mapsto L(t)\psi{\otimes}\sfe(u)$ is continuous,
+		\item $\sup_{s\in [0,t]}\|L(s)\psi{\otimes}\sfe(u)\| <+\infty$ for every $t\ge 0$,
+	\end{enumerate}
+	for every $\psi\in\calH_\text{sys}$ and $u\in\calK$. Then $L\in\bbL(\calF)$.
+\end{proposition}
+
+
+%\end{figure}
+
+%Therefore, if
+%\[
+%	\sfX(t) = -iHt+\int_0^t L(s){\otimes}\dd \sfA^\dagger(s) - \int_0^t L^\dagger(s){\otimes}\dd \sfA(s),
+%\]
+%then, we obtain for $U(t)\coloneqq \exp(\sfX(t))$ the QSDE
+%\[
+%	\d U(t) = \bigl(\d\sfX(t) + \tfrac{1}{2}\d\langle\sfX^2\rangle(t)\bigr)U(t)
+%\]
+%
+%\begin{align*}
+%	\langle\psi{\otimes}\Upomega,\exp(\sfX(t))\psi{\otimes}\Upomega\rangle = \sum_{n=0}^\infty \frac{1}{n!}\langle\psi{\otimes}\Upomega,\sfX^n(t)\psi{\otimes}\Upomega\rangle
+%\end{align*}
+%\begin{align*}
+%	\langle\psi{\otimes}\Upomega,\sfX^n(t)\psi{\otimes}\Upomega\rangle &= \langle\sfX^\dagger(t)\psi{\otimes}\Upomega,\sfX^{n-2}(t)\sfX(t)\psi{\otimes}\Upomega\rangle \\
+%	&= -\biggl\langle \int_0^t L(s){\otimes}\dd\sfA^\dagger(s)\psi{\otimes}\Upomega, \sfX^{n-2}(t)\int_0^t L(s){\otimes}\dd\sfA^\dagger(s)\psi{\otimes}\Upomega\biggr\rangle
+%\end{align*}
+
+%\begin{align*}
+%	&\langle \sfX^\dagger(t)\psi{\otimes}\Upomega,\sfY(t)\psi{\otimes}\Upomega\rangle \\
+%	&\quad = \sum_{j,k=0}^n \langle \bigl(L_j^\dagger\psi{\otimes}\Upomega\bigr){\otimes}(0{\oplus}\mathbf{1}_{[t{\wedge}t_j,t{\wedge}t_{j+1}]}{\oplus} 0\cdots),\bigl(H_k\psi{\otimes}\Upomega\bigr){\otimes}(0{\oplus}\mathbf{1}_{[t{\wedge}t_k,t{\wedge}t_{k+1}]}{\oplus} 0\cdots)\rangle \\
+%%	&\quad= \sum_{j=0}^{n-1} \langle L_j^\dagger \psi{\otimes}\Upomega,H_j\psi{\otimes}\Upomega\rangle (t{\wedge}t_{j+1}-t{\wedge}t_j) + \langle L_n^\dagger \psi{\otimes}\Upomega,H_n\psi{\otimes}\Upomega\rangle (t - t{\wedge}t_n)\mathbf{1}_{[t_n,+\infty)}(t) \\
+%	&\quad= \left\langle \psi{\otimes}\Upomega,\left(\int_0^t L(s)H(s) \dd s\right) \psi{\otimes}\Upomega\right\rangle
+%\end{align*}
+%
+%\[
+%	\sfA^\dagger(t)\Upomega = \frac{\d}{\d\varepsilon}\Big|_{\varepsilon=0} \sfe(\varepsilon \mathbf{1}_{[0,t]}) = 0{\oplus}\mathbf{1}_{[0,t]}{\oplus} 0\cdots
+%\]
 
 \subsection{Hudson-Parthasarathy equation}
-Let $H \in \mathcal{O}(\calH)$ and $L_1,\dots,L_d \in \mathcal{B}(\calH)$. The HP equation for a unitary process $U_t$ on $\calH \otimes \frF$ reads
-\begin{align*}
-dU_t = \Bigl( \sum_{j=1}^d L_j{\otimes} \dd \sfA_j^\dagger(t) - \sum_{j=1}^d L_j^\dagger {\otimes} \dd \sfA_j(t) - \Bigl(iH + \tfrac12 \sum_{j=1}^d L_j^\dagger L_j\Bigr) dt \Bigr) U_t,
-  \quad U_0 = I.
-  \end{align*}
-This equation defines a unitary adapted cocycle and represents the joint evolution of system and environment.
+
+We now come to the main part of the section. Let $H \in \mathcal{O}(\calH_\text{sys})$, $L\in \mathcal{B}(\calH_\text{sys})$, and set
+\[
+	\sfX(t) = -itH{\otimes}\sfI_{\calH_\text{env}} +\int_0^t L(s){\otimes}\dd \sfA^\dagger(s) - \int_0^t L^\dagger(s){\otimes}\dd \sfA(s)\;\;\in\scrA(\calH_\text{tot}).
+\]
+Then, from It\^o's formula, one deduces that the unitary process $U_t\coloneqq \exp(\sfX(t))\in \scrU(\calH_\text{tot})$ satisfies the Hudson-Parthasarathy QSDE
+\begin{align}\label{eq:qsde}\tag{\textsf{QSDE}}
+	\d U_t = \bigl( \d\sfX(t) + \frI \dd t \bigr) U_t, \qquad \frI = -\tfrac{1}{2}L^\dagger L.
+\end{align}
+representing the joint evolution of system and environment.
+
+\begin{remark}
+	Let $L=iK$ with $K\in\scrO(\calK_\text{sys})$. Then, $L^\dagger = -L$, and hence,
+	\[
+		\sfX(t) = -itH{\otimes}\sfI_{\calH_\text{env}} + iK{\otimes}\sfB(t)\;\;\in\scrA(\calH_\text{tot}),
+	\]
+	i.e., we recover the scenario of Section~\ref{sec:open-quantum}.
+\end{remark}
+
+\newpage
 
 \subsection{Stratonovich versus It\^o formulations}
 \label{subsec:ito-strat-hp}
@@ -212,7 +431,7 @@ dU_t = G_{\text{It\^o}}(t), U_t,
 where
 \[
 G_{\text{It\^o}}(t)
-:= \sum_j L_j , dA_j^\dagger(t)
+\coloneqq \sum_j L_j , dA_j^\dagger(t)
 * \sum_j L_j^\dagger , dA_j(t)
 * \Bigl(iH + \tfrac12 \sum_j L_j^\dagger L_j\Bigr) dt.
 \]
@@ -223,7 +442,7 @@ dU_t = G_{\mathrm{Strat}}(t) \circ U_t,
 \]
 where the Stratonovich generator is
 \[
-G_{\mathrm{Strat}}(t) := \sum_j L_j , \circ dA_j^\dagger(t)* \sum_j L_j^\dagger , \circ dA_j(t)* iH ; dt.
+G_{\mathrm{Strat}}(t) \coloneqq \sum_j L_j , \circ dA_j^\dagger(t)* \sum_j L_j^\dagger , \circ dA_j(t)* iH ; dt.
 \]
 
 The relation between the two forms mirrors the classical correction term: the It\^o drift contains the additional dissipative contribution $-\tfrac12 \sum_j L_j^\dagger L_j$, which arises from the non-vanishing quadratic products $dA_j(t) dA_j^\dagger(t) = dt$ in the quantum It\^o table.
@@ -235,18 +454,18 @@ H_{\mathrm{eff}}(t)
 \]
 while the It\^o form encodes the same dynamics together with the irreversible drift required for complete positivity.
 
-This distinction is especially useful when comparing HP equations with the classical stochastic Schr\"odinger equations of Lecture~1, which were naturally written in Stratonovich form.
+This distinction is especially useful when comparing HP equations with the classical stochastic Schr\"odinger equations of Section~\ref{sec:open-quantum}, which were naturally written in Stratonovich form.
 
 \begin{remark}[Classical versus quantum noise]
-In the classical setting of Lecture~1, a unitary-valued stochastic evolution driven by Brownian motion takes the Stratonovich form
+In the classical setting of Section~\ref{sec:open-quantum}, a unitary-valued stochastic evolution driven by Brownian motion takes the Stratonovich form
 \[
-dU_t = i H \circ dW_t , U_t,
+	\d U_t = i L \circ dW_t , U_t,
 \]
 which corresponds to a random Hamiltonian perturbation and preserves unitarity pathwise. Passing to It\^o form introduces the familiar correction $-\tfrac12 H^2 dt$, reflecting the quadratic variation of Brownian motion.
 
 In the quantum setting, the Stratonovich HP equation
 \[
-dU_t = \sum_j L_j \circ dA_j^\dagger(t) , U_t - \sum_j L_j^\dagger \circ dA_j(t) , U_t - iH dt , U_t
+dU_t = \sum_j L_j{\otimes} \circ \d\sfA_j^\dagger(t) - \sum_j L_j^\dagger {\otimes}\circ \dd\sfA_j(t) , U_t - iH \dd t  U_t
 \]
 plays an analogous role: it represents a stochastic Hamiltonian coupling between system and field. However, the non-commutativity of the quantum noise leads, in It\^o form, to the additional drift term $-\tfrac12 \sum_j L_j^\dagger L_j dt$, which has no classical analogue and is ultimately responsible for irreversible Lindblad dynamics after tracing out the environment.
 
@@ -256,7 +475,7 @@ Thus, classical noise produces diffusion on the unitary group, while quantum noi
 \subsection{From HP equations to Lindblad dynamics}
 Let $\rho_0 \in \mathcal{D}(\calH)$ and consider the vacuum state on the Fock space. The reduced system state is given by
 \[
-\rho_t = \mathrm{Tr}_{\frF}\bigl(U_t (\rho_0 \otimes |\Upomega\rangle\langle\Upomega|) U_t^\dagger\bigr).
+\rho_t = \mathrm{Tr}_{\frF}\bigl(U_t (\rho_0 {\otimes} |\Upomega\rangle\langle\Upomega|) U_t^\dagger\bigr).
 \]
 A direct computation using the quantum It\^o calculus yields the Lindblad equation
 \[
@@ -265,9 +484,9 @@ A direct computation using the quantum It\^o calculus yields the Lindblad equati
 Thus, every GKSL generator admits a unitary dilation driven by quantum noise.
 
 \subsection{Worked example: amplitude damping}
-Consider a single qubit with $L = \sqrt{\gamma} \sigma_-$ and $H = 0$. The HP equation becomes
+Consider a single qubit with $H = 0$ and $L = \sqrt{\gamma} \sigma_-\in \scrB(\calH_\text{sys})$. The QSDE becomes
 \[
-	dU_t = \bigl( \sqrt{\gamma} \sigma_-  dA^\dagger(t) - \sqrt{\gamma} \sigma_+  dA(t) - \tfrac{\gamma}{2} \sigma_+ \sigma_- dt \bigr) U_t.
+	dU_t = \bigl( \sqrt{\gamma} \sigma_-{\otimes}  \dd\sfA^\dagger(t) - \sqrt{\gamma} \sigma_+{\otimes}  \dd\sfA(t) - \tfrac{\gamma}{2} \sigma_+ \sigma_- \dd t \bigr) U_t.
 \]
 Tracing out the Fock space yields the master equation
 \[
@@ -314,7 +533,7 @@ are commonly known as \emph{coherent vectors}.
 
 For any $f\in\calH$, we define the \emph{Weyl operator} on exponential vectors by
 \[
-	\sfW(f)\sfe(g) := \exp \left(-\langle f,g\rangle_\calH - \frac{1}{2}\|f\|_\calH^2\right)\sfe(f+g),\qquad g\in\calH.
+	\sfW(f)\sfe(g) \coloneqq \exp \left(-\langle f,g\rangle_\calH - \frac{1}{2}\|f\|_\calH^2\right)\sfe(f+g),\qquad g\in\calH.
 \]
 Weyl operators play an essential role in the setup of Fock spaces. For one, they generate coherent states by acting on the vacuum state, i.e.,
 \[
@@ -360,7 +579,7 @@ Since $\sfW(f)$ is unitary for every $f\in\calH$, the family $\{\sfW(tf)\}_{t\in
 \]
 We further define the following operators
 \[
-	\sfQ(f):=-\sfP(if),\qquad \sfA^-(f):= \frac{\sfQ(f)+i\sfP(f)}{2},\qquad \sfA^+(f):= \frac{\sfQ(f)-i\sfP(f)}{2}.
+	\sfQ(f)\coloneqq-\sfP(if),\qquad \sfA^-(f)\coloneqq \frac{\sfQ(f)+i\sfP(f)}{2},\qquad \sfA^+(f)\coloneqq \frac{\sfQ(f)-i\sfP(f)}{2}.
 \]
 The operators $\sfA^\pm$ are called the \emph{field operators} and will play an essential role as they form the creation/annihilation operators on Fock spaces.
 
@@ -393,7 +612,7 @@ The operators $\sfA^\pm$ are called the \emph{field operators} and will play an 
 \end{remark}
 
 %\begin{remark}
-%	Notice that if $\{\psi_j\}_{j}$ forms an orthonormal basis for $\calH$, then the family $\{\sfA^\pm_i:=\sfA^\pm(\psi_j)\}_{j}$ of field operators is a family of commuting operators and may be seen as a `basis' for the set of field operators since for any $f\in\calH$ with $f=\sum_{j} f_j\psi_j$, we have the representation
+%	Notice that if $\{\psi_j\}_{j}$ forms an orthonormal basis for $\calH$, then the family $\{\sfA^\pm_i\coloneqq\sfA^\pm(\psi_j)\}_{j}$ of field operators is a family of commuting operators and may be seen as a `basis' for the set of field operators since for any $f\in\calH$ with $f=\sum_{j} f_j\psi_j$, we have the representation
 %	\begin{align*}
 %		\sfA^-(f)g^{\otimes n} &= \sum\nolimits_{j} \sqrt{n}f_j\langle \psi_j,g\rangle_\calH\,g^{\otimes(n-1)} = \sum\nolimits_{j} f_j \sfA_j^-g^{\otimes n} \\
 %		\sfA^+(f)g^{\otimes n} &= \sum\nolimits_j f_j\frac{1}{\sqrt{n-1}}\sum_{k\le n} g^{\otimes k}\otimes \psi_j\otimes g^{\otimes(n-k)} = \sum\nolimits_j f_j\sfA_j^+ g^{\otimes n}
@@ -428,7 +647,7 @@ The operators $\sfA^\pm$ are called the \emph{field operators} and will play an 
 %\]
 %
 %\[
-%	a^-(f) := \frac{B(f)+B(if)}{2},\qquad a^-(f) := \frac{B(f)-B(if)}{2i}
+%	a^-(f) \coloneqq \frac{B(f)+B(if)}{2},\qquad a^-(f) \coloneqq \frac{B(f)-B(if)}{2i}
 %\]
 %\[
 %	[a^-(f),a^+(f)] = [\frac{B(f)+B(if)}{2},\frac{B(f)-B(if)}{2}] = -\frac{1}{2i}[B(f),B(if)] = -\|f\|_\calH^2
@@ -441,7 +660,7 @@ The term \emph{second quantization} is associated with the action of lifting ope
 
 We begin our discussion with the \emph{$1$-particle} case. For any bounded operator $A\in \calB(\calH)$ one defines the map
 \[
-	\Upgamma(A) := I\oplus \bigoplus_{n\in\bbN} A^{\otimes n},
+	\Upgamma(A) \coloneqq I\oplus \bigoplus_{n\in\bbN} A^{\otimes n},
 \]
 which acts on $\calH^{\otimes n}$ by
 \[
@@ -452,7 +671,7 @@ Clearly, if $A$ is unitary, then so is $\Upgamma(A)$. Indeed, in this case, one 
 	\langle \Upgamma(A)e(g),\Upgamma(A)e(g)\rangle_{\frF(\calH)} = \sum_{n\in\bbN_0}\frac{1}{n!} \langle Ag,Ag\rangle_\calH^n = \sum_{n\in\bbN_0}\frac{1}{n!} \|g\|_\calH^n = \langle e(g),e(g)\rangle_{\frF(\calH)}.
 \]
 
-Now let $H$ be a self-adjoint operator on $\calH$ and $U_t:=\exp(itH)$ be its unitary evolution. Then, $\Upgamma(U_t)$ is a one-parameter group of unitary operators on $\frF(\calH)$. Stone's theorem then provides the existence of a densely defined Hermitian operator $\sfd\Upgamma(H)$ such that
+Now let $H$ be a self-adjoint operator on $\calH$ and $U_t\coloneqq\exp(itH)$ be its unitary evolution. Then, $\Upgamma(U_t)$ is a one-parameter group of unitary operators on $\frF(\calH)$. Stone's theorem then provides the existence of a densely defined Hermitian operator $\sfd\Upgamma(H)$ such that
 \[
 	\Upgamma(U_t) = \exp(it\,\sfd\Upgamma(H)).
 \]
@@ -466,7 +685,7 @@ for any $g^{(n)}=g_1\otimes\cdots\otimes g_n\in \calH^{\otimes n}$ with $g_j\in 
 \]
 where $H$ acts on the $j$-th tensor product. The special case $H=I_\calH$ yields
 \[
-	\sfN g^{(n)}:=\sfd\Upgamma(I_\calH)g^{(n)} = ng^{(n)},\qquad n\in\bbN,
+	\sfN g^{(n)}\coloneqq\sfd\Upgamma(I_\calH)g^{(n)} = ng^{(n)},\qquad n\in\bbN,
 \]
 and is called the \emph{number operator} due to its diagonal nature, with eigenvalues representing the number of particles in each configuration. Its domain is given by
 \[
@@ -598,7 +817,7 @@ Consider a Hamiltonian $H$ on $\frF_\mathsf{sym}(\calH)$ with $\calH = L_\bbC^2(
 	
 	Defining the field operators
 	\[
-		a^-= \frac{1}{\sqrt{2}}\bigl( Q + iP\bigr),\qquad a^+ = \frac{1}{\sqrt{2}}\bigl(Q - iP\bigr),\qquad N:=a^+a^-
+		a^-= \frac{1}{\sqrt{2}}\bigl( Q + iP\bigr),\qquad a^+ = \frac{1}{\sqrt{2}}\bigl(Q - iP\bigr),\qquad N\coloneqqa^+a^-
 	\]
 	such that $[a^-,a^+]=I$, we find that
 	\[
