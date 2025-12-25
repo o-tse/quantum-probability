@@ -14,7 +14,7 @@ A guiding principle in the theory of open quantum systems is that irreversibilit
 \]
 The reduced evolution of the system state is then obtained by tracing out the environment,
 \[
-	\rho_t = \tr\nolimits_\calK \bigl[U_t (\rho_0 {\otimes} \rho_{\text{env}}) U_t^\dagger\bigr]\;\in\scrD(\calH_{\text{sys}}),
+	\rho_t = \tr\nolimits_{\calH_\text{env}} \bigl[U_t (\rho_0 {\otimes} \rho_{\text{env}}) U_t^\dagger\bigr]\;\in\scrD(\calH_{\text{sys}}),
 \]
 where $\rho_0\in\scrD(\calH_{\text{sys}})$ is the initial state on the system and $\rho_\text{env}\in\scrD(\calH_{\text{env}})$ is a given state on the environment. Requiring \emph{Markovianity} and time-homogeneity of the evolution inevitably forces the environment to possess infinitely many degrees of freedom. In continuous time, this naturally leads to a description in terms of bosonic quantum fields.
 
@@ -330,15 +330,19 @@ and the It\^o product rule becomes
 \[
 	\d\bigl(\sfX(t)\sfY(t)\bigr) = (\d \sfX(t)) \sfY(t) + \sfX(t)\d\sfY(t) + L(t)H(t) \dd\langle\sfM\sfN\rangle(t),
 \]
-with the following It\^o table, which allows us to further obtain an It\^o formula.
+with the following It\^o table for $\d\langle\sfM\sfN\rangle$:
 %\begin{figure}[h]\centering\renewcommand{\arraystretch}{1.2}
 \begin{center}\renewcommand{\arraystretch}{1.2}
 	\begin{tabular}{c|cc} 
-	$\d\sfM\backslash\d\sfN$ & $\d \sfA(t)$ & $\d \sfA^\dagger(t)$ \\ \hline 
-	$\d \sfA(t)$ & $0$ & $\d t$ \\
-	$\d \sfA^\dagger(t)$ & $0$ & $0$ \\
+	$\d\sfM\backslash\d\sfN$ & $\d \sfA$ & $\d \sfA^\dagger$ \\ \hline 
+	$\d \sfA$ & $0$ & $\d\uplambda$ \\
+	$\d \sfA^\dagger$ & $0$ & $0$ \\
 \end{tabular}
 \end{center}
+allowing us to further obtain an It\^o formula: For smooth functions $f\colon\bbC\to\bbC$,
+\begin{align*}
+	\d f(\sfX(t)) = Df(\sfX(t))\dd\sfX(t) + \tfrac{1}{2}D^2f(\sfX(t))\dd\langle\sfX^2\rangle(t).
+\end{align*}
 We note that while most of the computations here have been performed for the vacuum state $\Upomega$, they can be carried out for arbitrary exponential vectors $\sfe(u)$.
 
 As a special case, we find
@@ -401,98 +405,159 @@ which will allow us to extend the stochastic integral to adapted processes that 
 
 We now come to the main part of the section. Let $H \in \mathcal{O}(\calH_\text{sys})$, $L\in \mathcal{B}(\calH_\text{sys})$, and set
 \[
-	\sfX(t) = -itH{\otimes}\sfI_{\calH_\text{env}} +\int_0^t L(s){\otimes}\dd \sfA^\dagger(s) - \int_0^t L^\dagger(s){\otimes}\dd \sfA(s)\;\;\in\scrA(\calH_\text{tot}).
+	\sfX(t) = -itH{\otimes}\sfI_{\calH_\text{env}} + L{\otimes} \sfA^\dagger(t) - L^\dagger{\otimes}\sfA(t)\;\;\in\scrA(\calH_\text{tot}).
 \]
 Then, from It\^o's formula, one deduces that the unitary process $U_t\coloneqq \exp(\sfX(t))\in \scrU(\calH_\text{tot})$ satisfies the Hudson-Parthasarathy QSDE
 \begin{align}\label{eq:qsde}\tag{\textsf{QSDE}}
-	\d U_t = \bigl( \d\sfX(t) + \frI \dd t \bigr) U_t, \qquad \frI = -\tfrac{1}{2}L^\dagger L.
+	\d U_t = \bigl( \d\sfX(t) + \frI \dd t \bigr) U_t, \qquad \frI = -\tfrac{1}{2}(L^\dagger L){\otimes}\sfI_{\calH_\text{env}}.
 \end{align}
-representing the joint evolution of system and environment.
+representing the joint evolution of system and environment, where use used the fact that
+\[
+	\d\langle \sfX^2\rangle = -L^\dagger L\dd\lambda.
+\]
 
 \begin{remark}
 	Let $L=iK$ with $K\in\scrO(\calK_\text{sys})$. Then, $L^\dagger = -L$, and hence,
 	\[
 		\sfX(t) = -itH{\otimes}\sfI_{\calH_\text{env}} + iK{\otimes}\sfB(t)\;\;\in\scrA(\calH_\text{tot}),
 	\]
-	i.e., we recover the scenario of Section~\ref{sec:open-quantum}.
+	i.e., we recover the scenario of Section~\ref{sec:open-quantum} with $\sfB=\sfA+\sfA^\dagger$ as introduced in Section~\ref{sec:quantum-noise}.
 \end{remark}
+
+\vspace{-0.8em}
+\paragraph{Towards the Lindblad equation} The Lindblad equation is obtained by conjugating the state $\rho_0\otimes \ket{\Upomega}\bra{\Upomega}\in \scrD(\calH_\text{tot})$ with the unitary evolution $U_t$. Setting
+\[
+	\oba_t\coloneqq U_t(\rho_0\otimes \ket{\Upomega}\bra{\Upomega})U_t^\dagger,
+\]
+we obtain for $\oba_t$ the evolution
+\begin{align*}
+	\d\oba_t &= \bigl( \d\sfX(t) + \frI \dd t \bigr) \oba_t + \oba_t\bigl( -\d\sfX(t) + \frI\dd t \bigr) + L^\dagger{\otimes}\sfI_{\calH_\text{env}}\oba_t L{\otimes}\sfI_{\calH_\text{env}}\dd t \\
+	&= \bigl(-i[H{\otimes}\sfI_{\calH_\text{env}},\oba_t] - \tfrac{1}{2}[L^\dagger{\otimes}\sfI_{\calH_\text{env}},[L{\otimes}\sfI_{\calH_\text{env}},\oba_t]]\bigr)\d t + [L{\otimes}\dd\sfA^\dagger-L^\dagger{\otimes}\dd\sfA,\oba_t].
+\end{align*}
+Now, since $\sfI_{\calF_{t]}}{\otimes}\dd\sfA$ commutes with $\oba_t$ and $L{\otimes}\sfI_{\calH_\text{env}}$---recall that $\sfa_t$ is $\calF$-adapted---we have
+\begin{align*}
+	&\langle\Upomega,[L{\otimes}\dd\sfA^\dagger-L^\dagger{\otimes}\dd\sfA,\oba_t]\Upomega\rangle \\
+	&\qquad= -\langle L{\otimes}\dd\sfA^\dagger\Upomega,\oba_t\Upomega\rangle - \langle \Upomega,\oba_t L{\otimes}\dd\sfA^\dagger\Upomega\rangle \\
+	&\qquad= -\langle L{\otimes}\sfI_{\calH_\text{env}}\Upomega,\oba_t \sfI_{\calF_{t]}}{\otimes}\dd\sfA\Upomega\rangle - \langle \sfI_{\calF_{t]}}{\otimes}\dd\sfA\Upomega,\oba_t L{\otimes}\sfI_{\calH_\text{env}}\Upomega\rangle = 0.
+\end{align*}
+Hence, taking the partial trace w.r.t.\ $\Upomega$ and setting $\rho_t\coloneqq \langle \Upomega,\sfa_t\Upomega\rangle$, we obtain
+\begin{align*}
+	\d\rho_t = -i[H,\rho_t]\dd t  - \tfrac{1}{2}[L^\dagger,[L,\rho_t]]\dd t,
+\end{align*}
+which is precisely the general Lindblad equation \eqref{eq:lindblad}.
+
+\subsection{Example: 1-qubit fidelity under amplitude damping}
+Consider a single qubit with driving Hamiltonian $H = H_\sfh\in\scrO(\calH_\text{sys})$ and noise operator $L = \sqrt{\gamma} \sigma_-=\sqrt{\gamma}\ket{\e_0}\bra{\e_1}\in\scrB(\calH_\text{sys})$, describing spontaneous emission. Recall from the example in Section~\ref{sec:open-quantum} that  $H_\sfh = \ket{\e_-}\bra{\e_-}$, where $\e_- = (\e_0-\e_1)/\sqrt{2}$. 
+
+Under these operators, the QSDE becomes
+\[
+	\d U_t^\upalpha = \bigl(-iH_\sfh{\otimes}\sfI_{\calH_\text{env}}\dd t + \sqrt{\gamma} \sigma_-{\otimes}  \dd\sfA^\dagger(t) - \sqrt{\gamma} \sigma_-^\dagger{\otimes}  \dd\sfA(t) - \tfrac{\gamma}{2} \sigma_-^\dagger \sigma_- \dd t \bigr) U_t^\upalpha,
+\]
+with the explicit solution $U_t=\exp(\sfX(t))$, where
+\[
+	\sfX(t) = -itH_\sfh{\otimes}\sfI_{\calH_\text{env}} +\sqrt{\gamma} \sigma_-{\otimes} \sfA^\dagger(t) - \sqrt{\gamma} \sigma_-^\dagger{\otimes} \sfA(t)\;\;\in\scrA(\calH_\text{tot}).
+\]
+
+As in Section~\ref{sec:open-quantum}, we compute the fidelity
+\begin{align*}
+	\sfF_t = |\langle\psi,U_t^\dagger U_t^\upalpha\psi\rangle|^2 = 
+\end{align*}
+\[
+	[H_\sfh,\sigma_-] = \ket{\e_-}\bra{\e_-}\ket{\e_0}\bra{\e_1} - \ket{\e_0}\bra{\e_1}\ket{\e_-}\bra{\e_-} = \tfrac{1}{\sqrt{2}}\bigl(\ket{\e_-}\bra{\e_1} + \ket{\e_0}\bra{\e_-}\bigr)
+\]
+
+\[
+	[H_\sfh,\sigma_-^\dagger] = \ket{\e_-}\bra{\e_-}\ket{\e_1}\bra{\e_0} - \ket{\e_1}\bra{\e_0}\ket{\e_-}\bra{\e_-} = -\tfrac{1}{\sqrt{2}}\bigl(\ket{\e_-}\bra{\e_0} + \ket{\e_1}\bra{\e_-}\bigr)
+\]
+\[
+	\sigma_-^\dagger\sigma_- = \ket{\e_1}\bra{\e_0}\ket{\e_0}\bra{\e_1} = \ket{\e_1}\bra{\e_1}
+\]
+\[
+	[H_\sfh,\sigma_-^\dagger\sigma_-] = \ket{\e_-}\bra{\e_-}\ket{\e_1}\bra{\e_1} - \ket{\e_1}\bra{\e_1}\ket{\e_-}\bra{\e_-} = -\tfrac{1}{\sqrt{2}}\bigl(\ket{\e_-}\bra{\e_1} + \ket{\e_1}\bra{\e_-}\bigr)
+\]
+
+Consider $H=\ket{\e_1}\bra{\e_1}$ instead. Then
+\[
+	[H,\sigma_-] = \ket{\e_1}\bra{\e_1}\ket{\e_0}\bra{\e_1} - \ket{\e_0}\bra{\e_1}\ket{\e_1}\bra{\e_1} = -\ket{\e_0}\bra{\e_1} = -\sigma_-
+\]
+\[
+	[H,\sigma_-^\dagger] = \ket{\e_1}\bra{\e_1}\ket{\e_1}\bra{\e_0} - \ket{\e_1}\bra{\e_0}\ket{\e_1}\bra{\e_1} = \ket{\e_1}\bra{\e_0} =\sigma_-^\dagger
+\]
+\[
+	[H{\otimes}\sfI_{\calH_\text{env}},\sigma_-{\otimes}\sfA^\dagger -\sigma_-^\dagger{\otimes}\sfA] = [H,\sigma_-]{\otimes}  \sfA^\dagger - [H,\sigma_-^\dagger]{\otimes}\sfA = -\sigma_-{\otimes}  \dd\sfA^\dagger - \sigma_-^\dagger{\otimes}  \dd\sfA
+\]
+\[
+	[H,[H,\sigma_-]] = -\ket{\e_1}\bra{\e_1}\ket{\e_0}\bra{\e_1} + \ket{\e_0}\bra{\e_1}\ket{\e_1}\bra{\e_1} = \ket{\e_0}\bra{\e_1} = -[H,\sigma_-]
+\]
+\[
+	[H,[H,\sigma_-^\dagger]] = \ket{\e_1}\bra{\e_1}\ket{\e_1}\bra{\e_0} - \ket{\e_1}\bra{\e_0}\ket{\e_1}\bra{\e_1} = [H,\sigma_-^\dagger]
+\]
 
 \newpage
 
-\subsection{Stratonovich versus It\^o formulations}
-\label{subsec:ito-strat-hp}
-
-As in the classical theory, quantum stochastic differential equations admit both It\^o and Stratonovich formulations. The It\^o form is algebraically convenient and is intrinsic to the Hudson-Parthasarathy framework, while the Stratonovich form is often conceptually closer to Hamiltonian dynamics.
-
-Let us write the HP equation in It\^o form as
-\[
-dU_t = G_{\text{It\^o}}(t), U_t,
-\]
-where
-\[
-G_{\text{It\^o}}(t)
-\coloneqq \sum_j L_j , dA_j^\dagger(t)
-* \sum_j L_j^\dagger , dA_j(t)
-* \Bigl(iH + \tfrac12 \sum_j L_j^\dagger L_j\Bigr) dt.
-\]
-
-The corresponding Stratonovich form is defined by the requirement that the usual Leibniz and chain rules hold. One may formally write
-\[
-dU_t = G_{\mathrm{Strat}}(t) \circ U_t,
-\]
-where the Stratonovich generator is
-\[
-G_{\mathrm{Strat}}(t) \coloneqq \sum_j L_j , \circ dA_j^\dagger(t)* \sum_j L_j^\dagger , \circ dA_j(t)* iH ; dt.
-\]
-
-The relation between the two forms mirrors the classical correction term: the It\^o drift contains the additional dissipative contribution $-\tfrac12 \sum_j L_j^\dagger L_j$, which arises from the non-vanishing quadratic products $dA_j(t) dA_j^\dagger(t) = dt$ in the quantum It\^o table.
-
-In particular, the Stratonovich form makes explicit that the unitary dynamics are generated by a \emph{stochastic Hamiltonian}
-\[
-H_{\mathrm{eff}}(t)
-= H + i \sum_j \bigl( L_j , \dot{A}_j^\dagger(t) - L_j^\dagger , \dot{A}_j(t) \bigr),
-\]
-while the It\^o form encodes the same dynamics together with the irreversible drift required for complete positivity.
-
-This distinction is especially useful when comparing HP equations with the classical stochastic Schr\"odinger equations of Section~\ref{sec:open-quantum}, which were naturally written in Stratonovich form.
-
-\begin{remark}[Classical versus quantum noise]
-In the classical setting of Section~\ref{sec:open-quantum}, a unitary-valued stochastic evolution driven by Brownian motion takes the Stratonovich form
-\[
-	\d U_t = i L \circ dW_t , U_t,
-\]
-which corresponds to a random Hamiltonian perturbation and preserves unitarity pathwise. Passing to It\^o form introduces the familiar correction $-\tfrac12 H^2 dt$, reflecting the quadratic variation of Brownian motion.
-
-In the quantum setting, the Stratonovich HP equation
-\[
-dU_t = \sum_j L_j{\otimes} \circ \d\sfA_j^\dagger(t) - \sum_j L_j^\dagger {\otimes}\circ \dd\sfA_j(t) , U_t - iH \dd t  U_t
-\]
-plays an analogous role: it represents a stochastic Hamiltonian coupling between system and field. However, the non-commutativity of the quantum noise leads, in It\^o form, to the additional drift term $-\tfrac12 \sum_j L_j^\dagger L_j dt$, which has no classical analogue and is ultimately responsible for irreversible Lindblad dynamics after tracing out the environment.
-
-Thus, classical noise produces diffusion on the unitary group, while quantum noise produces both diffusion and dissipation---a distinction that lies at the heart of open quantum system theory.
-\end{remark}
-
-\subsection{From HP equations to Lindblad dynamics}
-Let $\rho_0 \in \mathcal{D}(\calH)$ and consider the vacuum state on the Fock space. The reduced system state is given by
-\[
-\rho_t = \mathrm{Tr}_{\frF}\bigl(U_t (\rho_0 {\otimes} |\Upomega\rangle\langle\Upomega|) U_t^\dagger\bigr).
-\]
-A direct computation using the quantum It\^o calculus yields the Lindblad equation
-\[
-\frac{d}{dt}\rho_t = -i[H,\rho_t] + \scrL(\rho_t),\qquad \scrL(\rho) \coloneqq - \tfrac{1}{2}\sum\nolimits_j [L_j^\dagger,[L_j,\rho]]
-\]
-Thus, every GKSL generator admits a unitary dilation driven by quantum noise.
-
-\subsection{Worked example: amplitude damping}
-Consider a single qubit with $H = 0$ and $L = \sqrt{\gamma} \sigma_-\in \scrB(\calH_\text{sys})$. The QSDE becomes
-\[
-	dU_t = \bigl( \sqrt{\gamma} \sigma_-{\otimes}  \dd\sfA^\dagger(t) - \sqrt{\gamma} \sigma_+{\otimes}  \dd\sfA(t) - \tfrac{\gamma}{2} \sigma_+ \sigma_- \dd t \bigr) U_t.
-\]
-Tracing out the Fock space yields the master equation
-\[
-  \frac{\d}{\d t}\rho_t = -\tfrac{\gamma}{2}[\sigma_+,[\sigma_-,\rho_t]],
-\]
-which describes spontaneous emission. This dynamics cannot be obtained from any classical-noise-driven stochastic Schr\"odinger equation.
+%\subsection{Stratonovich versus It\^o formulations}
+%\label{subsec:ito-strat-hp}
+%
+%As in the classical theory, quantum stochastic differential equations admit both It\^o and Stratonovich formulations. The It\^o form is algebraically convenient and is intrinsic to the Hudson-Parthasarathy framework, while the Stratonovich form is often conceptually closer to Hamiltonian dynamics.
+%
+%Let us write the HP equation in It\^o form as
+%\[
+%dU_t = G_{\text{It\^o}}(t), U_t,
+%\]
+%where
+%\[
+%G_{\text{It\^o}}(t)
+%\coloneqq \sum_j L_j , dA_j^\dagger(t)
+%* \sum_j L_j^\dagger , dA_j(t)
+%* \Bigl(iH + \tfrac12 \sum_j L_j^\dagger L_j\Bigr) dt.
+%\]
+%
+%The corresponding Stratonovich form is defined by the requirement that the usual Leibniz and chain rules hold. One may formally write
+%\[
+%dU_t = G_{\mathrm{Strat}}(t) \circ U_t,
+%\]
+%where the Stratonovich generator is
+%\[
+%G_{\mathrm{Strat}}(t) \coloneqq \sum_j L_j , \circ dA_j^\dagger(t)* \sum_j L_j^\dagger , \circ dA_j(t)* iH ; dt.
+%\]
+%
+%The relation between the two forms mirrors the classical correction term: the It\^o drift contains the additional dissipative contribution $-\tfrac12 \sum_j L_j^\dagger L_j$, which arises from the non-vanishing quadratic products $dA_j(t) dA_j^\dagger(t) = dt$ in the quantum It\^o table.
+%
+%In particular, the Stratonovich form makes explicit that the unitary dynamics are generated by a \emph{stochastic Hamiltonian}
+%\[
+%H_{\mathrm{eff}}(t)
+%= H + i \sum_j \bigl( L_j , \dot{A}_j^\dagger(t) - L_j^\dagger , \dot{A}_j(t) \bigr),
+%\]
+%while the It\^o form encodes the same dynamics together with the irreversible drift required for complete positivity.
+%
+%This distinction is especially useful when comparing HP equations with the classical stochastic Schr\"odinger equations of Section~\ref{sec:open-quantum}, which were naturally written in Stratonovich form.
+%
+%\begin{remark}[Classical versus quantum noise]
+%In the classical setting of Section~\ref{sec:open-quantum}, a unitary-valued stochastic evolution driven by Brownian motion takes the Stratonovich form
+%\[
+%	\d U_t = i L \circ dW_t , U_t,
+%\]
+%which corresponds to a random Hamiltonian perturbation and preserves unitarity pathwise. Passing to It\^o form introduces the familiar correction $-\tfrac12 H^2 dt$, reflecting the quadratic variation of Brownian motion.
+%
+%In the quantum setting, the Stratonovich HP equation
+%\[
+%dU_t = \sum_j L_j{\otimes} \circ \d\sfA_j^\dagger(t) - \sum_j L_j^\dagger {\otimes}\circ \dd\sfA_j(t) , U_t - iH \dd t  U_t
+%\]
+%plays an analogous role: it represents a stochastic Hamiltonian coupling between system and field. However, the non-commutativity of the quantum noise leads, in It\^o form, to the additional drift term $-\tfrac12 \sum_j L_j^\dagger L_j dt$, which has no classical analogue and is ultimately responsible for irreversible Lindblad dynamics after tracing out the environment.
+%
+%Thus, classical noise produces diffusion on the unitary group, while quantum noise produces both diffusion and dissipation---a distinction that lies at the heart of open quantum system theory.
+%\end{remark}
+%
+%\subsection{From HP equations to Lindblad dynamics}
+%Let $\rho_0 \in \mathcal{D}(\calH)$ and consider the vacuum state on the Fock space. The reduced system state is given by
+%\[
+%\rho_t = \mathrm{Tr}_{\frF}\bigl(U_t (\rho_0 {\otimes} |\Upomega\rangle\langle\Upomega|) U_t^\dagger\bigr).
+%\]
+%A direct computation using the quantum It\^o calculus yields the Lindblad equation
+%\[
+%\frac{d}{dt}\rho_t = -i[H,\rho_t] + \scrL(\rho_t),\qquad \scrL(\rho) \coloneqq - \tfrac{1}{2}\sum\nolimits_j [L_j^\dagger,[L_j,\rho]]
+%\]
+%Thus, every GKSL generator admits a unitary dilation driven by quantum noise.
 
 \subsection{Outlook: control and measurement}
 Hudson-Parthasarathy equations provide the natural starting point for quantum filtering, continuous measurement, and feedback control. In this framework, control inputs appear as adapted processes acting on the system operators, while measurement corresponds to observing commuting output fields derived from the quantum noise.
@@ -817,7 +882,7 @@ Consider a Hamiltonian $H$ on $\frF_\mathsf{sym}(\calH)$ with $\calH = L_\bbC^2(
 	
 	Defining the field operators
 	\[
-		a^-= \frac{1}{\sqrt{2}}\bigl( Q + iP\bigr),\qquad a^+ = \frac{1}{\sqrt{2}}\bigl(Q - iP\bigr),\qquad N\coloneqqa^+a^-
+		a^-= \frac{1}{\sqrt{2}}\bigl( Q + iP\bigr),\qquad a^+ = \frac{1}{\sqrt{2}}\bigl(Q - iP\bigr),\qquad N\coloneqq a^+a^-
 	\]
 	such that $[a^-,a^+]=I$, we find that
 	\[

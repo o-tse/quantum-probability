@@ -113,6 +113,7 @@ In the case $H=0$, $d=1$, we find, as in the deterministic case, the explicit so
 In particular, $U_t$ commutes with $L$ for all $t\ge 0$.\hfill $\diamondsuit$
 \end{remark}
 
+\vspace{-0.8em}
 \paragraph{Towards the Lindblad equation}
 To obtain the Lindblad equation \eqref{eq:lindblad} from the stochastic Schr\"odinger equation \eqref{eq:unitary-sse}, we consider noise profiles of the form
 \[
@@ -190,18 +191,18 @@ By spectral calculus, we obtain
 	= e^0\ket{\e_+}\bra{\e_+} + e^{-i\pi}\ket{\e_-}\bra{\e_-} \\
 	&= \exp(-i\pi \ket{\e_-}\bra{\e_-}) = e^{-i\pi H_\sfh},\qquad H_\sfh\coloneqq \ket{\e_-}\bra{\e_-} = \tfrac{1}{2}(\sfI_\calH - \sigma_\mathsf{x}).
 \end{align*}
-In other words, $iH_\sfh \in\scrA(\calH)$ generates the Hadamard gate after evolving for time $t=\pi$, i.e., $U_t=\exp(itH_\sfh)$ solves the Schr\"odinger equation
+In other words, $iH_\sfh \in\scrA(\calH)$ generates the Hadamard gate after evolving for time $t=\pi$, i.e., $U_t=\exp(-itH_\sfh)$ solves the Schr\"odinger equation
 \[
-	\d U_t = i H_\sfh U_t\dd t,\qquad U_0 = \sfI_\calH.
+	\d U_t = -i H_\sfh U_t\dd t,\qquad U_0 = \sfI_\calH.
 \]
 Notice that $H_\sfh\in\scrP(\calH)$ happens to be a rank-1 projection on the unit vector $\e_-\in\calH$.
 
 In the presence of noise, however, we instead have
 \[
-	\d U_t^\upalpha = iH_\sfh U_t^\upalpha\circ \d\upalpha_t,\qquad U_0=\sfI_\calH,
+	\d U_t^\upalpha = -iH_\sfh U_t^\upalpha\circ \d\upalpha_t,\qquad U_0=\sfI_\calH,
 \]
 %where in this example, we consider for simplicity the noise of the form $\upalpha_t = t + \sqrt{\gamma}\upomega_t$. 
-From Remark~\ref{rem:explicit-sse}, we obtain the explicit form $U_t^\upalpha = \exp(i\upalpha_t H_\sfh)$. 
+From Remark~\ref{rem:explicit-sse}, we obtain the explicit form $U_t^\upalpha = \exp(-i\upalpha_t H_\sfh)$. 
 
 Suppose we were to simply apply the noisy pulse according to $\upalpha_t = 1 + \sqrt{\gamma}\upomega_t$. Then the fidelity between the desired pure state $\ket{U_t\psi}\bra{U_t\psi}$ and the noisy pure state $\ket{U_t^\upalpha\psi}\bra{U_t^\upalpha\psi}$ for any unit vector $\psi\in\calH$ is given by
 \[
@@ -209,12 +210,12 @@ Suppose we were to simply apply the noisy pulse according to $\upalpha_t = 1 + \
 \]
 Using the forms obtained above, we easily deduce that 
 \[
-	U_t^\dagger U_t^\upalpha = \exp\bigl(i\sqrt{\gamma}\upomega_t H_\sfh\bigr) = \ket{\e_+}\bra{\e_+} + e^{i\sqrt{\gamma}\upomega_t}\ket{\e_-}\bra{\e_-}.
+	U_t^\dagger U_t^\upalpha = \exp\bigl(-i\sqrt{\gamma}\upomega_t H_\sfh\bigr) = \ket{\e_+}\bra{\e_+} + e^{-i\sqrt{\gamma}\upomega_t}\ket{\e_-}\bra{\e_-}.
 \]
 Since $\{\e_+,\e_-\}$ forms an orthonormal basis for $\calH$, $\psi = \psi_+\e_+ + \psi_-\e_-$, for which we obtain
 \begin{align*}
-	\sfF_t^\upalpha(\psi) &= |\langle \psi_+\e_+ + \psi_-e^{i\sqrt{\gamma}\upomega_t}\e_-, \psi_+\e_+ + \psi_-\e_-\rangle|^2 \\
-	&= ||\psi_+|^2 + |\psi_-|^2e^{-i\sqrt{\gamma}\upomega_t}|^2 
+	\sfF_t^\upalpha(\psi) &= |\langle \psi_+\e_+ + \psi_-e^{-i\sqrt{\gamma}\upomega_t}\e_-, \psi_+\e_+ + \psi_-\e_-\rangle|^2 \\
+	&= ||\psi_+|^2 + |\psi_-|^2e^{i\sqrt{\gamma}\upomega_t}|^2 
 %	&= (|\psi_+|^2 + |\psi_-|^2e^{i\sqrt{\gamma}\upomega_t})(|\psi_+|^2 + |\psi_-|^2e^{-i\sqrt{\gamma}\upomega_t}) \\
 %	&= |\psi_+|^4 + 2\cos(\sqrt{\gamma}\omega_t)|\psi_+|^2|\psi_-|^2 + |\psi_-|^4 \\
 %	&= |\langle \psi,\psi\rangle|^2 + 2\bigl(\cos(\sqrt{\gamma}\omega_t)-1\bigr)|\psi_+|^2|\psi_-|^2 \\
